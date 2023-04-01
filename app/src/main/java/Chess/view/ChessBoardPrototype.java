@@ -47,7 +47,7 @@ public class ChessBoardPrototype extends JFrame implements ActionListener
         }  
 
         boardPanel.add(new JLabel("")); //This is necessary in order to ensure A lines up with the first column and not the column on numbers.
-        
+
         //Create labels for each of the columns on the board
         for (int i = 0; i < 8; i++)
         {
@@ -60,11 +60,11 @@ public class ChessBoardPrototype extends JFrame implements ActionListener
 
         for (int i = 0; i < 8; i++)
         {
-            ImageIcon whitePawn = new ImageIcon("wPawn.PNG");
+            ImageIcon whitePawn = new ImageIcon("wPawn.png");
             JLabel wPawn = new JLabel(whitePawn);
             boardSegment[6][i].add(wPawn);
 
-            ImageIcon blackPawn = new ImageIcon("bPawn.PNG");
+            ImageIcon blackPawn = new ImageIcon("bPawn.png");
             JLabel bPawn = new JLabel(blackPawn);
             boardSegment[1][i].add(bPawn);
 
@@ -80,11 +80,11 @@ public class ChessBoardPrototype extends JFrame implements ActionListener
 
             if (i == 0 || i == 7)
             {
-                ImageIcon whiteRook = new ImageIcon("wRook.PNG");
+                ImageIcon whiteRook = new ImageIcon("wRook.png");
                 JLabel wRook = new JLabel(whiteRook);
                 boardSegment[7][i].add(wRook);
 
-                ImageIcon blackRook = new ImageIcon("bRook.PNG");
+                ImageIcon blackRook = new ImageIcon("bRook.png");
                 JLabel bRook = new JLabel(blackRook);
                 boardSegment[0][i].add(bRook);
 
@@ -95,11 +95,11 @@ public class ChessBoardPrototype extends JFrame implements ActionListener
             }
             else if (i == 1 || i == 6)
             {
-                ImageIcon whiteKnight = new ImageIcon("wKnight.PNG");
+                ImageIcon whiteKnight = new ImageIcon("wKnight.png");
                 JLabel wKnight = new JLabel(whiteKnight);
                 boardSegment[7][i].add(wKnight);
 
-                ImageIcon blackKnight = new ImageIcon("bKnight.PNG");
+                ImageIcon blackKnight = new ImageIcon("bKnight.png");
                 JLabel bKnight = new JLabel(blackKnight);
                 boardSegment[0][i].add(bKnight);
 
@@ -110,11 +110,11 @@ public class ChessBoardPrototype extends JFrame implements ActionListener
             }
             else if (i == 2 || i == 5)
             {
-                ImageIcon whiteBishop = new ImageIcon("wBishop.PNG");
+                ImageIcon whiteBishop = new ImageIcon("wBishop.png");
                 JLabel wBishop = new JLabel(whiteBishop);
                 boardSegment[7][i].add(wBishop);
 
-                ImageIcon blackBishop = new ImageIcon("bBishop.PNG");
+                ImageIcon blackBishop = new ImageIcon("bBishop.png");
                 JLabel bBishop = new JLabel(blackBishop);
                 boardSegment[0][i].add(bBishop);
 
@@ -125,11 +125,11 @@ public class ChessBoardPrototype extends JFrame implements ActionListener
             }
             else if (i == 3)
             {
-                ImageIcon whiteQueen = new ImageIcon("wQueen.PNG");
+                ImageIcon whiteQueen = new ImageIcon("wQueen.png");
                 JLabel wQueen = new JLabel(whiteQueen);
                 boardSegment[7][i].add(wQueen);
 
-                ImageIcon blackQueen = new ImageIcon("bQueen.PNG");
+                ImageIcon blackQueen = new ImageIcon("bQueen.png");
                 JLabel bQueen = new JLabel(blackQueen);
                 boardSegment[0][i].add(bQueen);
 
@@ -140,11 +140,11 @@ public class ChessBoardPrototype extends JFrame implements ActionListener
             }
             else if (i == 4)
             {
-                ImageIcon whiteKing = new ImageIcon("wKing.PNG");
+                ImageIcon whiteKing = new ImageIcon("wKing.png");
                 JLabel wKing = new JLabel(whiteKing);
                 boardSegment[7][i].add(wKing);
 
-                ImageIcon blackKing = new ImageIcon("bKing.PNG");
+                ImageIcon blackKing = new ImageIcon("bKing.png");
                 JLabel bKing = new JLabel(blackKing);
                 boardSegment[0][i].add(bKing);
 
