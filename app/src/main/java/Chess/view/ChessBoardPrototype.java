@@ -1,13 +1,17 @@
 import java.awt.*;
 import javax.swing.*;
 
-public class ChessBoardPrototype extends JFrame
+public class ChessBoardPrototype extends JFrame implements ActionListener
 {
     private JButton[][] boardSegment = new JButton[8][8];
+    private ChessModel model;
+
     private int panelWidth = 625;
     private int panelHeight = 625;
-    public ChessBoardPrototype()
+    public ChessBoardPrototype(ChessModel model)
     {
+        this.model = model;
+
         JFrame frame = new JFrame("Chess Board Prototype");
         frame.setResizable(false);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -55,6 +59,16 @@ public class ChessBoardPrototype extends JFrame
         frame.pack();
         frame.setVisible(true);
     }   
+
+    private void updateGUI() {
+        // Update the chessboard GUI here
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        // Handle user input events here
+    }
+    
     public static void main(String[] args)
     {
         new ChessBoardPrototype();
