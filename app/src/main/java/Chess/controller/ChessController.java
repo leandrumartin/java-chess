@@ -1,5 +1,8 @@
 package Chess.controller;
 
+import Chess.model.ChessModel;
+import Chess.view.ChessView;
+
 public class ChessController {
     private ChessModel model;
     private ChessView view;
@@ -21,4 +24,3 @@ public class ChessController {
         // End the game and show the result here
     }
 }
-
