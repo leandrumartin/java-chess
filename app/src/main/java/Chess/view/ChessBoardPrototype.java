@@ -5,6 +5,7 @@ import javax.swing.*;
 import java.awt.event.*;
 
 import Chess.model.ChessModel;
+import Chess.view.UnicodeMap;
 
 public class ChessBoardPrototype extends JFrame implements ActionListener {
     private JButton[][] boardSegment = new JButton[8][8];
@@ -70,89 +71,55 @@ public class ChessBoardPrototype extends JFrame implements ActionListener {
      */
     private void addPieces() {
         for (int i = 0; i < 8; i++) {
-            ImageIcon whitePawn = new ImageIcon("assets/wPawn.png");
-            JLabel wPawn = new JLabel(whitePawn);
-            boardSegment[6][i].add(wPawn);
+            JLabel wPawnLabel = new JLabel(UnicodeMap.wPawn);
+            // Set font size to 32
+            wPawnLabel.setFont(new Font("Dialog", Font.BOLD, 32));
+            boardSegment[6][i].add(wPawnLabel);
 
-            ImageIcon blackPawn = new ImageIcon("assets/bPawn.png");
-            JLabel bPawn = new JLabel(blackPawn);
-            boardSegment[1][i].add(bPawn);
-
-            int height = whitePawn.getIconHeight(); // Assume each image has same height and width
-            int width = whitePawn.getIconWidth();
-
-            height = (int) (height * 0.25);
-            width = (int) (width * 0.25);
-            Image wPawnImage = whitePawn.getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT);
-            Image bPawnImage = blackPawn.getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT);
-            whitePawn.setImage(wPawnImage);
-            blackPawn.setImage(bPawnImage);
+            JLabel bPawnLabel = new JLabel(UnicodeMap.bPawn);
+            bPawnLabel.setFont(new Font("Dialog", Font.BOLD, 32));
+            boardSegment[1][i].add(bPawnLabel);
 
             if (i == 0 || i == 7) {
-                ImageIcon whiteRook = new ImageIcon("assets/wRook.png");
-                JLabel wRook = new JLabel(whiteRook);
-                boardSegment[7][i].add(wRook);
+                JLabel wRookLabel = new JLabel(UnicodeMap.wRook);
+                wRookLabel.setFont(new Font("Dialog", Font.BOLD, 32));
+                boardSegment[7][i].add(wRookLabel);
 
-                ImageIcon blackRook = new ImageIcon("assets/bRook.png");
-                JLabel bRook = new JLabel(blackRook);
-                boardSegment[0][i].add(bRook);
-
-                Image wRookImage = whiteRook.getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT);
-                Image bRookImage = blackRook.getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT);
-                whiteRook.setImage(wRookImage);
-                blackRook.setImage(bRookImage);
+                JLabel bRookLabel = new JLabel(UnicodeMap.bRook);
+                bRookLabel.setFont(new Font("Dialog", Font.BOLD, 32));
+                boardSegment[0][i].add(bRookLabel);
             } else if (i == 1 || i == 6) {
-                ImageIcon whiteKnight = new ImageIcon("assets/wKnight.png");
-                JLabel wKnight = new JLabel(whiteKnight);
-                boardSegment[7][i].add(wKnight);
+                JLabel wKnightLabel = new JLabel(UnicodeMap.wKnight);
+                wKnightLabel.setFont(new Font("Dialog", Font.BOLD, 32));
+                boardSegment[7][i].add(wKnightLabel);
 
-                ImageIcon blackKnight = new ImageIcon("assets/bKnight.png");
-                JLabel bKnight = new JLabel(blackKnight);
-                boardSegment[0][i].add(bKnight);
-
-                Image wKnightImage = whiteKnight.getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT);
-                Image bKnightImage = blackKnight.getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT);
-                whiteKnight.setImage(wKnightImage);
-                blackKnight.setImage(bKnightImage);
+                JLabel bKnightLabel = new JLabel(UnicodeMap.bKnight);
+                bKnightLabel.setFont(new Font("Dialog", Font.BOLD, 32));
+                boardSegment[0][i].add(bKnightLabel);
             } else if (i == 2 || i == 5) {
-                ImageIcon whiteBishop = new ImageIcon("assets/wBishop.png");
-                JLabel wBishop = new JLabel(whiteBishop);
-                boardSegment[7][i].add(wBishop);
+                JLabel wBishopLabel = new JLabel(UnicodeMap.wBishop);
+                wBishopLabel.setFont(new Font("Dialog", Font.BOLD, 32));
+                boardSegment[7][i].add(wBishopLabel);
 
-                ImageIcon blackBishop = new ImageIcon("assets/bBishop.png");
-                JLabel bBishop = new JLabel(blackBishop);
-                boardSegment[0][i].add(bBishop);
-
-                Image wBishopImage = whiteBishop.getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT);
-                Image bBishopImage = blackBishop.getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT);
-                whiteBishop.setImage(wBishopImage);
-                blackBishop.setImage(bBishopImage);
+                JLabel bBishopLabel = new JLabel(UnicodeMap.bBishop);
+                bBishopLabel.setFont(new Font("Dialog", Font.BOLD, 32));
+                boardSegment[0][i].add(bBishopLabel);
             } else if (i == 3) {
-                ImageIcon whiteQueen = new ImageIcon("assets/wQueen.png");
-                JLabel wQueen = new JLabel(whiteQueen);
-                boardSegment[7][i].add(wQueen);
+                JLabel wQueenLabel = new JLabel(UnicodeMap.wQueen);
+                wQueenLabel.setFont(new Font("Dialog", Font.BOLD, 32));
+                boardSegment[7][i].add(wQueenLabel);
 
-                ImageIcon blackQueen = new ImageIcon("assets/bQueen.png");
-                JLabel bQueen = new JLabel(blackQueen);
-                boardSegment[0][i].add(bQueen);
-
-                Image wQueenImage = whiteQueen.getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT);
-                Image bQueenImage = blackQueen.getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT);
-                whiteQueen.setImage(wQueenImage);
-                blackQueen.setImage(bQueenImage);
+                JLabel bQueenLabel = new JLabel(UnicodeMap.bQueen);
+                bQueenLabel.setFont(new Font("Dialog", Font.BOLD, 32));
+                boardSegment[0][i].add(bQueenLabel);
             } else if (i == 4) {
-                ImageIcon whiteKing = new ImageIcon("assets/wKing.png");
-                JLabel wKing = new JLabel(whiteKing);
-                boardSegment[7][i].add(wKing);
+                JLabel wKingLabel = new JLabel(UnicodeMap.wKing);
+                wKingLabel.setFont(new Font("Dialog", Font.BOLD, 32));
+                boardSegment[7][i].add(wKingLabel);
 
-                ImageIcon blackKing = new ImageIcon("assets/bKing.png");
-                JLabel bKing = new JLabel(blackKing);
-                boardSegment[0][i].add(bKing);
-
-                Image wKingImage = whiteKing.getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT);
-                Image bKingImage = blackKing.getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT);
-                whiteKing.setImage(wKingImage);
-                blackKing.setImage(bKingImage);
+                JLabel bKingLabel = new JLabel(UnicodeMap.bKing);
+                bKingLabel.setFont(new Font("Dialog", Font.BOLD, 32));
+                boardSegment[0][i].add(bKingLabel);
             }
         }
     }
