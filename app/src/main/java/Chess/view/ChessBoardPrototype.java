@@ -37,9 +37,9 @@ public class ChessBoardPrototype extends JFrame implements ActionListener {
             {
                 boardSegment[row][col] = new JButton();
                 if ((row + col) % 2 == 0) {
-                    boardSegment[row][col].setBackground(Color.LIGHT_GRAY);
+                    boardSegment[row][col].setBackground(new Color(235, 235, 208));
                 } else {
-                    boardSegment[row][col].setBackground(Color.WHITE);
+                    boardSegment[row][col].setBackground(new Color(119, 148, 86));
                 }
                 boardSegment[row][col].setPreferredSize(new Dimension(70, 70));
                 boardPanel.add(boardSegment[row][col]);

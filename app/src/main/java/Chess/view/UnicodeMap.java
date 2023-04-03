@@ -17,5 +17,5 @@ public class UnicodeMap {
     public static String bQueen = "\u265B";
 
     public static String wKing = "\u2654";
-    public static String bKing = "\u265B";
+    public static String bKing = "\u265A";
 }
