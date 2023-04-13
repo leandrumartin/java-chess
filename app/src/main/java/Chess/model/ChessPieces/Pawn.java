@@ -6,6 +6,7 @@ public class Pawn implements ChessPiece
 {
     private int row;
     private int col;
+    private boolean hasNotMoved = false;
 
     public Pawn(int row, int col)
     {
@@ -21,15 +22,10 @@ public class Pawn implements ChessPiece
     {
         return this.col;
     }
-    public boolean legalMove(int newRow, int newCol)
+
+    public boolean move(int newRow, int newCol)
     {
-        boolean result = false;
-        if (newRow - this.row == 1 & newCol == this.col)
-        {
-            result = true;
-            this.row = newRow;
-            this.col = newCol;
-        }
-        return result;
+        this.row = newRow;
+        this.col = newCol;
     }
 }

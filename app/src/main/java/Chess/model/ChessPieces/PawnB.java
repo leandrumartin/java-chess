@@ -17,4 +17,16 @@ public class PawnB extends Pawn
     {
         return this.color;
     }
+
+    public boolean legalMove(int newRow, int newCol)
+    {
+        boolean result = false;
+        if (newRow - super.row == 1 & newCol == super.col)
+        {
+            result = true;
+            super.row = newRow;
+            super.col = newCol;
+        }
+        return result;
+    }
 }
