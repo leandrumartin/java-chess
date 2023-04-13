@@ -1,17 +1,11 @@
 package Chess.model.ChessPieces;
 
-import Chess.model.ChessPieces.Pawn;
+import Chess.model.ChessPieces.ChessPiece;
 import Chess.model.ChessPieces.ChessPieceColor;
 
-public class PawnB extends Pawn
+public class PawnB extends ChessPiece
 {
     private ChessPieceColor color = ChessPieceColor.B;
-
-    public PawnB(int row, int col)
-    {
-        super.row = row;
-        super.row = col;
-    }
 
     public ChessPieceColor getColor()
     {
@@ -24,8 +18,7 @@ public class PawnB extends Pawn
         if (newRow - super.row == 1 & newCol == super.col)
         {
             result = true;
-            super.row = newRow;
-            super.col = newCol;
+            
         }
         return result;
     }
