@@ -7,14 +7,14 @@ import java.awt.event.*;
 import Chess.model.ChessModel;
 import Chess.view.ChessPieces;
 
-public class ChessBoardPrototype extends JFrame implements MouseListener {
+public class ChessBoardGUI extends JFrame implements MouseListener {
     private JButton[][] boardSegment = new JButton[8][8];
     private ChessModel model;
 
     private int panelWidth = 625;
     private int panelHeight = 625;
 
-    public ChessBoardPrototype(ChessModel model) {
+    public ChessBoardGUI(ChessModel model) {
         this.model = model;
 
         JFrame frame = new JFrame("Chess Board Prototype");
