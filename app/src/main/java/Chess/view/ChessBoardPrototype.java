@@ -7,7 +7,7 @@ import java.awt.event.*;
 import Chess.model.ChessModel;
 import Chess.view.ChessPieces;
 
-public class ChessBoardPrototype extends JFrame implements ActionListener {
+public class ChessBoardPrototype extends JFrame implements MouseListener {
     private JButton[][] boardSegment = new JButton[8][8];
     private ChessModel model;
 
@@ -73,7 +73,26 @@ public class ChessBoardPrototype extends JFrame implements ActionListener {
     }
 
     @Override
-    public void actionPerformed(ActionEvent e) {
-        // TODO: Handle user input events here
+    public void mouseEntered(MouseEvent event)
+    {
+       System.out.println("Mouse entered");
     }
+    @Override
+    public void mouseExited(MouseEvent event)
+    {
+       System.out.println("Mouse exited");
+    }
+ 
+    @Override 
+    public void mousePressed(MouseEvent event)
+    {
+        JButton button = (JButton)event.getSource();
+    }
+    @Override 
+    public void mouseReleased(MouseEvent event)
+    {
+        JButton button = (JButton)event.getSource();
+    }
+    @Override 
+    public void mouseClicked(MouseEvent event){}
 }

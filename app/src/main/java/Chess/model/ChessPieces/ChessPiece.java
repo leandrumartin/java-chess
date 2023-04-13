@@ -1,7 +1,7 @@
 package Chess.model.ChessPieces;
 
 public interface ChessPiece {
-    public void getColor();
-
-    public void getPieceType();
+    public int getCurrentRow();
+    public int getCurrentCol();
+    public boolean legalMove();
 }
