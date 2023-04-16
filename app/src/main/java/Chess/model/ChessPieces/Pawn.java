@@ -7,6 +7,7 @@ public class Pawn implements ChessPiece
     private int row;
     private int col;
     private boolean hasNotMoved = false;
+    private ChessPieceColor color;
 
     public Pawn(int row, int col)
     {
@@ -27,5 +28,9 @@ public class Pawn implements ChessPiece
     {
         this.row = newRow;
         this.col = newCol;
+    }
+
+    public ChessPieceColor getColor() {
+        return this.color;
     }
 }

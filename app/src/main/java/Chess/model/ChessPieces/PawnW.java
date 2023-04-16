@@ -5,17 +5,13 @@ import Chess.model.ChessPieces.ChessPieceColor;
 
 public class PawnW extends Pawn implements ChessPieceColorInterface
 {
-    private ChessPieceColor color = ChessPieceColor.W;
+    private ChessPieceColor color;
 
     public PawnW(int row, int col)
     {
         super.row = row;
         super.row = col;
-    }
-
-    public ChessPieceColor getColor()
-    {
-        return this.color;
+        this.color = ChessPieceColor.W;
     }
 
     public boolean legalMove(int newRow, int newCol)
