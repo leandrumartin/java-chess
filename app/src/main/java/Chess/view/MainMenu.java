@@ -167,7 +167,7 @@ public class MainMenu extends JFrame implements ActionListener
         {
             ChessBoardGUI game = new ChessBoardGUI(model);
             game.setVisible(true);
-            //mainFrame.setVisible(false);
+            mainFrame.setVisible(false);
         }
     }
 
