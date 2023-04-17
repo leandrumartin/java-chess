@@ -1,26 +1,17 @@
 package Chess.controller;
 
 import Chess.model.ChessModel;
+import Chess.model.ChessPieces.ChessPiece;
 import Chess.view.ChessView;
 
-public class ChessController {
-    private ChessModel model;
-    private ChessView view;
+public interface ChessController {
 
-    public ChessController(ChessModel model, ChessView view) {
-        this.model = model;
-        this.view = view;
-    }
+    public void start();
 
-    public void start() {
-        // Set up the initial state of the game here
-    }
+    public void pieceSelected(ChessPiece piece);
 
-    private void makeMove(int fromRow, int fromCol, int toRow, int toCol) {
-        // Make a move on the chessboard and update the GUI here
-    }
+    public void makeMove(int toRow, int toCol);
 
-    private void endGame() {
-        // End the game and show the result here
-    }
+    public void endGame();
+
 }
