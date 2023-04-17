@@ -3,6 +3,7 @@ package Chess.controller;
 import Chess.board.ChessBoard;
 import Chess.board.ChessPieces.ChessPieceColor;
 import Chess.board.ChessPieces.ChessPiece;
+import Chess.model.ChessPieces.ChessPiece;
 import Chess.view.ChessView;
 import Chess.ControllerInterface;
 
@@ -20,9 +21,7 @@ public class ChessController implements ControllerInterface {
         this.legalPiece = false;
     }
 
-    public void start() {
-        // Set up the initial state of the game here
-    }
+    public void makeMove(int toRow, int toCol);
 
     private void selectPiece(int fromRow, int fromCol)
     {
@@ -47,7 +46,4 @@ public class ChessController implements ControllerInterface {
         }
     }
 
-    private void endGame() {
-        // End the game and show the result here
-    }
 }
