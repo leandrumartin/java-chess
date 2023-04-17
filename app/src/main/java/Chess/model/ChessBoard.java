@@ -35,9 +35,16 @@ public class ChessBoard implements GameInterface
 
     public boolean placeChessPiece(int newRow, int newCol, ChessPiece piece)
     {
+        boolean result = false;
         boolean legal = piece.legalMove(newRow, newCol);
         boolean empty = (this.pieces[newRow][newCol] == null);
-        return true;
+        if (legal & empty)
+        {
+            piece.move(newRow, newCol);
+            result = true;
+            this.notifyObservers();
+        }
+        return result;
     }
 
     // GameInterface
@@ -60,5 +67,4 @@ public class ChessBoard implements GameInterface
  
     }
  
-
 }

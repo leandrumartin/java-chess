@@ -6,12 +6,13 @@ public class ChessPiece
 {
     private int row;
     private int col;
-    private boolean hasNotMoved = false;
+    private boolean hasNotMoved;
 
     public ChessPiece(int row, int col)
     {
         this.row = row;
         this.row = col;
+        this.hasNotMoved = true;
     }
 
     public int getCurrentRow()
@@ -27,6 +28,10 @@ public class ChessPiece
     {
         this.row = newRow;
         this.col = newCol;
+        if (this.hasNotMoved)
+        {
+            this.hasNotMoved = false;
+        }
     }
 
     // Dummy Implementation
