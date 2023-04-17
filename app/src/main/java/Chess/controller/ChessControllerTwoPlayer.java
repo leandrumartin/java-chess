@@ -1,19 +1,20 @@
 package Chess.controller;
 
-import Chess.model.ChessModel;
-import Chess.model.ChessPieces.ChessPiece;
-import Chess.model.ChessPieces.ChessPieceColor;
+import Chess.board.ChessBoard;
+import Chess.board.ChessPieces.ChessPiece;
+import Chess.board.ChessPieces.ChessPieceColor;
 import Chess.view.ChessView;
+import Chess.controller.ChessController;
 
 public class ChessControllerTwoPlayer implements ChessController {
-    private ChessModel model;
+    private ChessBoard board;
     private ChessView view;
     private ChessPiece selectedPiece;
     private ChessPieceColor currentPlayer;
 
-    public ChessControllerTwoPlayer(ChessModel model) {
-        this.model = model;
-        this.view = new ChessView(this, model);
+    public ChessControllerTwoPlayer(ChessBoard board) {
+        this.board = board;
+        this.view = new ChessView(this, board);
         this.currentPlayer = ChessPieceColor.W;
     }
 
@@ -35,7 +36,7 @@ public class ChessControllerTwoPlayer implements ChessController {
         // Make a move on the chessboard and update the GUI here
         // TODO: check for `this.selectedPiece.isValidMove(this.selectedPiece, toRow, toCol)` (deliverable 2)
         if (true) {
-            this.model.movePiece(this.selectedPiece, toRow, toCol);
+            this.board.movePiece(this.selectedPiece, toRow, toCol);
 
             // Switch to other player
             if (this.currentPlayer == ChessPieceColor.W) {

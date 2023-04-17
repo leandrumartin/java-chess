@@ -5,7 +5,7 @@ import Chess.board.ChessPieces.ChessPieceColor;
 import Chess.board.ChessPieces.ChessPiece;
 import Chess.model.ChessPieces.ChessPiece;
 import Chess.view.ChessView;
-import Chess.ControllerInterface;
+import Chess.controller.ChessController;
 
 public class ChessController implements ControllerInterface {
     private ChessBoard board;
