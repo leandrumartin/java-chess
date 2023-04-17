@@ -1,3 +1,4 @@
+/*
 package Chess.model.ChessPieces;
 
 import Chess.model.ChessPieces.ChessPiece;
@@ -34,3 +35,4 @@ public class Pawn implements ChessPiece
         return this.color;
     }
 }
+*/

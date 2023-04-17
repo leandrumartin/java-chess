@@ -1,3 +1,4 @@
+/*
 package Chess.model.ChessPieces;
 
 import Chess.model.ChessPieces.Pawn;
@@ -25,3 +26,4 @@ public class PawnW extends Pawn implements ChessPieceColorInterface
         return result;
     }
 }
+*/
