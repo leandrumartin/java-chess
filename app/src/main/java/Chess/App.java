@@ -1,11 +1,11 @@
 package Chess;
 
 import Chess.model.ChessModel;
-import Chess.view.ChessBoardPrototype;
+import Chess.view.MainMenu;
 
 public class App {
     public static void main(String[] args) {
         ChessModel model = new ChessModel();
-        ChessBoardPrototype prototype = new ChessBoardPrototype(model);
+        MainMenu menu = new MainMenu(model);
     }
 }

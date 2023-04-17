@@ -2,7 +2,6 @@ package Chess.view;
 
 import java.awt.*;
 import javax.swing.*;
-import Chess.view.UnicodeMap;
 
 public class ChessPieces 
 {

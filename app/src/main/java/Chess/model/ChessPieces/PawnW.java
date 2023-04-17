@@ -1,3 +1,4 @@
+/*
 package Chess.model.ChessPieces;
 
 import Chess.model.ChessPieces.Pawn;
@@ -18,3 +19,4 @@ public class PawnW extends Pawn
         return this.color;
     }
 }
+*/

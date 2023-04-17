@@ -14,11 +14,11 @@ public class ChessBoard {
         this.board = new ChessPiece[8][8];
 
         for (int i = 0; i < 8; i++) {
-            ChessPiece wPawn = new WPawn(6, i);
-            this.board[6][i].add(wPawn);
+            //ChessPiece wPawn = new WPawn(6, i);
+            //this.board[6][i].add(wPawn);
 
-            ChessPiece bPawn = new BPawn(1, i);;
-            this.board[1][i].add(bPawn);
+           // ChessPiece bPawn = new BPawn(1, i);;
+            //this.board[1][i].add(bPawn);
         }
 
     }

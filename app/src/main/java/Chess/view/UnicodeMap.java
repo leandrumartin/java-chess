@@ -1,6 +1,9 @@
 package Chess.view;
 
-public class UnicodeMap {
+import java.util.Random;
+
+public class UnicodeMap 
+{
     public static String wPawn = "\u2659";
     public static String bPawn = "\u265F";
 
@@ -18,4 +21,15 @@ public class UnicodeMap {
 
     public static String wKing = "\u2654";
     public static String bKing = "\u265A";
+
+    public static String upArrow = "\u2191";
+    public static String downArrow = "\u2193";
+
+    private static String[] pieceArray = {wPawn, bPawn, wRook, bRook, wKnight, bKnight, wBishop, bBishop, wQueen, bQueen, wKing, bKing};
+    private static Random random = new Random();
+    public static String getRandomPiece()
+    {
+        int piece = random.nextInt(pieceArray.length);
+        return pieceArray[piece];
+    }
 }
