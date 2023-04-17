@@ -1,18 +1,22 @@
 /*
 package Chess.model.ChessPieces;
 
-import Chess.model.ChessPieces.Pawn;
+import Chess.model.ChessPieces.ChessPiece;
 import Chess.model.ChessPieces.ChessPieceColor;
 
-public class PawnW extends Pawn implements ChessPieceColorInterface
+public class PawnW extends ChessPiece
 {
-    private ChessPieceColor color;
+    private ChessPieceColor color = ChessPieceColor.W;
 
     public PawnW(int row, int col)
     {
         super.row = row;
         super.row = col;
-        this.color = ChessPieceColor.W;
+    }
+
+    public ChessPieceColor getColor()
+    {
+        return this.color;
     }
 
     public boolean legalMove(int newRow, int newCol)

@@ -6,7 +6,7 @@ package Chess.model;
 */
 import java.util.ArrayList;
 
-import Chess.model.ChessPieces.ChessPiece;
+import Chess.model.ChessPieces.*;
 import Chess.GameInterface;
 import Chess.GameObserver;
 
@@ -31,13 +31,32 @@ public class ChessBoard implements GameInterface
 
     public ChessPiece getChessPiece(int row, int col)
     {
-       return this.pieces[row][col];
+        return this.pieces[row][col];
+    }
+
+    public boolean placeChessPiece(int newRow, int newCol, ChessPiece piece)
+    {
+        boolean result = false;
+        boolean legal = piece.legalMove(newRow, newCol);
+        boolean empty = (this.pieces[newRow][newCol] == null);
+        if (legal & empty)
+        {
+            piece.move(newRow, newCol);
+            result = true;
+            this.notifyObservers();
+        }
+        return result;
     }
 
     // GameInterface
     public void register(GameObserver observer)
     {
        observers.add(observer);
+    }
+
+    public void unregister(GameObserver observer)
+    {
+       observers.remove(observer);
     }
  
     public void notifyObservers()
@@ -49,5 +68,4 @@ public class ChessBoard implements GameInterface
  
     }
  
-
 }

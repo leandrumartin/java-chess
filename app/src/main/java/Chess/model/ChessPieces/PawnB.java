@@ -1,18 +1,16 @@
 /*
 package Chess.model.ChessPieces;
 
-import Chess.model.ChessPieces.Pawn;
+import Chess.model.ChessPieces.ChessPiece;
 import Chess.model.ChessPieces.ChessPieceColor;
 
-public class PawnB extends Pawn
+public class PawnB extends ChessPiece
 {
-    private ChessPieceColor color;
+    private ChessPieceColor color = ChessPieceColor.B;
 
-    public PawnB(int row, int col)
+    public ChessPieceColor getColor()
     {
-        super.row = row;
-        super.row = col;
-        this.color = ChessPieceColor.B;
+        return this.color;
     }
 
     public boolean legalMove(int newRow, int newCol)
@@ -21,8 +19,7 @@ public class PawnB extends Pawn
         if (newRow - super.row == 1 & newCol == super.col)
         {
             result = true;
-            super.row = newRow;
-            super.col = newCol;
+            
         }
         return result;
     }
