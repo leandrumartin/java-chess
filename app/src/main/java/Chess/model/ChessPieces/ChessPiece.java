@@ -1,6 +1,7 @@
 package Chess.model.ChessPieces;
 
 import Chess.model.ChessPieces.ChessPieceColor;
+import java.util.ArrayList;
 
 public class ChessPiece 
 {
@@ -44,5 +45,12 @@ public class ChessPiece
     public boolean legalMove(int newRow, int newCol)
     {
         return false;
+    }
+
+    // Dummy Implementation
+    public ArrayList<int[]> legalSquares()
+    {
+        ArrayList<int[]> result = new ArrayList<int[]>();
+        return result;
     }
 }
