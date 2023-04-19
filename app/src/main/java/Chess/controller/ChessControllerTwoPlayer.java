@@ -4,7 +4,6 @@ import Chess.model.ChessBoard;
 import Chess.model.ChessPieces.ChessPiece;
 import Chess.model.ChessPieces.ChessPieceColor;
 import Chess.view.ChessView;
-import Chess.controller.ChessController;
 
 public class ChessControllerTwoPlayer implements ControllerInterface {
     private ChessBoard board;
@@ -26,17 +25,21 @@ public class ChessControllerTwoPlayer implements ControllerInterface {
      * Handles selection of the chesspiece to move
      * @param piece the piece that the player selected
      */
-    public void pieceSelected(ChessPiece piece) {
-        if (piece.getColor() == this.currentPlayer) {
-            this.selectedPiece = piece;
+    public void selectPiece(int fromRow, int fromCol) 
+    {
+        ChessPiece selectedPiece = board.getChessPiece(fromRow, fromCol);
+        if (selectedPiece.getColor() == this.currentPlayer) 
+        {
+            this.selectedPiece = selectedPiece;
         }
     }
 
-    public void makeMove(int toRow, int toCol) {
+    public void makeMove(int toRow, int toCol) 
+    {
         // Make a move on the chessboard and update the GUI here
         // TODO: check for `this.selectedPiece.isValidMove(this.selectedPiece, toRow, toCol)` (deliverable 2)
         if (true) {
-            this.board.movePiece(this.selectedPiece, toRow, toCol);
+            //this.board.movePiece(this.selectedPiece, toRow, toCol);
 
             // Switch to other player
             if (this.currentPlayer == ChessPieceColor.W) {

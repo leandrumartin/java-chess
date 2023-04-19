@@ -1,3 +1,4 @@
+/*
 package Chess.model.ChessPieces;
 
 import Chess.model.ChessPieces.ChessPiece;
@@ -5,6 +6,10 @@ import Chess.model.ChessPieces.ChessPieceColor;
 
 public class PawnB extends ChessPiece
 {
+    int row = super.row;
+
+    int col = super.col;
+
     private ChessPieceColor color = ChessPieceColor.B;
 
     public ChessPieceColor getColor()
@@ -23,3 +28,4 @@ public class PawnB extends ChessPiece
         return result;
     }
 }
+*/

@@ -1,8 +1,7 @@
 package Chess.controller;
 
-import Chess.board.ChessBoard;
-import Chess.board.ChessPieces.ChessPieceColor;
-import Chess.board.ChessPieces.ChessPiece;
+import Chess.model.ChessBoard;
+import Chess.model.ChessPieces.ChessPieceColor;
 import Chess.model.ChessPieces.ChessPiece;
 import Chess.view.ChessView;
 import Chess.controller.ChessController;
@@ -21,11 +20,17 @@ public class ChessController implements ControllerInterface {
         this.legalPiece = false;
     }
 
-    public void makeMove(int toRow, int toCol);
-
-    private void selectPiece(int fromRow, int fromCol)
+    public void makeMove(int toRow, int toCol)
     {
-        ChessPiece selectedPiece = view.getChessPiece(fromRow, fromCol);
+        if (this.legalPiece)
+        {
+            board.placeChessPiece(toRow, toCol, this.currentChessPiece);
+        }
+    }
+
+    public void selectPiece(int fromRow, int fromCol)
+    {
+        ChessPiece selectedPiece = board.getChessPiece(fromRow, fromCol);
         ChessPieceColor selectedColor = selectedPiece.getColor();
         if (selectedColor == this.nextPlayer)
         {
@@ -37,13 +42,4 @@ public class ChessController implements ControllerInterface {
             this.legalPiece = false;
         }
     }
-
-    private void selectDestination(int toRow, int toCol)
-    {
-        if (this.legalPiece)
-        {
-            board.placeChessPiece(toRow, toCol, this.currentChessPiece);
-        }
-    }
-
 }
