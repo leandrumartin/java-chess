@@ -55,7 +55,7 @@ public class ChessBoard implements GameInterface
         result.add(new int[]{fromRow, fromCol});
         result.add(new int[]{toRow, toCol});
 
-        //this.notifyObservers(result);
+        this.notifyObservers(result);
     }
 
     public void removePiece(int row, int col)
@@ -109,11 +109,11 @@ public class ChessBoard implements GameInterface
        observers.remove(observer);
     }
  
-    public void notifyObservers()
+    public void notifyObservers(ArrayList<int[]> pieceLocations)
     {
        for(GameObserver observer: observers)
        {
-          observer.update();
+          observer.update(pieceLocations);
        }
  
     }
