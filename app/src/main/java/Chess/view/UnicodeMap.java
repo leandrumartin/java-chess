@@ -25,6 +25,8 @@ public class UnicodeMap
     public static String upArrow = "\u2191";
     public static String downArrow = "\u2193";
 
+    public static String dot = "\u00B7";
+
     private static String[] pieceArray = {wPawn, bPawn, wRook, bRook, wKnight, bKnight, wBishop, bBishop, wQueen, bQueen, wKing, bKing};
     private static Random random = new Random();
     public static String getRandomPiece()

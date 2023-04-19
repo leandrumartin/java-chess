@@ -1,6 +1,7 @@
-package Chess.model;
 
-/*  Create a ChessBoard class that represents the chessboard. 
+package Chess.model;
+/*
+    Create a ChessBoard class that represents the chessboard. 
     The ChessBoard class should contain a two-dimensional array of ChessPiece objects representing 
     the current state of the board. 
 */
@@ -12,7 +13,7 @@ import Chess.GameObserver;
 
 public class ChessBoard implements GameInterface
 {
-    private ChessPiece[][] pieces;
+    private ChessPiece[][] board;
     private ArrayList<GameObserver> observers = new ArrayList<GameObserver>();
 
     public ChessBoard()
@@ -20,11 +21,11 @@ public class ChessBoard implements GameInterface
         this.board = new ChessPiece[8][8];
 
         for (int i = 0; i < 8; i++) {
-            ChessPiece PawnW = new PawnW(6, i);
-            this.board[6][i].add(PawnW);
+            //ChessPiece PawnW = new PawnW(6, i);
+            //this.board[6][i].add(PawnW);
 
-            ChessPiece PawnB = new PawnB(1, i);
-            this.board[1][i].add(PawnB);
+            //ChessPiece PawnB = new PawnB(1, i);
+            //this.board[1][i].add(PawnB);
         }
 
     }
@@ -117,5 +118,4 @@ public class ChessBoard implements GameInterface
        }
  
     }
- 
 }

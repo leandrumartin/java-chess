@@ -5,8 +5,8 @@ import java.util.ArrayList;
 
 public class ChessPiece 
 {
-    private int row;
-    private int col;
+    protected int row;
+    protected int col;
     private boolean hasNotMoved;
 
     public ChessPiece(int row, int col)
@@ -33,6 +33,7 @@ public class ChessPiece
         {
             this.hasNotMoved = false;
         }
+        return this.hasNotMoved;
     }
 
     // Dummy Implementation
