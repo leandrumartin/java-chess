@@ -8,12 +8,13 @@ import java.util.ArrayList;
 
 import Chess.controller.ChessController;
 import Chess.controller.ControllerInterface;
-import Chess.model.ChessBoard;
+import Chess.board.ChessBoard;
 import Chess.view.ChessPieces;
+import Chess.GameObserver;
 
-public class ChessView extends JFrame implements ActionListener {
+public class ChessView extends JFrame implements ActionListener, GameObserver {
     private JButton[][] boardSegment = new JButton[8][8];
-    private ChessBoard model;
+    private ChessBoard board;
     private ControllerInterface controller;
 
     private boolean mouseInView;
@@ -21,9 +22,12 @@ public class ChessView extends JFrame implements ActionListener {
     private int panelWidth = 700;
     private int panelHeight = 700;
 
+    public ChessView(ControllerInterface controller, ChessBoard board) {
+        this.board = board;
+        this.controller = controller;
 
-    public ChessView(ControllerInterface controller, ChessBoard model) {
-        this.model = model;
+        // register this object as the observer of the game
+        this.board.register(this); 
 
         JFrame frame = new JFrame("Chess Board");
         frame.setResizable(false);
@@ -117,7 +121,7 @@ public class ChessView extends JFrame implements ActionListener {
         }
     }
 
-    private void updateGUI(ArrayList<int[]> move)
+    private void update(ArrayList<int[]> move)
     {
         int fromRow = move.get(0)[0];
         int fromCol = move.get(0)[1];
@@ -153,7 +157,8 @@ public class ChessView extends JFrame implements ActionListener {
         }
         else if (clickCount == 2)
         {
-            this.controller.makeMove(row, col);
+            this.controller.selectDestination(row, col);
+            clickCount = 0;
         }
     }
 }

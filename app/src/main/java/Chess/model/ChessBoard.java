@@ -1,4 +1,3 @@
-
 package Chess.model;
 /*
     Create a ChessBoard class that represents the chessboard. 
