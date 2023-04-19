@@ -49,6 +49,51 @@ public class ChessBoard implements GameInterface
         return result;
     }
 
+    public boolean capturePiece(int row, int col)
+    {
+        boolean result = false;
+        if (this.pieces[row][col] != null)
+        {
+            this.pieces[row][col] = null;
+            result = true;
+        }
+        return result;
+    }
+
+    public ArrayList<int[]> movableSquare(ChessPiece chessPiece)
+    {
+        ArrayList<int[]> result = chessPiece.legalSquares();
+        for (int i = 0; i < result.size(); i++)
+        {
+            int row = result.get(i)[0];
+            int col = result.get(i)[1];
+            if (this.pieces[row][col].getColor() == chessPiece.getColor())
+            {
+                result.remove(i);
+            }
+            // in the future, we need to check whether it is check mate here
+        }
+        return result;
+    }
+
+    public ArrayList<int[]> findPieces(ChessPieceColor color)
+    {
+        ArrayList<int[]> result = new ArrayList<int[]>();
+        int row = 0;
+        int col = 0;
+        for (int i = 0; i < 8; i++) //go through rows
+        {
+            for (int j = 0; j < 8; j++) //go through columns
+            {
+                if (color == this.board[i][j].getColor())
+                {
+                    result.add(new int[]{i, j});
+                }
+            }
+        }
+        return result;
+    }
+
     // GameInterface
     public void register(GameObserver observer)
     {
