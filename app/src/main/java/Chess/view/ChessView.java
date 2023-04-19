@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 import Chess.controller.ChessController;
 import Chess.controller.ControllerInterface;
-import Chess.board.ChessBoard;
+import Chess.model.ChessBoard;
 import Chess.view.ChessPieces;
 import Chess.GameObserver;
 
@@ -109,7 +109,7 @@ public class ChessView extends JFrame implements ActionListener, GameObserver {
     
     private void drawMoves(ArrayList<int[]> enabledSquares) 
     {
-        disableBoard(); //Disable all buttons
+        this.disableBoard(); // Disable all buttons
 
         for (int[] getRowCol : enabledSquares) //Get every legal square and enable it
         {
