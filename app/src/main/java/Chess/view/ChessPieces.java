@@ -31,7 +31,7 @@ public class ChessPieces
             JLabel bPawnLabel = new JLabel(UnicodeMap.bPawn);
             initializePiece(bPawnLabel);
             boardSegment[1][i].add(bPawnLabel);
-
+/*
             if (i == 0 || i == 7) {
                 JLabel wRookLabel = new JLabel(UnicodeMap.wRook);
                 initializePiece(wRookLabel);
@@ -77,7 +77,7 @@ public class ChessPieces
                 initializePiece(bKingLabel);
                 boardSegment[0][i].add(bKingLabel);
             }
+            */
         }
     }
-    
 }
