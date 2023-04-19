@@ -5,19 +5,21 @@ import javax.swing.*;
 import java.awt.event.*;
 
 import Chess.controller.ChessController;
+import Chess.controller.ControllerInterface;
 import Chess.model.ChessBoard;
 import Chess.view.ChessPieces;
 
 public class ChessView extends JFrame implements ActionListener {
     private JButton[][] boardSegment = new JButton[8][8];
     private ChessBoard model;
-    private ChessController controller;
+    private ControllerInterface controller;
 
     private boolean mouseInView;
+    private int clickCount = 0;
     private int panelWidth = 700;
     private int panelHeight = 700;
 
-    public ChessView(ChessController controller, ChessBoard model) {
+    public ChessView(ControllerInterface controller, ChessBoard model) {
         this.model = model;
 
         JFrame frame = new JFrame("Chess Board");
@@ -90,6 +92,7 @@ public class ChessView extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent event)
     {
+        clickCount++;       //clickCount = 1 - User made their piece selection
         int row = 0;
         int col = 0;
         JButton button = (JButton)event.getSource();
@@ -106,6 +109,13 @@ public class ChessView extends JFrame implements ActionListener {
             }
         }
         System.out.println("row: " + row +"col: " + col);
-        this.controller.userPressed(row, col);
+        if (clickCount == 1)
+        {
+            this.controller.selectPiece(row, col);
+        }
+        else if (clickCount == 2)
+        {
+            this.controller.makeMove(row, col);
+        }
     }
 }
