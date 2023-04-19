@@ -11,35 +11,21 @@ public class ChessController implements ControllerInterface {
     private ChessView view;
     private ChessPieceColor nextPlayer;
     private ChessPiece currentChessPiece;
-    private boolean legalPiece;
 
     public ChessController(ChessBoard board, ChessView view) {
         this.board = board;
         this.view = view;
         this.nextPlayer = ChessPieceColor.W;
-        this.legalPiece = false;
     }
 
-    public void makeMove(int toRow, int toCol)
+    private void selectPiece(int fromRow, int fromCol)
     {
-        if (this.legalPiece)
-        {
-            board.placeChessPiece(toRow, toCol, this.currentChessPiece);
-        }
+        this.currentChessPiece = board.getChessPiece(fromRow, fromCol);
     }
 
-    public void selectPiece(int fromRow, int fromCol)
+    private void selectDestination(int toRow, int toCol)
     {
-        ChessPiece selectedPiece = board.getChessPiece(fromRow, fromCol);
-        ChessPieceColor selectedColor = selectedPiece.getColor();
-        if (selectedColor == this.nextPlayer)
-        {
-            this.legalPiece = true;
-            this.currentChessPiece = selectedPiece;
-        }
-        else 
-        {
-            this.legalPiece = false;
-        }
+        board.placeChessPiece(toRow, toCol, this.currentChessPiece);
     }
+
 }
