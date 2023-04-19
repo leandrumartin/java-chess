@@ -53,13 +53,20 @@ public class ChessView extends JFrame implements ActionListener, GameObserver {
                 boardSegment[row][col] = new JButton();
                 boardSegment[row][col].setOpaque(true);
                 boardSegment[row][col].setBorder(null);
-                if ((row + col) % 2 == 0) {
+                if ((row + col) % 2 == 0) 
+                {
                     boardSegment[row][col].setBackground(new Color(235, 235, 208));
-                } else {
+                } 
+                else 
+                {
                     boardSegment[row][col].setBackground(new Color(119, 148, 86));
                 }
                 boardSegment[row][col].setPreferredSize(new Dimension(70, 70));
                 boardSegment[row][col].addActionListener(this);
+                if (row <= 3)
+                {
+                    boardSegment[row][col].setEnabled(false);
+                }
                 boardPanel.add(boardSegment[row][col]);
             }
 
@@ -76,7 +83,6 @@ public class ChessView extends JFrame implements ActionListener, GameObserver {
         frame.add(mainPanel);
         frame.pack();
         frame.setVisible(true);
-
     }
 
     public void generateColumns(JPanel panel)
@@ -107,7 +113,7 @@ public class ChessView extends JFrame implements ActionListener, GameObserver {
         return boardSegment[row][col].getText();
     }
     
-    private void drawMoves(ArrayList<int[]> enabledSquares) 
+    public void drawPossibleMoves(ArrayList<int[]> enabledSquares) 
     {
         this.disableBoard(); // Disable all buttons
 
@@ -121,7 +127,18 @@ public class ChessView extends JFrame implements ActionListener, GameObserver {
         }
     }
 
-    private void update(ArrayList<int[]> move)
+    public void enableSquares(ArrayList<int[]> allCurrentPieces)
+    {
+        this.disableBoard();
+        for (int[] pieceLoc : allCurrentPieces)
+        {
+            int row = pieceLoc[0];
+            int col = pieceLoc[1];
+            boardSegment[row][col].setEnabled(true);
+        }
+    }
+
+    public void update(ArrayList<int[]> move)
     {
         int fromRow = move.get(0)[0];
         int fromCol = move.get(0)[1];
@@ -134,7 +151,6 @@ public class ChessView extends JFrame implements ActionListener, GameObserver {
     @Override
     public void actionPerformed(ActionEvent event)
     {
-        clickCount++;       //clickCount = 1 - User made their piece selection
         int row = 0;
         int col = 0;
         JButton button = (JButton)event.getSource();
@@ -151,14 +167,6 @@ public class ChessView extends JFrame implements ActionListener, GameObserver {
             }
         }
         System.out.println("row: " + row +"col: " + col);
-        if (clickCount == 1)
-        {
-            this.controller.selectPiece(row, col);
-        }
-        else if (clickCount == 2)
-        {
-            this.controller.selectDestination(row, col);
-            clickCount = 0;
-        }
+        this.controller.userPressed(row, col);
     }
 }

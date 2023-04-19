@@ -7,7 +7,7 @@ public class ChessPiece
 {
     protected int row;
     protected int col;
-    private boolean hasNotMoved;
+    protected boolean hasNotMoved;
 
     public ChessPiece(int row, int col)
     {

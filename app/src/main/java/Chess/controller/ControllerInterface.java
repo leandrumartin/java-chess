@@ -2,7 +2,8 @@ package Chess.controller;
 
 public interface ControllerInterface 
 {
+    public void userPressed(int row, int col);
     public void selectPiece(int fromRow, int fromCol);
-    public void makeMove(int toRow, int toCol);
+    public void selectDestination(int toRow, int toCol);
     
 }

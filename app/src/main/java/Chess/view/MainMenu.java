@@ -7,13 +7,14 @@ import javax.swing.*;
 
 import Chess.controller.*;
 import Chess.model.ChessBoard;
+import Chess.controller.ControllerInterface;
 
 public class MainMenu extends JFrame implements ActionListener
 {
     public static final int UPDATE_INTERVAL = 500;
     protected Timer timer;
-    private ChessBoard model;
-    private ChessControllerTwoPlayer controller;
+    private ChessBoard board;
+    private ControllerInterface controller;
     JFrame mainFrame;
     JPanel mainPanel;
     JPanel buttonPanel;
@@ -33,9 +34,9 @@ public class MainMenu extends JFrame implements ActionListener
     int difficulty = 1;
     int pieceCount = 0;
 
-    public MainMenu(ChessBoard model)
+    public MainMenu(ChessBoard board)
     {
-        this.model = model;
+        this.board = board;
 
         mainFrame = new JFrame("Main Menu");
         mainFrame.setResizable(false);
@@ -167,9 +168,7 @@ public class MainMenu extends JFrame implements ActionListener
         }
         else if(event.getSource() == this.twoPlayer)
         {
-            //ChessController controller = new ChessControllerTwoPlayer(model);
-            ChessView game = new ChessView(controller, model);
-            game.setVisible(true);
+            ControllerInterface controller = new ChessController(board);
             mainFrame.setVisible(false);
         }
     }

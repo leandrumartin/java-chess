@@ -8,6 +8,11 @@ import java.util.ArrayList;
 public class PawnB extends ChessPiece
 {
     private ChessPieceColor color = ChessPieceColor.B;
+    
+    public PawnB(int row, int col)
+    {
+        super(row, col);
+    }
 
     public ChessPieceColor getColor()
     {

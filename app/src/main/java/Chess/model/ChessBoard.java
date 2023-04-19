@@ -21,10 +21,10 @@ public class ChessBoard implements GameInterface
 
         for (int i = 0; i < 8; i++) {
             ChessPiece PawnW = new PawnW(6, i);
-            this.board[6][i].add(PawnW);
+            this.board[6][i] = PawnW;
 
             ChessPiece PawnB = new PawnB(1, i);
-            this.board[1][i].add(PawnB);
+            this.board[1][i] = PawnB;
         }
 
     }
@@ -71,9 +71,12 @@ public class ChessBoard implements GameInterface
         {
             int row = location[0];
             int col = location[1];
-            if (this.board[row][col].getColor() == chessPiece.getColor())
-            {
-                result.remove(location);
+            if (this.board[row][col] != null)
+            {            
+                if (this.board[row][col].getColor() == chessPiece.getColor())
+                    {
+                        result.remove(location);
+                    }
             }
             // in the future, we need to check whether it is check mate here
         }
@@ -89,10 +92,13 @@ public class ChessBoard implements GameInterface
         {
             for (int j = 0; j < 8; j++) //go through columns
             {
-                if (color == this.board[i][j].getColor())
+                if (this.board[row][col] != null) 
                 {
-                    result.add(new int[]{i, j});
-                }
+                    if (color == this.board[i][j].getColor())
+                    {
+                        result.add(new int[]{i, j});
+                    }
+                }   
             }
         }
         return result;
