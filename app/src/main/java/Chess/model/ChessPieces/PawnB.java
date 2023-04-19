@@ -1,4 +1,3 @@
-/*
 package Chess.model.ChessPieces;
 
 import Chess.model.ChessPieces.ChessPiece;
@@ -54,4 +53,4 @@ public class PawnB extends ChessPiece
         return result;
     }
 }
-*/
+

@@ -21,11 +21,11 @@ public class ChessBoard implements GameInterface
         this.board = new ChessPiece[8][8];
 
         for (int i = 0; i < 8; i++) {
-            //ChessPiece PawnW = new PawnW(6, i);
-            //this.board[6][i].add(PawnW);
+            ChessPiece PawnW = new PawnW(6, i);
+            this.board[6][i].add(PawnW);
 
-            //ChessPiece PawnB = new PawnB(1, i);
-            //this.board[1][i].add(PawnB);
+            ChessPiece PawnB = new PawnB(1, i);
+            this.board[1][i].add(PawnB);
         }
 
     }
