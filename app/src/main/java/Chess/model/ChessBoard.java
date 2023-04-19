@@ -35,41 +35,46 @@ public class ChessBoard implements GameInterface
         return this.board[row][col];
     }
 
-    public boolean placeChessPiece(int newRow, int newCol, ChessPiece piece)
+    public void placeChessPiece(int toRow, int toCol, ChessPiece piece)
     {
-        boolean result = false;
-        boolean legal = piece.legalMove(newRow, newCol);
-        boolean empty = (this.board[newRow][newCol] == null);
-        if (legal & empty)
+        // pickup piece
+        int fromRow = piece.getCurrentRow();
+        int fromCol = piece.getCurrentCol();
+        this.removePiece(fromRow, fromCol);
+
+        // drop piece
+        // if there is a piece at destination, remove piece
+        if (this.board[toRow][toCol] != null)
         {
-            piece.move(newRow, newCol);
-            result = true;
-            this.notifyObservers();
+            this.removePiece(toRow, toCol);
         }
-        return result;
+        piece.move(toRow, toCol);
+        this.board[toRow][toCol] = piece;
+
+        // location information to pass on to observers
+        ArrayList<int[]> result = new ArrayList<int[]>();
+        result.add(new int[]{fromRow, fromCol});
+        result.add(new int[]{toRow, toCol});
+
+        //this.notifyObservers(result);
     }
 
-    public boolean capturePiece(int row, int col)
+    public void removePiece(int row, int col)
     {
-        boolean result = false;
-        if (this.pieces[row][col] != null)
-        {
-            this.pieces[row][col] = null;
-            result = true;
-        }
-        return result;
+        this.board[row][col] = null;
+        
     }
 
     public ArrayList<int[]> movableSquare(ChessPiece chessPiece)
     {
         ArrayList<int[]> result = chessPiece.legalSquares();
-        for (int i = 0; i < result.size(); i++)
+        for (int[] location : result)
         {
-            int row = result.get(i)[0];
-            int col = result.get(i)[1];
-            if (this.pieces[row][col].getColor() == chessPiece.getColor())
+            int row = location[0];
+            int col = location[1];
+            if (this.board[row][col].getColor() == chessPiece.getColor())
             {
-                result.remove(i);
+                result.remove(location);
             }
             // in the future, we need to check whether it is check mate here
         }
