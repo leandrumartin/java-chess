@@ -98,24 +98,34 @@ public class ChessView extends JFrame implements ActionListener {
         }
     }
     
-    private void drawMoves(ArrayList<ArrayList<Integer>> enabledSquares) 
+    public String getPieceLabel(int row, int col)
+    {
+        return boardSegment[row][col].getText();
+    }
+    
+    private void drawMoves(ArrayList<int[]> enabledSquares) 
     {
         disableBoard(); //Disable all buttons
 
-        for (ArrayList<Integer> getRowCol : enabledSquares) //Get every legal square and enable it
+        for (int[] getRowCol : enabledSquares) //Get every legal square and enable it
         {
-            int row = getRowCol.get(0);
-            int col = getRowCol.get(1);
+            int row = getRowCol[0];
+            int col = getRowCol[1];
             boardSegment[row][col].setEnabled(true);
             boardSegment[row][col].setText(UnicodeMap.dot);
             boardSegment[row][col].setFont(new Font("Dialog", Font.BOLD, 45));
         }
     }
 
-    private void updateGUI(int fromRow, int fromCol, int toRow, int toCol)
+    private void updateGUI(ArrayList<int[]> move)
     {
+        int fromRow = move.get(0)[0];
+        int fromCol = move.get(0)[1];
+        String currentLabel = getPieceLabel(fromRow, fromCol);
+        int toRow = move.get(1)[0];
+        int toCol = move.get(1)[1];
         boardSegment[fromRow][fromCol].setText("");
-        boardSegment[toRow][toCol].setText("");
+        boardSegment[toRow][toCol].setText(currentLabel);
     }
     @Override
     public void actionPerformed(ActionEvent event)
