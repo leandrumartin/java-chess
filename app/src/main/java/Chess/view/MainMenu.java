@@ -5,15 +5,15 @@ import java.awt.event.*;
 
 import javax.swing.*;
 
-import Chess.view.UnicodeMap;
-import Chess.model.ChessModel;
+import Chess.controller.*;
 import Chess.model.ChessBoard;
 
 public class MainMenu extends JFrame implements ActionListener
 {
     public static final int UPDATE_INTERVAL = 500;
     protected Timer timer;
-    private ChessModel model;
+    private ChessBoard model;
+    private ChessControllerTwoPlayer controller;
     JFrame mainFrame;
     JPanel mainPanel;
     JPanel buttonPanel;
@@ -33,7 +33,7 @@ public class MainMenu extends JFrame implements ActionListener
     int difficulty = 1;
     int pieceCount = 0;
 
-    public MainMenu(ChessModel model)
+    public MainMenu(ChessBoard model)
     {
         this.model = model;
 
@@ -88,6 +88,7 @@ public class MainMenu extends JFrame implements ActionListener
 
         loadGame = new JButton("Load Saved Game");
         loadGame.addActionListener(this);
+        loadGame.setEnabled(false);     //Work on this button in deliverable 2
         loadPanel.add(loadGame);
 
         buttonPanel = new JPanel();
@@ -96,6 +97,7 @@ public class MainMenu extends JFrame implements ActionListener
 
         onePlayer = new JButton("Player vs Computer");
         initializeButton(onePlayer);
+        onePlayer.setEnabled(false);        //Something to work on later on when we integrate a chess computer
         buttonPanel.add(onePlayer);
 
         twoPlayer = new JButton("Player vs Player");
@@ -165,9 +167,10 @@ public class MainMenu extends JFrame implements ActionListener
         }
         else if(event.getSource() == this.twoPlayer)
         {
-            ChessBoardGUI game = new ChessBoardGUI(model);
+            //ChessController controller = new ChessControllerTwoPlayer(model);
+            ChessView game = new ChessView(controller, model);
             game.setVisible(true);
-            //mainFrame.setVisible(false);
+            mainFrame.setVisible(false);
         }
     }
 

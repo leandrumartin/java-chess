@@ -1,8 +1,7 @@
 package Chess.controller;
 
-import Chess.board.ChessBoard;
-import Chess.board.ChessPieces.ChessPieceColor;
-import Chess.board.ChessPieces.ChessPiece;
+import Chess.model.ChessBoard;
+import Chess.model.ChessPieces.ChessPieceColor;
 import Chess.model.ChessPieces.ChessPiece;
 import Chess.view.ChessView;
 import Chess.controller.ChessController;

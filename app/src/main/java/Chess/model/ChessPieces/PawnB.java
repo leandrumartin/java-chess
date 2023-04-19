@@ -7,6 +7,10 @@ import java.util.ArrayList;
 
 public class PawnB extends ChessPiece
 {
+    int row = super.row;
+
+    int col = super.col;
+
     private ChessPieceColor color = ChessPieceColor.B;
 
     public ChessPieceColor getColor()
@@ -49,3 +53,4 @@ public class PawnB extends ChessPiece
         return result;
     }
 }
+

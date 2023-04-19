@@ -47,3 +47,4 @@ public class PawnW extends ChessPiece
         return result;
     }
 }
+
