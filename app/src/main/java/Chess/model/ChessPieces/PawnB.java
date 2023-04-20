@@ -42,14 +42,14 @@ public class PawnB extends ChessPiece
         if (super.row + 1 < 8)
         {
             result.add(new int[]{super.row + 1, super.col});
-            if (super.col - 1 > -1)
-            {
-                result.add(new int[]{super.row + 1, super.col - 1});
-            }
-            if (super.col + 1 < 8)
-            {
-                result.add(new int[]{super.row + 1, super.col + 1});
-            }
+            // if (super.col - 1 > -1)
+            // {
+            //     result.add(new int[]{super.row + 1, super.col - 1});
+            // }
+            // if (super.col + 1 < 8)
+            // {
+            //     result.add(new int[]{super.row + 1, super.col + 1});
+            // }
         }
         return result;
     }

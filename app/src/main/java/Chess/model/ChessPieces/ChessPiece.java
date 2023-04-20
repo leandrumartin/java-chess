@@ -12,7 +12,7 @@ public class ChessPiece
     public ChessPiece(int row, int col)
     {
         this.row = row;
-        this.row = col;
+        this.col = col;
         this.hasNotMoved = true;
     }
 

@@ -21,6 +21,7 @@ public class ChessView extends JFrame implements ActionListener, GameObserver {
     private int clickCount = 0;
     private int panelWidth = 700;
     private int panelHeight = 700;
+    private JPanel boardPanel;
 
     public ChessView(ControllerInterface controller, ChessBoard board) {
         this.board = board;
@@ -37,15 +38,15 @@ public class ChessView extends JFrame implements ActionListener, GameObserver {
         mainPanel.setPreferredSize(new Dimension(panelWidth, panelHeight));
         mainPanel.setBackground(new Color(192,192,192));
 
-        JPanel boardPanel = new JPanel(new GridLayout(10, 10));
-        boardPanel.setBackground(new Color(192,192,192));
-        generateColumns(boardPanel);
+        this.boardPanel = new JPanel(new GridLayout(10, 10));
+        this.boardPanel.setBackground(new Color(192,192,192));
+        generateColumns(this.boardPanel);
         for (int row = 0; row < 8; row++) // 8 rows
         {
             // Create Labels for each of the rows on the board
             JLabel rowLabel = new JLabel(String.valueOf(Math.abs(row - 8)), JLabel.CENTER);
             rowLabel.setPreferredSize(new Dimension(20, 70));
-            boardPanel.add(rowLabel);
+            this.boardPanel.add(rowLabel);
 
             // Creates the segments of the board, each segment is a button
             for (int col = 0; col < 8; col++) // 8 columns
@@ -67,16 +68,16 @@ public class ChessView extends JFrame implements ActionListener, GameObserver {
                 {
                     boardSegment[row][col].setEnabled(false);
                 }
-                boardPanel.add(boardSegment[row][col]);
+                this.boardPanel.add(boardSegment[row][col]);
             }
 
             JLabel rowLabel2 = new JLabel(String.valueOf(Math.abs(row - 8)), JLabel.CENTER);
             rowLabel.setPreferredSize(new Dimension(20, 70));
-            boardPanel.add(rowLabel2);  
+            this.boardPanel.add(rowLabel2);  
         }
-        generateColumns(boardPanel);
+        generateColumns(this.boardPanel);
 
-        mainPanel.add(boardPanel);
+        mainPanel.add(this.boardPanel);
 
         ChessPieces chessPieces = new ChessPieces(boardSegment);
 
@@ -140,6 +141,7 @@ public class ChessView extends JFrame implements ActionListener, GameObserver {
 
     public void update(ArrayList<int[]> move)
     {
+        System.out.println("update function called in view");
         int fromRow = move.get(0)[0];
         int fromCol = move.get(0)[1];
         String currentLabel = getPieceLabel(fromRow, fromCol);
@@ -147,6 +149,7 @@ public class ChessView extends JFrame implements ActionListener, GameObserver {
         int toCol = move.get(1)[1];
         boardSegment[fromRow][fromCol].setText("");
         boardSegment[toRow][toCol].setText(currentLabel);
+        this.boardPanel.repaint();
     }
     @Override
     public void actionPerformed(ActionEvent event)
