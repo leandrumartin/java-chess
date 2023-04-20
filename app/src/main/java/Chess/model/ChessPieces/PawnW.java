@@ -18,17 +18,6 @@ public class PawnW extends ChessPiece
         return this.color;
     }
 
-    public boolean legalMove(int newRow, int newCol)
-    {
-        boolean result = false;
-        if (newRow - super.row == -1 & newCol == super.col)
-        {
-            result = true;
-            
-        }
-        return result;
-    }
-
     // white pawn goes up the array from row index 6 to 5, 4...
     public ArrayList<int[]> legalSquares()
     {
@@ -40,14 +29,44 @@ public class PawnW extends ChessPiece
         if (super.row - 1 > -1)
         {
             result.add(new int[]{super.row - 1, super.col});
-            // if (super.col - 1 > -1)
-            // {
-            //     result.add(new int[]{super.row - 1, super.col - 1});
-            // }
-            // if (super.col + 1 < 8)
-            // {
-            //     result.add(new int[]{super.row - 1, super.col + 1});
-            // }
+            if (super.col - 1 > -1)
+            {
+                result.add(new int[]{super.row - 1, super.col - 1});
+            }
+            if (super.col + 1 < 8)
+            {
+                result.add(new int[]{super.row - 1, super.col + 1});
+            }
+        }
+        return result;
+    }
+
+    public ArrayList<int[]> movableSquare(ArrayList<ChessPiece> blockingPieces)
+    {
+        ArrayList<int[]> movableSquares = new ArrayList<int[]>();
+
+        for (ChessPiece blockingPiece : blockingPieces)
+        {
+            ChessPieceColor blockingPieceColor = blockingPiece.getColor();
+            int pieceRow = piece.getCurrentRow();
+            int pieceCol = piece.getCurrentCol();
+            if (blockingPieceColor != this.color)
+            {
+                if (isDiagonal(pieceRow, pieceCol))
+                {
+                    movableSquares.add(new int[]{piece.getCurrentRow, piece.getCurrentCol});
+                }
+            }
+        }
+    }
+
+    // assuming that it is a legal move:
+    private boolean isDiagonal(int newRow, int newCol)
+    {
+        boolean result = false;
+        if (newRow == super.row - 1 & newCol != super.col)
+        {
+            result = true;
         }
         return result;
     }

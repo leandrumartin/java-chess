@@ -64,24 +64,40 @@ public class ChessBoard implements GameInterface
         
     }
 
-    public ArrayList<int[]> movableSquare(ChessPiece chessPiece)
+    public ArrayList<int[]> getOtherPiecesLocation(ChessPiece chessPiece)
     {
-        ArrayList<int[]> result = chessPiece.legalSquares();
-        for (int[] location : result)
+        ArrayList<int[]> legalSquare = chessPiece.legalSquares();
+        ArrayList<ChessPiece> blockingPieces = new ArrayList<ChessPiece>();
+        for (int[] location : legalSquare)
         {
             int row = location[0];
             int col = location[1];
             if (this.board[row][col] != null)
-            {            
-                if (this.board[row][col].getColor() == chessPiece.getColor())
-                    {
-                        result.remove(location);
-                    }
+            {
+                blockingPieces.add(this.board[row][col].getChessPiece());
             }
-            // in the future, we need to check whether it is check mate here
         }
-        return result;
+        return blockingPieces;
     }
+
+    // public ArrayList<int[]> movableSquare(ChessPiece chessPiece)
+    // {
+    //     ArrayList<int[]> result = chessPiece.legalSquares();
+    //     for (int[] location : result)
+    //     {
+    //         int row = location[0];
+    //         int col = location[1];
+    //         if (this.board[row][col] != null)
+    //         {            
+    //             if (this.board[row][col].getColor() == chessPiece.getColor())
+    //                 {
+    //                     result.remove(location);
+    //                 }
+    //         }
+    //         // in the future, we need to check whether it is check mate here
+    //     }
+    //     return result;
+    // }
 
     public ArrayList<int[]> findPieces(ChessPieceColor color)
     {
