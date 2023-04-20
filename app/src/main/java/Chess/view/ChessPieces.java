@@ -13,10 +13,9 @@ public class ChessPieces
         this.addPieces();
     }
 
-    private void initializePiece(JLabel label)
+    private void initializePiece(String label)
     {
-        label.setFont(new Font("Dialog", Font.BOLD, 45));
-        label.setAlignmentX(Component.CENTER_ALIGNMENT);
+        Font font = new Font("Dialog", Font.BOLD, 45);
     }
 
     /**
@@ -24,13 +23,13 @@ public class ChessPieces
      */
     public void addPieces() {
         for (int i = 0; i < 8; i++) {
-            JLabel wPawnLabel = new JLabel(UnicodeMap.wPawn);
+            String wPawnLabel = UnicodeMap.wPawn;
             initializePiece(wPawnLabel);
-            boardSegment[6][i].add(wPawnLabel);
+            boardSegment[6][i].setText(wPawnLabel);
 
-            JLabel bPawnLabel = new JLabel(UnicodeMap.bPawn);
+            String bPawnLabel = UnicodeMap.bPawn;
             initializePiece(bPawnLabel);
-            boardSegment[1][i].add(bPawnLabel);
+            boardSegment[1][i].setText(bPawnLabel);
 /*
             if (i == 0 || i == 7) {
                 JLabel wRookLabel = new JLabel(UnicodeMap.wRook);

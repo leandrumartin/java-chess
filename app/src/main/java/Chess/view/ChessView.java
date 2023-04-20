@@ -109,7 +109,7 @@ public class ChessView extends JFrame implements ActionListener, GameObserver {
         }
     }
     
-    public String getPieceLabel(int row, int col)
+    public String getCurrentLabel(int row, int col)
     {
         return boardSegment[row][col].getText();
     }
@@ -138,19 +138,37 @@ public class ChessView extends JFrame implements ActionListener, GameObserver {
             boardSegment[row][col].setEnabled(true);
         }
     }
+    public void removeDots()
+    {
+        for (int row = 0; row < 8; row++)
+        {
+            for (int col = 0; col < 8; col++)
+            {
+                String currentLabel = getCurrentLabel(row, col);
+                if (boardSegment[row][col].getText() == UnicodeMap.dot)
+                {
+                    boardSegment[row][col].setText(null);
+                }
+                else
+                {
+                    boardSegment[row][col].setText(currentLabel);
+                }
+            }
+        }
+    }
 
     public void update(ArrayList<int[]> move)
     {
-        System.out.println("update function called in view");
+        removeDots();
         int fromRow = move.get(0)[0];
         int fromCol = move.get(0)[1];
-        String currentLabel = getPieceLabel(fromRow, fromCol);
+        String currentLabel = getCurrentLabel(fromRow, fromCol);
         int toRow = move.get(1)[0];
         int toCol = move.get(1)[1];
-        boardSegment[fromRow][fromCol].setText("");
+        boardSegment[fromRow][fromCol].setText(null);
         boardSegment[toRow][toCol].setText(currentLabel);
-        this.boardPanel.repaint();
     }
+
     @Override
     public void actionPerformed(ActionEvent event)
     {
