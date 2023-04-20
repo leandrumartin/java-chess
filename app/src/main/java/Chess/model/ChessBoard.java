@@ -86,17 +86,15 @@ public class ChessBoard implements GameInterface
     public ArrayList<int[]> findPieces(ChessPieceColor color)
     {
         ArrayList<int[]> result = new ArrayList<int[]>();
-        int row = 0;
-        int col = 0;
-        for (int i = 0; i < 8; i++) //go through rows
+        for (int row = 0; row < 8; row++) //go through rows
         {
-            for (int j = 0; j < 8; j++) //go through columns
+            for (int col = 0; col < 8; col++) //go through columns
             {
                 if (this.board[row][col] != null) 
                 {
-                    if (color == this.board[i][j].getColor())
+                    if (color == this.board[row][col].getColor())
                     {
-                        result.add(new int[]{i, j});
+                        result.add(new int[]{row, col});
                     }
                 }   
             }
