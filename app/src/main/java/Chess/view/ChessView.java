@@ -105,6 +105,8 @@ public class ChessView extends JFrame implements ActionListener, GameObserver {
             for (int col = 0; col < 8; col++)
             {
                 boardSegment[row][col].setEnabled(false);
+                boardSegment[row][col].setOpaque(true); 
+                boardSegment[row][col].setBorder(null);
             }
         }
     }
@@ -125,6 +127,8 @@ public class ChessView extends JFrame implements ActionListener, GameObserver {
             boardSegment[row][col].setEnabled(true);
             boardSegment[row][col].setText(UnicodeMap.dot);
             boardSegment[row][col].setFont(new Font("Dialog", Font.BOLD, 45));
+            boardSegment[row][col].setOpaque(true); 
+            boardSegment[row][col].setBorder(null);
         }
     }
 
@@ -136,6 +140,8 @@ public class ChessView extends JFrame implements ActionListener, GameObserver {
             int row = pieceLoc[0];
             int col = pieceLoc[1];
             boardSegment[row][col].setEnabled(true);
+            boardSegment[row][col].setOpaque(true); 
+            boardSegment[row][col].setBorder(null);
         }
     }
     public void removeDots()
@@ -148,10 +154,14 @@ public class ChessView extends JFrame implements ActionListener, GameObserver {
                 if (boardSegment[row][col].getText() == UnicodeMap.dot)
                 {
                     boardSegment[row][col].setText(null);
+                    boardSegment[row][col].setOpaque(true); 
+                    boardSegment[row][col].setBorder(null);
                 }
                 else
                 {
                     boardSegment[row][col].setText(currentLabel);
+                    boardSegment[row][col].setOpaque(true); 
+                    boardSegment[row][col].setBorder(null);
                 }
             }
         }
