@@ -13,23 +13,16 @@ public class ChessPieces
         this.addPieces();
     }
 
-    private void initializePiece(String label)
-    {
-        Font font = new Font("Dialog", Font.BOLD, 45);
-    }
-
     /**
      * Helper function to add pieces to board.
      */
     public void addPieces() {
         for (int i = 0; i < 8; i++) {
-            String wPawnLabel = UnicodeMap.wPawn;
-            initializePiece(wPawnLabel);
-            boardSegment[6][i].setText(wPawnLabel);
+            boardSegment[6][i].setText(UnicodeMap.wPawn);
+            boardSegment[6][i].setFont(new Font("Dialog", Font.PLAIN, 45));
 
-            String bPawnLabel = UnicodeMap.bPawn;
-            initializePiece(bPawnLabel);
-            boardSegment[1][i].setText(bPawnLabel);
+            boardSegment[1][i].setText(UnicodeMap.bPawn);
+            boardSegment[1][i].setFont(new Font("Dialog", Font.PLAIN, 45));
 /*
             if (i == 0 || i == 7) {
                 JLabel wRookLabel = new JLabel(UnicodeMap.wRook);

@@ -167,6 +167,7 @@ public class ChessView extends JFrame implements ActionListener, GameObserver {
         int toCol = move.get(1)[1];
         boardSegment[fromRow][fromCol].setText(null);
         boardSegment[toRow][toCol].setText(currentLabel);
+        boardSegment[toRow][toCol].setFont(new Font("Dialog", Font.PLAIN, 45));
     }
 
     @Override
