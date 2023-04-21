@@ -1,5 +1,6 @@
 package Chess.model.ChessPieces;
 
+import Chess.model.ChessBoard;
 import Chess.model.ChessPieces.ChessPiece;
 import Chess.model.ChessPieces.ChessPieceColor;
 import java.util.ArrayList;
@@ -8,9 +9,9 @@ public class PawnW extends ChessPiece
 {
     private ChessPieceColor color = ChessPieceColor.W;
 
-    public PawnW(int row, int col)
+    public PawnW(int row, int col, ChessBoard board)
     {
-        super(row, col);
+        super(row, col, board);
     }
     
     public ChessPieceColor getColor()
@@ -41,32 +42,48 @@ public class PawnW extends ChessPiece
         return result;
     }
 
-    public ArrayList<int[]> movableSquare(ArrayList<ChessPiece> blockingPieces)
+    public ArrayList<int[]> movableSquares()
     {
-        ArrayList<int[]> movableSquares = new ArrayList<int[]>();
+        ArrayList<int[]> legalSquares = this.legalSquares();
 
-        for (ChessPiece blockingPiece : blockingPieces)
+        ArrayList<int[]> movableSquares = new ArrayList<int[]>();
+        for (int[] location : legalSquares)
         {
-            ChessPieceColor blockingPieceColor = blockingPiece.getColor();
-            int pieceRow = piece.getCurrentRow();
-            int pieceCol = piece.getCurrentCol();
-            if (blockingPieceColor != this.color)
+            int row = location[0];
+            int col = location[1];
+            ChessPiece piece = super.board.getChessPiece(row, col);
+
+            if (isDiagonal(row, col))
             {
-                if (isDiagonal(pieceRow, pieceCol))
+                if (piece != null)
                 {
-                    movableSquares.add(new int[]{piece.getCurrentRow, piece.getCurrentCol});
+                    if (piece.getColor() != this.color)
+                    {
+                        movableSquares.add(location);
+                    }
+                }
+            }
+            else
+            {
+                if (piece == null)
+                {
+                    movableSquares.add(location);
                 }
             }
         }
+        return movableSquares;
     }
 
-    // assuming that it is a legal move:
+
     private boolean isDiagonal(int newRow, int newCol)
     {
         boolean result = false;
-        if (newRow == super.row - 1 & newCol != super.col)
+        if (newRow == super.row - 1)
         {
-            result = true;
+            if (newCol == super.col - 1 | newCol == super.col + 1)
+            {
+                result = true;
+            }
         }
         return result;
     }
