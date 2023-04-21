@@ -22,12 +22,10 @@ public class ChessController implements ControllerInterface {
 
         this.currentPlayer = ChessPieceColor.W;
         this.clickCount = 0;
-        System.out.println("Chess Controller Constructor is called");
     }
 
     public void userPressed(int row, int col)
     {
-        System.out.println("In  Controller, userPressed() is called");
         clickCount++;
         if (clickCount == 1)
         {
@@ -46,8 +44,12 @@ public class ChessController implements ControllerInterface {
         this.currentChessPiece = board.getChessPiece(fromRow, fromCol);
         ArrayList<int[]> movableSquares = this.board.movableSquares(this.currentChessPiece);
         this.view.drawPossibleMoves(movableSquares);
-
-        // need to add logic for when movableSquares.size() == 0
+        if (movableSquares.size() == 0)
+        {
+            clickCount = 0;
+            ArrayList<int[]> allCurrentPieces = this.board.findPieces(this.currentPlayer);
+            view.enableSquares(allCurrentPieces);
+        }
     }
 
     public void selectDestination(int toRow, int toCol)
@@ -59,9 +61,12 @@ public class ChessController implements ControllerInterface {
     }
 
     private void switchPlayers() {
-        if (this.currentPlayer == ChessPieceColor.W) {
+        if (this.currentPlayer == ChessPieceColor.W) 
+        {
             this.currentPlayer = ChessPieceColor.B;
-        } else {
+        } 
+        else 
+        {
             this.currentPlayer = ChessPieceColor.W;
         }
     }

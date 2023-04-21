@@ -125,10 +125,8 @@ public class ChessView extends JFrame implements ActionListener, GameObserver {
             int row = getRowCol[0];
             int col = getRowCol[1];
             boardSegment[row][col].setEnabled(true);
-            boardSegment[row][col].setText(UnicodeMap.dot);
-            boardSegment[row][col].setFont(new Font("Dialog", Font.BOLD, 45));
+            boardSegment[row][col].setBorder(BorderFactory.createLineBorder(Color.BLACK, 4, true));
             boardSegment[row][col].setOpaque(true); 
-            boardSegment[row][col].setBorder(null);
         }
     }
 
@@ -144,22 +142,22 @@ public class ChessView extends JFrame implements ActionListener, GameObserver {
             boardSegment[row][col].setBorder(null);
         }
     }
+    
     public void removeDots()
     {
         for (int row = 0; row < 8; row++)
         {
             for (int col = 0; col < 8; col++)
             {
-                String currentLabel = getCurrentLabel(row, col);
-                if (boardSegment[row][col].getText() == UnicodeMap.dot)
+                if ((row + col) % 2 == 0) 
                 {
-                    boardSegment[row][col].setText(null);
+                    boardSegment[row][col].setBackground(new Color(235, 235, 208));
                     boardSegment[row][col].setOpaque(true); 
                     boardSegment[row][col].setBorder(null);
-                }
-                else
+                } 
+                else 
                 {
-                    boardSegment[row][col].setText(currentLabel);
+                    boardSegment[row][col].setBackground(new Color(119, 148, 86));
                     boardSegment[row][col].setOpaque(true); 
                     boardSegment[row][col].setBorder(null);
                 }
@@ -198,7 +196,6 @@ public class ChessView extends JFrame implements ActionListener, GameObserver {
                 }
             }
         }
-        System.out.println("row: " + row +"col: " + col);
         this.controller.userPressed(row, col);
     }
 }
