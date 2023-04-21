@@ -34,6 +34,14 @@ public class ChessView extends JFrame implements ActionListener, GameObserver {
         frame.setResizable(false);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
+        frame.addWindowListener(new WindowAdapter()
+        {
+            public void windowClosing(WindowEvent e)
+            {
+               //controller.userQuit();
+            }
+         });
+
         JPanel mainPanel = new JPanel();
         mainPanel.setPreferredSize(new Dimension(panelWidth, panelHeight));
         mainPanel.setBackground(new Color(192,192,192));
