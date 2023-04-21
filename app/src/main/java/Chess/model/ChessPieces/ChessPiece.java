@@ -1,19 +1,22 @@
 package Chess.model.ChessPieces;
 
 import Chess.model.ChessPieces.ChessPieceColor;
+import Chess.model.ChessBoard;
 import java.util.ArrayList;
 
-public class ChessPiece 
+public abstract class ChessPiece 
 {
     protected int row;
     protected int col;
     protected boolean hasNotMoved;
+    protected ChessBoard board;
 
-    public ChessPiece(int row, int col)
+    public ChessPiece(int row, int col, ChessBoard board)
     {
         this.row = row;
         this.col = col;
         this.hasNotMoved = true;
+        this.board = board;
     }
 
     public int getCurrentRow()
@@ -36,22 +39,7 @@ public class ChessPiece
         return this.hasNotMoved;
     }
 
-    // Dummy Implementation
-    public ChessPieceColor getColor()
-    {
-        return ChessPieceColor.B;
-    }
-
-    // Dummy Implementation
-    public boolean legalMove(int newRow, int newCol)
-    {
-        return false;
-    }
-
-    // Dummy Implementation
-    public ArrayList<int[]> legalSquares()
-    {
-        ArrayList<int[]> result = new ArrayList<int[]>();
-        return result;
-    }
+    public abstract ChessPieceColor getColor();
+    public abstract ArrayList<int[]> legalSquares();
+    public abstract ArrayList<int[]> movableSquares();
 }

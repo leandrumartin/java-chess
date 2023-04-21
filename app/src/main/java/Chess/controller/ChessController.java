@@ -44,8 +44,10 @@ public class ChessController implements ControllerInterface {
     public void selectPiece(int fromRow, int fromCol)
     {
         this.currentChessPiece = board.getChessPiece(fromRow, fromCol);
-        ArrayList<int[]> movableSquares = this.board.movableSquare(this.currentChessPiece);
+        ArrayList<int[]> movableSquares = this.board.movableSquares(this.currentChessPiece);
         this.view.drawPossibleMoves(movableSquares);
+
+        // need to add logic for when movableSquares.size() == 0
     }
 
     public void selectDestination(int toRow, int toCol)

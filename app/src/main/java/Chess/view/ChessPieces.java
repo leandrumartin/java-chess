@@ -20,10 +20,14 @@ public class ChessPieces
         for (int i = 0; i < 8; i++) {
             boardSegment[6][i].setText(UnicodeMap.wPawn);
             boardSegment[6][i].setFont(new Font("Dialog", Font.PLAIN, 45));
+            boardSegment[6][i].setOpaque(true); 
+            boardSegment[6][i].setBorder(null);
 
             boardSegment[1][i].setText(UnicodeMap.bPawn);
             boardSegment[1][i].setFont(new Font("Dialog", Font.PLAIN, 45));
-/*
+            boardSegment[1][i].setOpaque(true); 
+            boardSegment[1][i].setBorder(null);
+            /*
             if (i == 0 || i == 7) {
                 JLabel wRookLabel = new JLabel(UnicodeMap.wRook);
                 initializePiece(wRookLabel);

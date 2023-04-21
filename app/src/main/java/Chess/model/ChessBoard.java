@@ -20,10 +20,10 @@ public class ChessBoard implements GameInterface
         this.board = new ChessPiece[8][8];
 
         for (int i = 0; i < 8; i++) {
-            ChessPiece PawnW = new PawnW(6, i);
+            ChessPiece PawnW = new PawnW(6, i, this);
             this.board[6][i] = PawnW;
 
-            ChessPiece PawnB = new PawnB(1, i);
+            ChessPiece PawnB = new PawnB(1, i, this);
             this.board[1][i] = PawnB;
         }
 
@@ -32,6 +32,17 @@ public class ChessBoard implements GameInterface
     public ChessPiece getChessPiece(int row, int col)
     {
         return this.board[row][col];
+    }
+
+    public void removePiece(int row, int col)
+    {
+        this.board[row][col] = null;
+        
+    }
+
+    public ArrayList<int[]> movableSquares(ChessPiece piece)
+    {
+        return piece.movableSquares();
     }
 
     public void placeChessPiece(int toRow, int toCol, ChessPiece piece)
@@ -56,31 +67,6 @@ public class ChessBoard implements GameInterface
         result.add(new int[]{toRow, toCol});
 
         this.notifyObservers(result);
-    }
-
-    public void removePiece(int row, int col)
-    {
-        this.board[row][col] = null;
-        
-    }
-
-    public ArrayList<int[]> movableSquare(ChessPiece chessPiece)
-    {
-        ArrayList<int[]> result = chessPiece.legalSquares();
-        for (int[] location : result)
-        {
-            int row = location[0];
-            int col = location[1];
-            if (this.board[row][col] != null)
-            {            
-                if (this.board[row][col].getColor() == chessPiece.getColor())
-                    {
-                        result.remove(location);
-                    }
-            }
-            // in the future, we need to check whether it is check mate here
-        }
-        return result;
     }
 
     public ArrayList<int[]> findPieces(ChessPieceColor color)
