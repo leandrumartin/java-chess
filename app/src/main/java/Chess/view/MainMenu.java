@@ -168,7 +168,7 @@ public class MainMenu extends JFrame implements ActionListener
         }
         else if(event.getSource() == this.twoPlayer)
         {
-            ControllerInterface controller = new ChessController(board);
+            ControllerInterface controller = new ChessControllerTwoPlayer(board);
             mainFrame.setVisible(false);
         }
     }

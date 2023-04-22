@@ -1,16 +1,18 @@
 package Chess.model;
+
 /*
     Create a ChessBoard class that represents the chessboard. 
     The ChessBoard class should contain a two-dimensional array of ChessPiece objects representing 
     the current state of the board. 
 */
 import java.util.ArrayList;
+import java.io.Serializable;
 
 import Chess.model.ChessPieces.*;
 import Chess.GameInterface;
 import Chess.GameObserver;
 
-public class ChessBoard implements GameInterface
+public class ChessBoard implements GameInterface, Serializable
 {
     private ChessPiece[][] board;
     private ArrayList<GameObserver> observers = new ArrayList<GameObserver>();

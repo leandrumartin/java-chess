@@ -4,9 +4,10 @@ import Chess.model.ChessBoard;
 import Chess.model.ChessPieces.ChessPiece;
 import Chess.model.ChessPieces.ChessPieceColor;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class PawnB extends ChessPiece
+public class PawnB extends ChessPiece implements Serializable
 {
     private ChessPieceColor color = ChessPieceColor.B;
     

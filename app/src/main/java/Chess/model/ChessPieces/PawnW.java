@@ -3,9 +3,11 @@ package Chess.model.ChessPieces;
 import Chess.model.ChessBoard;
 import Chess.model.ChessPieces.ChessPiece;
 import Chess.model.ChessPieces.ChessPieceColor;
+
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class PawnW extends ChessPiece
+public class PawnW extends ChessPiece implements Serializable
 {
     private ChessPieceColor color = ChessPieceColor.W;
 

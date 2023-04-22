@@ -1,81 +1,144 @@
-// package Chess.controller;
+package Chess.controller;
 
-// import java.util.ArrayList;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.util.ArrayList;
 
-// import Chess.model.ChessBoard;
-// import Chess.model.ChessPieces.ChessPiece;
-// import Chess.model.ChessPieces.ChessPieceColor;
-// import Chess.view.ChessBoardGUI;
-// import Chess.controller.ChessController;
+import Chess.model.ChessBoard;
+import Chess.model.ChessPieces.ChessPieceColor;
+import Chess.model.ChessPieces.ChessPiece;
+import Chess.view.ChessView;
+import Chess.view.ConfirmationDialog;
+import Chess.view.FileSelector;
 
-// public class ChessControllerTwoPlayer implements ControllerInterface {
-//     private ChessBoard board;
-//     private ChessBoardGUI view;
-//     private ChessPiece selectedPiece;
-//     private ChessPieceColor currentPlayer;
+public class ChessControllerTwoPlayer implements ControllerInterface {
+    private ChessBoard board;
+    private ChessView view;
+    private ChessPieceColor currentPlayer;
+    private ChessPiece currentChessPiece;
+    private int clickCount;
 
-//     public ChessControllerTwoPlayer(ChessBoard board) {
-//         this.board = board;
-//         this.view = new ChessBoardGUI(this, board);
-//         this.currentPlayer = ChessPieceColor.W;
-//     }
-
-//     /**
-//      * Helper function to switch to the next player.
-//      */
-//     private void switchPlayers() {
-//         if (this.currentPlayer == ChessPieceColor.W) {
-//             this.currentPlayer = ChessPieceColor.B;
-//         } else {
-//             this.currentPlayer = ChessPieceColor.W;
-//         }
-
-//         // Disable all buttons except those of the next player's pieces
-
-//         // Disable all buttons
-//         ArrayList<int[]> disabled = new ArrayList<int[]>();
-//         for (int i = 0; i < 8; i++) {
-//             for (int j = 0; j < 8; j++) {
-//                 int[] square = {i, j};
-//                 disabled.add(square);
-//             }
-//         }
-//         this.view.disableSquares(disabled);
-
-//         // Reenable only the next player's pieces
-//         ArrayList<int[]> enabled = new ArrayList<int[]>();
-//         for (int i = 0; i < 8; i++) {
-//             for (int j = 0; j < 8; j++) {
-//                 if (this.board.getChessPiece(i, j).getColor() == this.currentPlayer) {
-//                     int[] square = {i, j};
-//                     enabled.add(square);
-//                 }
-//             }
-//         }
-//         this.view.enableSquares(enabled);
+    public ChessControllerTwoPlayer(ChessBoard board) {
+        this.board = board;
         
-//     }
+        this.view = new ChessView(this, board);
+        this.view.setVisible(true);
 
-//     // ControllerInterface methods
+        this.currentPlayer = ChessPieceColor.W;
+        this.clickCount = 0;
+    }
+    
+    private void switchPlayers() {
+        if (this.currentPlayer == ChessPieceColor.W) 
+        {
+            this.currentPlayer = ChessPieceColor.B;
+        } 
+        else 
+        {
+            this.currentPlayer = ChessPieceColor.W;
+        }
+    }
 
-//     @Override
-//     public void start() {
-//         // Set up the initial state of the game here
-//     }
+    // ControllerInterface methods
 
-//     @Override
-//     public void selectPiece(int row, int col) {
-//         this.selectedPiece = this.board.getChessPiece(row, col);
-//     }
+    @Override
+    public void userPressed(int row, int col)
+    {
+        clickCount++;
+        if (clickCount == 1)
+        {
+            this.selectPiece(row, col);
 
-//     @Override
-//     public void selectDestination(int row, int col) {
-//         this.board.placeChessPiece(row, col, selectedPiece);
-//         this.switchPlayers();
-//     }
+        }
+        else if (clickCount == 2)
+        {
+            this.selectDestination(row, col);
+            clickCount = 0;
+        }
+    }
 
-//     @Override
-//     public void endGame() {
-//         // End the game and show the result here
-//     }
-// }
+    @Override
+    public void selectPiece(int fromRow, int fromCol)
+    {
+        this.currentChessPiece = board.getChessPiece(fromRow, fromCol);
+        ArrayList<int[]> movableSquares = this.board.movableSquares(this.currentChessPiece);
+        this.view.drawPossibleMoves(movableSquares);
+        if (movableSquares.size() == 0)
+        {
+            clickCount = 0;
+            ArrayList<int[]> allCurrentPieces = this.board.findPieces(this.currentPlayer);
+            view.enableSquares(allCurrentPieces);
+        }
+    }
+
+    @Override
+    public void selectDestination(int toRow, int toCol)
+    {
+        this.board.placeChessPiece(toRow, toCol, this.currentChessPiece);
+        this.switchPlayers();
+        ArrayList<int[]> allCurrentPieces = this.board.findPieces(this.currentPlayer);
+        this.view.enableSquares(allCurrentPieces);
+    }
+
+    @Override
+    public void userQuit() {
+        if (ConfirmationDialog.confirmSaveGame()) {
+            try {
+                // Retrieve file to save to
+                String file = FileSelector.selectFileToSave();
+                FileOutputStream fileOutput = new FileOutputStream(file);
+
+                // Save to file
+                try {
+                    ObjectOutputStream objectOutput = new ObjectOutputStream(fileOutput);
+
+                    objectOutput.writeObject(this.board);
+                    
+                    objectOutput.close();
+                } catch (IOException error) {
+                    System.out.println("Saving failed: " + error);
+                }
+
+                fileOutput.close();
+            } catch (FileNotFoundException error) {
+                System.out.println("File selection failed: " + error);
+            } catch (IOException error) {
+                System.out.println("Saving failed: " + error);
+            }
+        }
+        
+    }
+
+    public void loadGame() {
+        if (ConfirmationDialog.confirmLoadGame()) {
+            try {
+                // Retrieve file to load from
+                String file = FileSelector.getFileToLoad();
+                FileInputStream fileInput = new FileInputStream(file);
+
+                // Load from file
+                try {
+                    ObjectInputStream objectInput = new ObjectInputStream(fileInput);
+
+                    this.board = (ChessBoard) objectInput.readObject();
+                    
+                    objectInput.close();
+                } catch (ClassNotFoundException error) {
+                    System.out.println("Loading failed: " + error);
+                } catch (IOException error) {
+                    System.out.println("Loading failed: " + error);
+                }
+
+                fileInput.close();
+            } catch (FileNotFoundException error) {
+                System.out.println("File selection failed: " + error);
+            } catch (IOException error) {
+                System.out.println("Loading failed: " + error);
+            }
+        }
+    }
+}
