@@ -6,7 +6,7 @@ public class ConfirmationDialog
 {
     public static boolean confirmSaveGame()
     {
-        int input = JOptionPane.showConfirmDialog(null, "Save Game?", "Select Yes or No", JOptionPane.YES_NO_OPTION);
+        int input = JOptionPane.showConfirmDialog(null, "Save Game?", "Select Yes or No", JOptionPane.YES_NO_CANCEL_OPTION);
         return interpretInput(input);
     }
     

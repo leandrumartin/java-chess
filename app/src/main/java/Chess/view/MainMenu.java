@@ -19,20 +19,26 @@ public class MainMenu extends JFrame implements ActionListener
     JFrame mainFrame;
     JPanel mainPanel;
     JPanel buttonPanel;
-    JPanel difficultyPanel;
+    JPanel speedPanel;
     JPanel loadPanel;
     JPanel animationPanel;
+    JPanel instructionPanel;
     JPanel recordPanel;
+    JPanel decisionPanel;
     JButton onePlayer;
     JButton twoPlayer;
     JButton loadGame;
-    JButton difficultyUp;
-    JButton difficultyDown;
+    JButton bulletChess;
+    JButton blitzChess;
+    JButton rapidChess;
+    JButton turtleChess;
     JLabel title;
     JLabel difficultyLabel;
     JLabel instructions;
     JLabel animationLabel;
     JLabel recordLabel;
+    JLabel decisionLabel;
+    int time = 10;
     int wins = 0;
     int losses = 0;
     int difficulty = 1;
@@ -48,7 +54,7 @@ public class MainMenu extends JFrame implements ActionListener
 
         mainPanel = new JPanel();
         mainPanel.setLayout(new FlowLayout());
-        mainPanel.setPreferredSize(new Dimension(450, 425));
+        mainPanel.setPreferredSize(new Dimension(425, 535));
         mainPanel.setBackground(new Color(119, 148, 86));
 
         JLabel wKing = new JLabel(UnicodeMap.wKing);
@@ -65,12 +71,8 @@ public class MainMenu extends JFrame implements ActionListener
         bKing.setAlignmentX(Component.CENTER_ALIGNMENT);
         mainPanel.add(bKing);
 
-        difficultyPanel = new JPanel();
-        difficultyPanel.setPreferredSize(new Dimension(625, 50));
-        difficultyPanel.setBackground(new Color(119, 148, 86));
-
         recordPanel = new JPanel();
-        recordPanel.setPreferredSize(new Dimension(625, 40));
+        recordPanel.setPreferredSize(new Dimension(400, 40));
         recordPanel.setBackground(new Color(119, 148, 86));
 
         data = new WinLossData();
@@ -91,22 +93,51 @@ public class MainMenu extends JFrame implements ActionListener
         recordLabel.setFont(new Font("Times New Roman", Font.PLAIN, 24));
         recordPanel.add(recordLabel);
 
-        instructions = new JLabel("Set a Computer Difficulty:");
+        instructionPanel = new JPanel();
+        instructionPanel.setLayout(new GridLayout(1,1));
+        instructionPanel.setPreferredSize(new Dimension(215, 50));
+        instructionPanel.setBackground(new Color(119, 148, 86));
+
+        instructions = new JLabel("Select A Game Mode:");
         instructions.setFont(new Font("Times New Roman", Font.PLAIN, 24));
+        instructions.setAlignmentX(Component.CENTER_ALIGNMENT);
+        
+        instructionPanel.add(instructions);
+        //difficultyLabel = new JLabel(Integer.toString(difficulty));
+        //difficultyLabel.setFont(new Font("Times New Roman", Font.PLAIN, 40));
 
-        difficultyLabel = new JLabel(Integer.toString(difficulty));
-        difficultyLabel.setFont(new Font("Times New Roman", Font.PLAIN, 40));
+        speedPanel = new JPanel();
+        speedPanel.setLayout(new GridLayout(1, 4));
+        speedPanel.setPreferredSize(new Dimension(300, 50));
+        speedPanel.setBackground(new Color(119, 148, 86));
 
-        difficultyUp = new JButton(UnicodeMap.upArrow);
-        initializeDifficultyButton(difficultyUp);
+        bulletChess = new JButton(UnicodeMap.bullet);
+        initializeDifficultyButton(bulletChess);
 
-        difficultyDown = new JButton(UnicodeMap.downArrow);
-        initializeDifficultyButton(difficultyDown);
+        blitzChess = new JButton(UnicodeMap.blitz);
+        initializeDifficultyButton(blitzChess);
 
-        difficultyPanel.add(instructions);
-        difficultyPanel.add(difficultyUp);
-        difficultyPanel.add(difficultyLabel);
-        difficultyPanel.add(difficultyDown);
+        rapidChess = new JButton(UnicodeMap.rapid);
+        initializeDifficultyButton(rapidChess);
+
+        turtleChess = new JButton(UnicodeMap.turtle);
+        initializeDifficultyButton(turtleChess);
+
+        speedPanel.add(bulletChess);
+        speedPanel.add(blitzChess);
+        speedPanel.add(rapidChess);
+        speedPanel.add(turtleChess);
+        
+        decisionPanel = new JPanel();
+        decisionPanel = new JPanel();
+        decisionPanel.setLayout(new GridLayout(1, 1));
+        decisionPanel.setPreferredSize(new Dimension(380, 50));
+        decisionPanel.setBackground(new Color(119, 148, 86));
+
+        decisionLabel = new JLabel("Rapid - Each Player gets 10 Minutes.");
+        decisionLabel.setFont(new Font("Times New Roman", Font.PLAIN, 24));
+        decisionLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        decisionPanel.add(decisionLabel);
 
         loadPanel = new JPanel();
         loadPanel.setLayout(new GridLayout(1, 1));
@@ -140,7 +171,9 @@ public class MainMenu extends JFrame implements ActionListener
         timer.start();
 
         mainPanel.add(recordPanel);
-        mainPanel.add(difficultyPanel);
+        mainPanel.add(instructionPanel);
+        mainPanel.add(speedPanel);
+        mainPanel.add(decisionPanel);
         mainPanel.add(buttonPanel);
         mainPanel.add(loadPanel);
         mainPanel.add(animationPanel);
@@ -164,7 +197,7 @@ public class MainMenu extends JFrame implements ActionListener
             animationLabel.setFont(new Font("Dialog", Font.BOLD, 30));
             animationPanel.add(animationLabel);
 
-            if (animationLabel.getWidth() <= mainPanel.getWidth())
+            if (pieceCount <= 11)
             {
                 animationPanel.revalidate();
                 animationPanel.repaint();
@@ -175,34 +208,49 @@ public class MainMenu extends JFrame implements ActionListener
             }
         }
 
-        else if (event.getSource() == this.difficultyUp)
+        else if (event.getSource() == this.bulletChess)
         {
-            difficulty++;
-            if (difficulty == 11)
-            {
-                difficulty = 1;
-            }
-            difficultyLabel.setText(Integer.toString(difficulty));
+            decisionLabel.setText("Bullet - Each Player will get 1 minute");
+            decisionLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+            this.time = 1;
         }
-        else if (event.getSource() == this.difficultyDown)
+
+        else if (event.getSource() == this.blitzChess)
         {
-            difficulty--;
-            if (difficulty == 0)
-            {
-                difficulty = 10;
-            }
-            difficultyLabel.setText(Integer.toString(difficulty));
+            decisionLabel.setText("Blitz - Each Player will get 3 minutes");
+            decisionLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+            this.time = 3;
         }
+
+        else if (event.getSource() == this.rapidChess)
+        {
+            decisionLabel.setText("Rapid - Each Player will get 10 minutes");
+            decisionLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+            this.time = 10;
+        }
+
+        else if (event.getSource() == this.turtleChess)
+        {
+            decisionLabel.setText("Turtle - Each Player will get 30 minutes");
+            decisionLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+            this.time = 30;
+        }
+
         else if(event.getSource() == this.twoPlayer)
         {
-            ControllerInterface controller = new ChessControllerTwoPlayer(board);
+            ControllerInterface controller = new ChessControllerTwoPlayer(board, this.time);
             mainFrame.setVisible(false);
         }
+
+        decisionPanel.revalidate();
+        decisionPanel.repaint();
+        mainPanel.revalidate();
+        mainPanel.repaint();
     }
 
     public void initializeDifficultyButton(JButton button)
     {
-        button.setFont(new Font("Segoe UI Emoji", Font.PLAIN, 24));
+        button.setFont(new Font("Arial Unicode MS", Font.PLAIN, 40));
         button.setPreferredSize(new Dimension(50,50));
         button.setOpaque(false);
         button.setContentAreaFilled(false);

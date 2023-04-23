@@ -22,10 +22,10 @@ public class ChessControllerTwoPlayer implements ControllerInterface {
     private ChessPiece currentChessPiece;
     private int clickCount;
 
-    public ChessControllerTwoPlayer(ChessBoard board) {
+    public ChessControllerTwoPlayer(ChessBoard board, int time) {
         this.board = board;
         
-        this.view = new ChessView(this, board);
+        this.view = new ChessView(this, board, time);
         this.view.setVisible(true);
 
         this.currentPlayer = ChessPieceColor.W;

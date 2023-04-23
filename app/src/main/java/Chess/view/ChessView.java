@@ -17,15 +17,16 @@ public class ChessView extends JFrame implements ActionListener, GameObserver {
     private ChessBoard board;
     private ControllerInterface controller;
 
-    private boolean mouseInView;
-    private int clickCount = 0;
-    private int panelWidth = 700;
+    private int panelWidth = 930;
     private int panelHeight = 700;
+    private int clockTime;
     private JPanel boardPanel;
+    private JPanel clockPanel;
 
-    public ChessView(ControllerInterface controller, ChessBoard board) {
+    public ChessView(ControllerInterface controller, ChessBoard board, int time) {
         this.board = board;
         this.controller = controller;
+        this.clockTime = time;
 
         // register this object as the observer of the game
         this.board.register(this); 
@@ -85,13 +86,34 @@ public class ChessView extends JFrame implements ActionListener, GameObserver {
         }
         generateColumns(this.boardPanel);
 
+        clockPanel = new JPanel(new GridLayout(2, 2));
+        clockPanel.setPreferredSize(new Dimension(100, 50));
+        clockPanel.setBackground(new Color(192,192,192));
+
+        JLabel whiteClockLabel = new JLabel("White: ");
+        JLabel whiteClock = generateClock(clockPanel, clockTime);
+        clockPanel.add(whiteClockLabel);
+        clockPanel.add(whiteClock);
+
+        JLabel blackClockLabel = new JLabel("Black: ");
+        JLabel blackClock = generateClock(clockPanel, clockTime);
+        clockPanel.add(blackClockLabel);
+        clockPanel.add(blackClock);
+
         mainPanel.add(this.boardPanel);
+        mainPanel.add(clockPanel);
 
         ChessPieces chessPieces = new ChessPieces(boardSegment);
 
         frame.add(mainPanel);
         frame.pack();
         frame.setVisible(true);
+    }
+
+    public ChessClock generateClock(JPanel panel, int clockTime)
+    {
+        ChessClock clock = new ChessClock(clockTime);
+        return clock;
     }
 
     public void generateColumns(JPanel panel)
