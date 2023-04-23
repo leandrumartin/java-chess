@@ -5,11 +5,11 @@ import Chess.model.ChessPieces.ChessPiece;
 import Chess.model.ChessPieces.ChessPieceColor;
 import java.util.ArrayList;
 
-public class BishopB extends ChessPiece
+public class RookW extends ChessPiece
 {
-    private ChessPieceColor color = ChessPieceColor.B;
+    private ChessPieceColor color = ChessPieceColor.W;
 
-    public BishopB(int row, int col, ChessBoard board)
+    public RookW(int row, int col, ChessBoard board)
     {
         super(row, col, board);
     }
@@ -24,43 +24,42 @@ public class BishopB extends ChessPiece
         return new ArrayList<int[]>();
     }
 
-    // white pawn goes up the array from row index 6 to 5, 4...
     public ArrayList<ArrayList<int[]>> legalSquares2()
     {
         ArrayList<ArrayList<int[]>> finalResult = new ArrayList<ArrayList<int[]>>();
 
         int i = 1;
         ArrayList<int[]> result1 = new ArrayList<int[]>();
-        while (super.row + i < 8 & super.col + i < 8)
+        while (super.row + i < 8)
         {
-            result1.add(new int[]{super.row + i, super.col + i});
+            result1.add(new int[]{super.row + i, super.col});
             i++;
         }
         finalResult.add(result1);
 
         i = 1;
         ArrayList<int[]> result2 = new ArrayList<int[]>();
-        while (super.row + i < 8 & super.col - i > -1)
+        while (super.col - i > -1)
         {
-            result2.add(new int[]{super.row + i, super.col - i});
+            result2.add(new int[]{super.row, super.col - i});
             i++;
         }
         finalResult.add(result2);
 
         i = 1;
         ArrayList<int[]> result3 = new ArrayList<int[]>();
-        while (super.row - i > -1 & super.col + i < 8)
+        while (super.row - i > -1)
         {
-            result3.add(new int[]{super.row - i, super.col + i});
+            result3.add(new int[]{super.row - i, super.col});
             i++;
         }
         finalResult.add(result3);
 
         i = 1;
         ArrayList<int[]> result4 = new ArrayList<int[]>();
-        while (super.row - i > -1 & super.col - i > -1)
+        while (super.col + i < 8)
         {
-            result4.add(new int[]{super.row - i, super.col - i});
+            result4.add(new int[]{super.row, super.col + i});
             i++;
         }
         finalResult.add(result4);

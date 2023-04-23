@@ -35,6 +35,20 @@ public class ChessBoard implements GameInterface, Serializable
                 ChessPiece KnightB = new KnightB(0, i, this);
                 this.board[0][i] = KnightB;
             }
+            else if (i == 2 || i == 5)
+            {
+                ChessPiece BishopW = new BishopW(7, i, this);
+                this.board[7][i] = BishopW;
+                ChessPiece BishopB = new BishopB(0, i, this);
+                this.board[0][i] = BishopB;
+            }
+            else if (i == 2 || i == 5)
+            {
+                ChessPiece RookW = new RookW(7, i, this);
+                this.board[7][i] = RookW;
+                ChessPiece RookB = new RookB(0, i, this);
+                this.board[0][i] = RookB;
+            }
         }
 
     }

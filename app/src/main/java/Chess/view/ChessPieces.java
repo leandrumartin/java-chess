@@ -39,6 +39,22 @@ public class ChessPieces
                 boardSegment[0][i].setText(UnicodeMap.bKnight);
                 initializePiece(boardSegment[0][i]);
             }
+            else if (i == 2 || i == 5)
+            {
+                boardSegment[7][i].setText(UnicodeMap.wBishop);
+                initializePiece(boardSegment[7][i]);
+
+                boardSegment[0][i].setText(UnicodeMap.bBishop);
+                initializePiece(boardSegment[0][i]);
+            }
+            else if (i == 0 || i == 7)
+            {
+                boardSegment[7][i].setText(UnicodeMap.wRook);
+                initializePiece(boardSegment[7][i]);
+
+                boardSegment[0][i].setText(UnicodeMap.bRook);
+                initializePiece(boardSegment[0][i]);
+            }
             /*
             if (i == 0 || i == 7) {
                 JLabel wRookLabel = new JLabel(UnicodeMap.wRook);
