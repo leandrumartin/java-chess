@@ -1,16 +1,18 @@
 package Chess.model;
+
 /*
     Create a ChessBoard class that represents the chessboard. 
     The ChessBoard class should contain a two-dimensional array of ChessPiece objects representing 
     the current state of the board. 
 */
 import java.util.ArrayList;
+import java.io.Serializable;
 
 import Chess.model.ChessPieces.*;
 import Chess.GameInterface;
 import Chess.GameObserver;
 
-public class ChessBoard implements GameInterface
+public class ChessBoard implements GameInterface, Serializable
 {
     private ChessPiece[][] board;
     private ArrayList<GameObserver> observers = new ArrayList<GameObserver>();
@@ -22,11 +24,38 @@ public class ChessBoard implements GameInterface
         for (int i = 0; i < 8; i++) {
             ChessPiece PawnW = new PawnW(6, i, this);
             this.board[6][i] = PawnW;
-
             ChessPiece PawnB = new PawnB(1, i, this);
             this.board[1][i] = PawnB;
-        }
 
+            if (i == 1 || i == 6) 
+            {
+                ChessPiece KnightW = new KnightW(7, i, this);
+                this.board[7][i] = KnightW;
+                ChessPiece KnightB = new KnightB(0, i, this);
+                this.board[0][i] = KnightB;
+            }
+            else if (i == 2 || i == 5)
+            {
+                ChessPiece BishopW = new BishopW(7, i, this);
+                this.board[7][i] = BishopW;
+                ChessPiece BishopB = new BishopB(0, i, this);
+                this.board[0][i] = BishopB;
+            }
+            else if (i == 0 || i == 7)
+            {
+                ChessPiece RookW = new RookW(7, i, this);
+                this.board[7][i] = RookW;
+                ChessPiece RookB = new RookB(0, i, this);
+                this.board[0][i] = RookB;
+            }
+            else if (i == 3)
+            {
+                ChessPiece QueenW = new QueenW(7, i, this);
+                this.board[7][i] = QueenW;
+                ChessPiece QueenB = new QueenB(0, i, this);
+                this.board[0][i] = QueenB;
+            }
+        }
     }
 
     public ChessPiece getChessPiece(int row, int col)
@@ -37,6 +66,7 @@ public class ChessBoard implements GameInterface
     public void removePiece(int row, int col)
     {
         this.board[row][col] = null;
+        // return location information to view so that it can display captured pieces
         
     }
 

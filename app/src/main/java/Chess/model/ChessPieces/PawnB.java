@@ -3,42 +3,44 @@ package Chess.model.ChessPieces;
 import Chess.model.ChessBoard;
 import Chess.model.ChessPieces.ChessPiece;
 import Chess.model.ChessPieces.ChessPieceColor;
-
 import java.util.ArrayList;
 
 public class PawnB extends ChessPiece
 {
     private ChessPieceColor color = ChessPieceColor.B;
-    
+
+    private ArrayList<int[]> squares = new ArrayList<int[]>()  { 
+        { 
+            add(new int[]{1, -1}); // diagonal 
+            add(new int[]{1, 1}); // diagonal 
+            add(new int[]{1, 0}); // forward 
+            //add(new int[]{-2, 0}); // forward two if hasNotMoved 
+        } 
+    };
+
     public PawnB(int row, int col, ChessBoard board)
     {
         super(row, col, board);
     }
-
+    
     public ChessPieceColor getColor()
     {
         return this.color;
     }
 
-    // black pawn goes down the array from row index 1 to 2, 3...
     public ArrayList<int[]> legalSquares()
     {
         ArrayList<int[]> result = new ArrayList<int[]>();
+        for (int[] square : this.squares)
+        {
+            if (super.row + square[0] > -1 & super.row + square[0] < 8 & super.col + square[1] > -1 & super.col + square[1] < 8)
+            {
+                result.add(new int[]{super.row + square[0], super.col + square[1]});
+            }
+        }
         if (super.hasNotMoved)
         {
             result.add(new int[]{super.row + 2, super.col});
-        }
-        if (super.row + 1 < 8)
-        {
-            result.add(new int[]{super.row + 1, super.col});
-            if (super.col - 1 > -1)
-            {
-                result.add(new int[]{super.row + 1, super.col - 1});
-            }
-            if (super.col + 1 < 8)
-            {
-                result.add(new int[]{super.row + 1, super.col + 1});
-            }
         }
         return result;
     }
@@ -70,10 +72,15 @@ public class PawnB extends ChessPiece
                 {
                     movableSquares.add(location);
                 }
+                else
+                {
+                    break;
+                }
             }
         }
         return movableSquares;
     }
+
 
     private boolean isDiagonal(int newRow, int newCol)
     {
@@ -88,4 +95,3 @@ public class PawnB extends ChessPiece
         return result;
     }
 }
-

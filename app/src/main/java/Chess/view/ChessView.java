@@ -6,7 +6,7 @@ import java.awt.event.*;
 
 import java.util.ArrayList;
 
-import Chess.controller.ChessController;
+import Chess.controller.ChessControllerTwoPlayer;
 import Chess.controller.ControllerInterface;
 import Chess.model.ChessBoard;
 import Chess.view.ChessPieces;
@@ -38,7 +38,7 @@ public class ChessView extends JFrame implements ActionListener, GameObserver {
         {
             public void windowClosing(WindowEvent e)
             {
-               //controller.userQuit();
+               controller.userQuit();
             }
          });
 
