@@ -3,7 +3,7 @@ package Chess.view;
 import java.awt.*;
 import java.awt.event.*;
 
-import javax.swing.*;
+import javax.swing.*;  
 
 import Chess.controller.*;
 import Chess.model.ChessBoard;
@@ -15,22 +15,26 @@ public class MainMenu extends JFrame implements ActionListener
     protected Timer timer;
     private ChessBoard board;
     private ControllerInterface controller;
+    private WinLossData data;
     JFrame mainFrame;
     JPanel mainPanel;
     JPanel buttonPanel;
     JPanel difficultyPanel;
     JPanel loadPanel;
     JPanel animationPanel;
+    JPanel recordPanel;
     JButton onePlayer;
     JButton twoPlayer;
     JButton loadGame;
     JButton difficultyUp;
     JButton difficultyDown;
     JLabel title;
-    JLabel record;
     JLabel difficultyLabel;
     JLabel instructions;
     JLabel animationLabel;
+    JLabel recordLabel;
+    int wins = 0;
+    int losses = 0;
     int difficulty = 1;
     int pieceCount = 0;
 
@@ -44,7 +48,7 @@ public class MainMenu extends JFrame implements ActionListener
 
         mainPanel = new JPanel();
         mainPanel.setLayout(new FlowLayout());
-        mainPanel.setPreferredSize(new Dimension(425, 375));
+        mainPanel.setPreferredSize(new Dimension(450, 425));
         mainPanel.setBackground(new Color(119, 148, 86));
 
         JLabel wKing = new JLabel(UnicodeMap.wKing);
@@ -64,6 +68,28 @@ public class MainMenu extends JFrame implements ActionListener
         difficultyPanel = new JPanel();
         difficultyPanel.setPreferredSize(new Dimension(625, 50));
         difficultyPanel.setBackground(new Color(119, 148, 86));
+
+        recordPanel = new JPanel();
+        recordPanel.setPreferredSize(new Dimension(625, 40));
+        recordPanel.setBackground(new Color(119, 148, 86));
+
+        data = new WinLossData();
+        //int[] dataArray = data.loadData();
+        //for(int i = 0; i < dataArray.length; i++)
+        //{
+        //    if (dataArray[i] == 1)
+        //    {
+        //        wins++;
+        //    }
+        //    else
+        //    {
+        //        losses++;
+        //    }
+        //}
+
+        recordLabel = new JLabel("Wins: " + wins + " Losses: " + losses);
+        recordLabel.setFont(new Font("Times New Roman", Font.PLAIN, 24));
+        recordPanel.add(recordLabel);
 
         instructions = new JLabel("Set a Computer Difficulty:");
         instructions.setFont(new Font("Times New Roman", Font.PLAIN, 24));
@@ -113,6 +139,7 @@ public class MainMenu extends JFrame implements ActionListener
         timer = new Timer(UPDATE_INTERVAL, this);
         timer.start();
 
+        mainPanel.add(recordPanel);
         mainPanel.add(difficultyPanel);
         mainPanel.add(buttonPanel);
         mainPanel.add(loadPanel);
@@ -137,7 +164,7 @@ public class MainMenu extends JFrame implements ActionListener
             animationLabel.setFont(new Font("Dialog", Font.BOLD, 30));
             animationPanel.add(animationLabel);
 
-            if (pieceCount <= 11)
+            if (animationLabel.getWidth() <= mainPanel.getWidth())
             {
                 animationPanel.revalidate();
                 animationPanel.repaint();
