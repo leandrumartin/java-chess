@@ -5,11 +5,11 @@ import Chess.model.ChessPieces.ChessPiece;
 import Chess.model.ChessPieces.ChessPieceColor;
 import java.util.ArrayList;
 
-public class BishopB extends ChessPiece
+public class BishopW extends ChessPiece
 {
-    private ChessPieceColor color = ChessPieceColor.B;
+    private ChessPieceColor color = ChessPieceColor.W;
 
-    public BishopB(int row, int col, ChessBoard board)
+    public BishopW(int row, int col, ChessBoard board)
     {
         super(row, col, board);
     }
