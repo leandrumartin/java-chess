@@ -5,20 +5,24 @@ import Chess.model.ChessPieces.ChessPiece;
 import Chess.model.ChessPieces.ChessPieceColor;
 import java.util.ArrayList;
 
-public class PawnW extends ChessPiece
+public class KnightW extends ChessPiece
 {
     private ChessPieceColor color = ChessPieceColor.W;
 
     private ArrayList<int[]> squares = new ArrayList<int[]>()  { 
         { 
-            add(new int[]{-1, -1}); // diagonal 
-            add(new int[]{-1, 1}); // diagonal 
-            add(new int[]{-1, 0}); // forward 
-            //add(new int[]{-2, 0}); // forward two if hasNotMoved 
+            add(new int[]{-1, -2});
+            add(new int[]{-1, 2});
+            add(new int[]{-2, -1});
+            add(new int[]{-2, 1});
+            add(new int[]{1, -2});
+            add(new int[]{1, 2});
+            add(new int[]{2, -1});
+            add(new int[]{2, 1});
         } 
     };
 
-    public PawnW(int row, int col, ChessBoard board)
+    public KnightW(int row, int col, ChessBoard board)
     {
         super(row, col, board);
     }
@@ -39,10 +43,6 @@ public class PawnW extends ChessPiece
                 result.add(new int[]{super.row + square[0], super.col + square[1]});
             }
         }
-        if (super.hasNotMoved)
-        {
-            result.add(new int[]{super.row - 2, super.col});
-        }
         return result;
     }
 
@@ -57,42 +57,21 @@ public class PawnW extends ChessPiece
             int col = location[1];
             ChessPiece piece = super.board.getChessPiece(row, col);
 
-            if (isDiagonal(row, col))
+            if (piece != null)
             {
-                if (piece != null)
+                if (piece.getColor() != this.color)
                 {
-                    if (piece.getColor() != this.color)
-                    {
-                        movableSquares.add(location);
-                    }
+                    movableSquares.add(location);
                 }
             }
             else
             {
-                if (piece == null)
-                {
-                    movableSquares.add(location);
-                }
-                else
-                {
-                    break;
-                }
+                movableSquares.add(location);
+
             }
         }
         return movableSquares;
     }
 
-
-    private boolean isDiagonal(int newRow, int newCol)
-    {
-        boolean result = false;
-        if (newRow == super.row - 1)
-        {
-            if (newCol == super.col - 1 | newCol == super.col + 1)
-            {
-                result = true;
-            }
-        }
-        return result;
-    }
 }
+

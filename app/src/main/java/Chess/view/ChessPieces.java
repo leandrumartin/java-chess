@@ -13,20 +13,32 @@ public class ChessPieces
         this.addPieces();
     }
 
+    public void initializePiece(JButton button)
+    {
+        button.setFont(new Font("Dialog", Font.PLAIN, 45));
+        button.setOpaque(true); 
+        button.setBorder(null);
+    }
+
     /**
      * Helper function to add pieces to board.
      */
     public void addPieces() {
         for (int i = 0; i < 8; i++) {
             boardSegment[6][i].setText(UnicodeMap.wPawn);
-            boardSegment[6][i].setFont(new Font("Dialog", Font.PLAIN, 45));
-            boardSegment[6][i].setOpaque(true); 
-            boardSegment[6][i].setBorder(null);
+            initializePiece(boardSegment[6][i]);
 
             boardSegment[1][i].setText(UnicodeMap.bPawn);
-            boardSegment[1][i].setFont(new Font("Dialog", Font.PLAIN, 45));
-            boardSegment[1][i].setOpaque(true); 
-            boardSegment[1][i].setBorder(null);
+            initializePiece(boardSegment[1][i]);
+
+            if (i == 1 || i == 6) 
+            {
+                boardSegment[7][i].setText(UnicodeMap.wKnight);
+                initializePiece(boardSegment[7][i]);
+
+                boardSegment[0][i].setText(UnicodeMap.bKnight);
+                initializePiece(boardSegment[0][i]);
+            }
             /*
             if (i == 0 || i == 7) {
                 JLabel wRookLabel = new JLabel(UnicodeMap.wRook);
