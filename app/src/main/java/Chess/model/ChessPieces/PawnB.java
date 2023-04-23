@@ -28,7 +28,6 @@ public class PawnB extends ChessPiece
         return this.color;
     }
 
-    // white pawn goes up the array from row index 6 to 5, 4...
     public ArrayList<int[]> legalSquares()
     {
         ArrayList<int[]> result = new ArrayList<int[]>();

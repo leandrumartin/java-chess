@@ -24,7 +24,6 @@ public class ChessBoard implements GameInterface, Serializable
         for (int i = 0; i < 8; i++) {
             ChessPiece PawnW = new PawnW(6, i, this);
             this.board[6][i] = PawnW;
-
             ChessPiece PawnB = new PawnB(1, i, this);
             this.board[1][i] = PawnB;
 
@@ -42,15 +41,21 @@ public class ChessBoard implements GameInterface, Serializable
                 ChessPiece BishopB = new BishopB(0, i, this);
                 this.board[0][i] = BishopB;
             }
-            else if (i == 2 || i == 5)
+            else if (i == 0 || i == 7)
             {
                 ChessPiece RookW = new RookW(7, i, this);
                 this.board[7][i] = RookW;
                 ChessPiece RookB = new RookB(0, i, this);
                 this.board[0][i] = RookB;
             }
+            else if (i == 3)
+            {
+                ChessPiece QueenW = new QueenW(7, i, this);
+                this.board[7][i] = QueenW;
+                ChessPiece QueenB = new QueenB(0, i, this);
+                this.board[0][i] = QueenB;
+            }
         }
-
     }
 
     public ChessPiece getChessPiece(int row, int col)
@@ -61,6 +66,7 @@ public class ChessBoard implements GameInterface, Serializable
     public void removePiece(int row, int col)
     {
         this.board[row][col] = null;
+        // return location information to view so that it can display captured pieces
         
     }
 
