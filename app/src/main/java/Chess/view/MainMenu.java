@@ -20,14 +20,14 @@ public class MainMenu extends JFrame implements ActionListener
     JPanel mainPanel;
     JPanel buttonPanel;
     JPanel speedPanel;
-    JPanel loadPanel;
+    // JPanel loadPanel;
     JPanel animationPanel;
     JPanel instructionPanel;
     JPanel recordPanel;
     JPanel decisionPanel;
     JButton onePlayer;
     JButton twoPlayer;
-    JButton loadGame;
+    // JButton loadGame;
     JButton bulletChess;
     JButton blitzChess;
     JButton rapidChess;
@@ -139,15 +139,15 @@ public class MainMenu extends JFrame implements ActionListener
         decisionLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
         decisionPanel.add(decisionLabel);
 
-        loadPanel = new JPanel();
-        loadPanel.setLayout(new GridLayout(1, 1));
-        loadPanel.setPreferredSize(new Dimension(150, 50));
-        loadPanel.setBackground(new Color(119, 148, 86));
+        // loadPanel = new JPanel();
+        // loadPanel.setLayout(new GridLayout(1, 1));
+        // loadPanel.setPreferredSize(new Dimension(150, 50));
+        // loadPanel.setBackground(new Color(119, 148, 86));
 
-        loadGame = new JButton("Load Saved Game");
-        loadGame.addActionListener(this);
-        loadGame.setEnabled(false);     //Work on this button in deliverable 2
-        loadPanel.add(loadGame);
+        // loadGame = new JButton("Load Saved Game");
+        // loadGame.addActionListener(this);
+        // loadGame.setEnabled(false);     //Work on this button in deliverable 2
+        // loadPanel.add(loadGame);
 
         buttonPanel = new JPanel();
         buttonPanel.setLayout(new GridLayout(1, 2));
@@ -175,7 +175,7 @@ public class MainMenu extends JFrame implements ActionListener
         mainPanel.add(speedPanel);
         mainPanel.add(decisionPanel);
         mainPanel.add(buttonPanel);
-        mainPanel.add(loadPanel);
+        // mainPanel.add(loadPanel);
         mainPanel.add(animationPanel);
 
         mainFrame.add(mainPanel);

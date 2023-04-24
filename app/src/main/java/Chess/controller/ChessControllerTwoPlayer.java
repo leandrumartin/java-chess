@@ -18,9 +18,7 @@ import Chess.view.FileSelector;
 public class ChessControllerTwoPlayer implements ControllerInterface {
     private ChessBoard board;
     private ChessView view;
-    private ChessPieceColor currentPlayer;
     private ChessPiece currentChessPiece;
-    private int clickCount;
 
     public ChessControllerTwoPlayer(ChessBoard board, int time) {
         if (ConfirmationDialog.confirmLoadGame()) {
@@ -29,26 +27,25 @@ public class ChessControllerTwoPlayer implements ControllerInterface {
             this.board = board;
         }
         
-        this.view = new ChessView(this, board, time);
+        this.view = new ChessView(this, this.board, time); // Make sure to pass `this.board`, not `board` from the constructor arguments
+        ArrayList<int[]> allCurrentPieces = this.board.findPieces(this.board.getCurrentPlayer());
+        this.view.enableSquares(allCurrentPieces);
         this.view.setVisible(true);
-
-        this.currentPlayer = ChessPieceColor.W;
-        this.clickCount = 0;
     }
     
     public ChessPieceColor getCurrentPlayer()
     {
-        return this.currentPlayer;
+        return this.board.getCurrentPlayer();
     }
 
     private void switchPlayers() {
-        if (this.currentPlayer == ChessPieceColor.W) 
+        if (this.board.getCurrentPlayer() == ChessPieceColor.W) 
         {
-            this.currentPlayer = ChessPieceColor.B;
+            this.board.setCurrentPlayer(ChessPieceColor.B);
         } 
         else 
         {
-            this.currentPlayer = ChessPieceColor.W;
+            this.board.setCurrentPlayer(ChessPieceColor.W);
         }
     }
 
@@ -57,7 +54,10 @@ public class ChessControllerTwoPlayer implements ControllerInterface {
     @Override
     public void userPressed(int row, int col)
     {
+        int clickCount = this.board.getClickCount();
         clickCount++;
+        this.board.setClickCount(clickCount);
+
         if (clickCount == 1)
         {
             this.selectPiece(row, col);
@@ -66,20 +66,20 @@ public class ChessControllerTwoPlayer implements ControllerInterface {
         else if (clickCount == 2)
         {
             this.selectDestination(row, col);
-            clickCount = 0;
+            this.board.setClickCount(0);
         }
     }
 
     @Override
     public void selectPiece(int fromRow, int fromCol)
     {
-        this.currentChessPiece = board.getChessPiece(fromRow, fromCol);
+        this.currentChessPiece = this.board.getChessPiece(fromRow, fromCol);
         ArrayList<int[]> movableSquares = this.board.movableSquares(this.currentChessPiece);
         this.view.drawPossibleMoves(movableSquares);
         if (movableSquares.size() == 0)
         {
-            clickCount = 0;
-            ArrayList<int[]> allCurrentPieces = this.board.findPieces(this.currentPlayer);
+            this.board.setClickCount(0);
+            ArrayList<int[]> allCurrentPieces = this.board.findPieces(this.board.getCurrentPlayer());
             view.enableSquares(allCurrentPieces);
         }
     }
@@ -89,7 +89,7 @@ public class ChessControllerTwoPlayer implements ControllerInterface {
     {
         this.board.placeChessPiece(toRow, toCol, this.currentChessPiece);
         this.switchPlayers();
-        ArrayList<int[]> allCurrentPieces = this.board.findPieces(this.currentPlayer);
+        ArrayList<int[]> allCurrentPieces = this.board.findPieces(this.board.getCurrentPlayer());
         this.view.enableSquares(allCurrentPieces);
     }
 

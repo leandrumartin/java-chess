@@ -16,6 +16,8 @@ public class ChessBoard implements GameInterface, Serializable
 {
     private ChessPiece[][] board;
     private transient ArrayList<GameObserver> observers; // Cannot be instantiated here or loading game fails
+    private ChessPieceColor currentPlayer;
+    private int clickCount;
 
     public ChessBoard()
     {
@@ -56,11 +58,34 @@ public class ChessBoard implements GameInterface, Serializable
                 this.board[0][i] = QueenB;
             }
         }
+
+        this.currentPlayer = ChessPieceColor.W;
+        this.clickCount = 0;
     }
 
     public ChessPiece getChessPiece(int row, int col)
     {
         return this.board[row][col];
+    }
+
+    public int getClickCount()
+    {
+        return this.clickCount;
+    }
+    
+    public void setClickCount(int count)
+    {
+        this.clickCount = count;
+    }
+    
+    public ChessPieceColor getCurrentPlayer()
+    {
+        return this.currentPlayer;
+    }
+    
+    public void setCurrentPlayer(ChessPieceColor color)
+    {
+        this.currentPlayer = color;
     }
 
     public void removePiece(int row, int col)
