@@ -5,16 +5,24 @@ import java.awt.event.*;
 
 import javax.swing.*; 
 
+import Chess.controller.ChessControllerTwoPlayer;
+import Chess.controller.ControllerInterface;
+import Chess.model.ChessPieces.ChessPieceColor;
+
 public class ChessClock extends JLabel implements ActionListener
 {
     public static final int UPDATE_INTERVAL = 1000;     //1 second
     private Timer timer;
-    public int playerTime;
+    public int whiteTime;
+    public int blackTime;
+    private ChessControllerTwoPlayer controller;
+    private ChessPieceColor currentPlayer;
 
-
-    public ChessClock(int time)
+    public ChessClock(int time, ControllerInterface controller)
     {
-        this.playerTime = time * 60;        //player time in seconds
+        this.whiteTime = time * 60;        //player time in seconds
+        this.blackTime = time * 60;
+        this.controller = (ChessControllerTwoPlayer) controller;
 
         timer = new Timer(UPDATE_INTERVAL, this);
         timer.start();
@@ -42,16 +50,6 @@ public class ChessClock extends JLabel implements ActionListener
     public String formatTime(int[] time)
     {
         String formattedTime = String.format("%02d:%02d", time[0], time[1]); //2 digits for minutes and 2 digits for seconds
-        formattedTime = formattedTime.replace("0", UnicodeMap.zero);
-        formattedTime = formattedTime.replace("1", UnicodeMap.one);
-        formattedTime = formattedTime.replace("2", UnicodeMap.two);
-        formattedTime = formattedTime.replace("3", UnicodeMap.three);
-        formattedTime = formattedTime.replace("4", UnicodeMap.four);
-        formattedTime = formattedTime.replace("5", UnicodeMap.five);
-        formattedTime = formattedTime.replace("6", UnicodeMap.six);
-        formattedTime = formattedTime.replace("7", UnicodeMap.seven);
-        formattedTime = formattedTime.replace("8", UnicodeMap.eight);
-        formattedTime = formattedTime.replace("9", UnicodeMap.nine);
         return formattedTime;
     }
 
@@ -59,14 +57,31 @@ public class ChessClock extends JLabel implements ActionListener
     {
         if (event.getSource() == timer)
         {
-            int[] currentTime = setTime(playerTime);
-            String displayTime = formatTime(currentTime);
-            setText(displayTime);
-            playerTime--;
-            if (checkZero(playerTime) == true)
+            currentPlayer = this.controller.getCurrentPlayer();
+            System.out.println(currentPlayer);
+            if (currentPlayer == ChessPieceColor.W)
             {
-                timer.stop();
-                //Figure out winner here
+                int[] currentWhiteTime = setTime(whiteTime);
+                String displayWhiteTime = formatTime(currentWhiteTime);
+                setText(displayWhiteTime);
+                whiteTime--;
+                if (checkZero(whiteTime) == true)
+                {
+                    timer.stop();
+                    //Figure out winner here
+                } 
+            }
+            else
+            {
+                int[] currentBlackTime = setTime(blackTime);
+                String displayBlackTime = formatTime(currentBlackTime);
+                setText(displayBlackTime);
+                blackTime--;
+                if (checkZero(blackTime) == true)
+                {
+                    timer.stop();
+                    //Figure out winner here
+                }
             }
         }
     }
