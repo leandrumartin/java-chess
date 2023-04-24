@@ -23,7 +23,11 @@ public class ChessControllerTwoPlayer implements ControllerInterface {
     private int clickCount;
 
     public ChessControllerTwoPlayer(ChessBoard board, int time) {
-        this.board = board;
+        if (ConfirmationDialog.confirmLoadGame()) {
+            this.loadGame();
+        } else {
+            this.board = board;
+        }
         
         this.view = new ChessView(this, board, time);
         this.view.setVisible(true);
@@ -119,31 +123,29 @@ public class ChessControllerTwoPlayer implements ControllerInterface {
     }
 
     public void loadGame() {
-        if (ConfirmationDialog.confirmLoadGame()) {
+        try {
+            // Retrieve file to load from
+            String file = FileSelector.getFileToLoad();
+            FileInputStream fileInput = new FileInputStream(file);
+
+            // Load from file
             try {
-                // Retrieve file to load from
-                String file = FileSelector.getFileToLoad();
-                FileInputStream fileInput = new FileInputStream(file);
+                ObjectInputStream objectInput = new ObjectInputStream(fileInput);
 
-                // Load from file
-                try {
-                    ObjectInputStream objectInput = new ObjectInputStream(fileInput);
-
-                    this.board = (ChessBoard) objectInput.readObject();
-                    
-                    objectInput.close();
-                } catch (ClassNotFoundException error) {
-                    System.out.println("Loading failed: " + error);
-                } catch (IOException error) {
-                    System.out.println("Loading failed: " + error);
-                }
-
-                fileInput.close();
-            } catch (FileNotFoundException error) {
-                System.out.println("File selection failed: " + error);
+                this.board = (ChessBoard) objectInput.readObject();
+                
+                objectInput.close();
+            } catch (ClassNotFoundException error) {
+                System.out.println("Loading failed: " + error);
             } catch (IOException error) {
                 System.out.println("Loading failed: " + error);
             }
+
+            fileInput.close();
+        } catch (FileNotFoundException error) {
+            System.out.println("File selection failed: " + error);
+        } catch (IOException error) {
+            System.out.println("Loading failed: " + error);
         }
     }
 }

@@ -2,9 +2,11 @@ package Chess.model.ChessPieces;
 
 import Chess.model.ChessPieces.ChessPieceColor;
 import Chess.model.ChessBoard;
+
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public abstract class ChessPiece 
+public abstract class ChessPiece implements Serializable
 {
     protected int row;
     protected int col;
@@ -42,4 +44,5 @@ public abstract class ChessPiece
     public abstract ChessPieceColor getColor();
     public abstract ArrayList<int[]> legalSquares();
     public abstract ArrayList<int[]> movableSquares();
+    public abstract String getLabel();
 }
