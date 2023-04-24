@@ -3,6 +3,8 @@ package Chess.model.ChessPieces;
 import Chess.model.ChessBoard;
 import Chess.model.ChessPieces.ChessPiece;
 import Chess.model.ChessPieces.ChessPieceColor;
+import Chess.view.UnicodeMap;
+
 import java.util.ArrayList;
 
 public class PawnB extends ChessPiece
@@ -93,5 +95,9 @@ public class PawnB extends ChessPiece
             }
         }
         return result;
+    }
+    
+    public String getLabel() {
+        return UnicodeMap.bPawn;
     }
 }

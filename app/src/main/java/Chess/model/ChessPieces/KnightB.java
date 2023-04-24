@@ -3,6 +3,8 @@ package Chess.model.ChessPieces;
 import Chess.model.ChessBoard;
 import Chess.model.ChessPieces.ChessPiece;
 import Chess.model.ChessPieces.ChessPieceColor;
+import Chess.view.UnicodeMap;
+
 import java.util.ArrayList;
 
 public class KnightB extends ChessPiece
@@ -71,6 +73,10 @@ public class KnightB extends ChessPiece
             }
         }
         return movableSquares;
+    }
+    
+    public String getLabel() {
+        return UnicodeMap.bKnight;
     }
 
 }

@@ -15,7 +15,7 @@ import Chess.GameObserver;
 public class ChessBoard implements GameInterface, Serializable
 {
     private ChessPiece[][] board;
-    private ArrayList<GameObserver> observers = new ArrayList<GameObserver>();
+    private transient ArrayList<GameObserver> observers; // Cannot be instantiated here or loading game fails
 
     public ChessBoard()
     {
@@ -91,12 +91,7 @@ public class ChessBoard implements GameInterface, Serializable
         piece.move(toRow, toCol);
         this.board[toRow][toCol] = piece;
 
-        // location information to pass on to observers
-        ArrayList<int[]> result = new ArrayList<int[]>();
-        result.add(new int[]{fromRow, fromCol});
-        result.add(new int[]{toRow, toCol});
-
-        this.notifyObservers(result);
+        this.notifyObservers();
     }
 
     public ArrayList<int[]> findPieces(ChessPieceColor color)
@@ -118,9 +113,33 @@ public class ChessBoard implements GameInterface, Serializable
         return result;
     }
 
+    /**
+     * Finds all pieces of all colors.
+     * @return
+     */
+    public ArrayList<int[]> findPieces()
+    {
+        ArrayList<int[]> result = new ArrayList<int[]>();
+        for (int row = 0; row < 8; row++) //go through rows
+        {
+            for (int col = 0; col < 8; col++) //go through columns
+            {
+                if (this.board[row][col] != null) 
+                {
+                    result.add(new int[]{row, col});
+                }
+            }
+        }
+        return result;
+    }
+
     // GameInterface
     public void register(GameObserver observer)
     {
+        if (observers == null)
+        {
+            observers = new ArrayList<GameObserver>(); // Must be instantiated here or loading saved game fails
+        }
        observers.add(observer);
     }
 
@@ -129,11 +148,11 @@ public class ChessBoard implements GameInterface, Serializable
        observers.remove(observer);
     }
  
-    public void notifyObservers(ArrayList<int[]> pieceLocations)
+    public void notifyObservers()
     {
        for(GameObserver observer: observers)
        {
-          observer.update(pieceLocations);
+          observer.update();
        }
  
     }

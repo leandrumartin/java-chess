@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import Chess.controller.ChessControllerTwoPlayer;
 import Chess.controller.ControllerInterface;
 import Chess.model.ChessBoard;
+import Chess.model.ChessPieces.ChessPieceColor;
 import Chess.view.ChessPieces;
 import Chess.GameObserver;
 
@@ -29,7 +30,7 @@ public class ChessView extends JFrame implements ActionListener, GameObserver {
         this.clockTime = time;
 
         // register this object as the observer of the game
-        this.board.register(this); 
+        this.board.register(this);
 
         JFrame frame = new JFrame("Chess Board");
         frame.setResizable(false);
@@ -104,6 +105,8 @@ public class ChessView extends JFrame implements ActionListener, GameObserver {
         mainPanel.add(clockPanel);
 
         ChessPieces chessPieces = new ChessPieces(boardSegment);
+
+        this.update(); // Draw the current pieces--necessary for loading a saved game
 
         frame.add(mainPanel);
         frame.pack();
@@ -195,17 +198,26 @@ public class ChessView extends JFrame implements ActionListener, GameObserver {
         }
     }
 
-    public void update(ArrayList<int[]> move)
+    // public void update(ArrayList<int[]> move)
+    public void update()
     {
+        // Erase board
         removeDots();
-        int fromRow = move.get(0)[0];
-        int fromCol = move.get(0)[1];
-        String currentLabel = getCurrentLabel(fromRow, fromCol);
-        int toRow = move.get(1)[0];
-        int toCol = move.get(1)[1];
-        boardSegment[fromRow][fromCol].setText(null);
-        boardSegment[toRow][toCol].setText(currentLabel);
-        boardSegment[toRow][toCol].setFont(new Font("Dialog", Font.PLAIN, 45));
+        for (JButton[] buttons : this.boardSegment) {
+            for (JButton button : buttons) {
+                button.setText(null);
+            }
+        }
+
+        // Draw pieces on board
+        ArrayList<int[]> pieces = this.board.findPieces();
+        for (int[] piece : pieces) {
+            int row = piece[0];
+            int col = piece[1];
+            String label = this.board.getChessPiece(row, col).getLabel();
+            this.boardSegment[row][col].setText(label);
+            this.boardSegment[row][col].setFont(new Font("Dialog", Font.PLAIN, 45));
+        }
     }
 
     @Override
