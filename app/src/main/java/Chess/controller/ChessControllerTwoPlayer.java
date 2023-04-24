@@ -36,6 +36,11 @@ public class ChessControllerTwoPlayer implements ControllerInterface {
         this.clickCount = 0;
     }
     
+    public ChessPieceColor getCurrentPlayer()
+    {
+        return this.currentPlayer;
+    }
+
     private void switchPlayers() {
         if (this.currentPlayer == ChessPieceColor.W) 
         {

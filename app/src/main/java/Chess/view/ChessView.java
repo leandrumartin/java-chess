@@ -18,16 +18,18 @@ public class ChessView extends JFrame implements ActionListener, GameObserver {
     private ChessBoard board;
     private ControllerInterface controller;
 
-    private int panelWidth = 930;
+    private int panelWidth = 825;
     private int panelHeight = 700;
-    private int clockTime;
+    private int whiteClockTime;
+    private int blackClockTime;
     private JPanel boardPanel;
     private JPanel clockPanel;
 
     public ChessView(ControllerInterface controller, ChessBoard board, int time) {
         this.board = board;
         this.controller = controller;
-        this.clockTime = time;
+        this.whiteClockTime = time;
+        this.blackClockTime = time;
 
         // register this object as the observer of the game
         this.board.register(this);
@@ -92,12 +94,12 @@ public class ChessView extends JFrame implements ActionListener, GameObserver {
         clockPanel.setBackground(new Color(192,192,192));
 
         JLabel whiteClockLabel = new JLabel("White: ");
-        JLabel whiteClock = generateClock(clockPanel, clockTime);
+        JLabel whiteClock = new ChessClock(whiteClockTime, controller);
         clockPanel.add(whiteClockLabel);
         clockPanel.add(whiteClock);
 
         JLabel blackClockLabel = new JLabel("Black: ");
-        JLabel blackClock = generateClock(clockPanel, clockTime);
+        JLabel blackClock = new ChessClock(blackClockTime, controller);
         clockPanel.add(blackClockLabel);
         clockPanel.add(blackClock);
 
@@ -111,12 +113,6 @@ public class ChessView extends JFrame implements ActionListener, GameObserver {
         frame.add(mainPanel);
         frame.pack();
         frame.setVisible(true);
-    }
-
-    public ChessClock generateClock(JPanel panel, int clockTime)
-    {
-        ChessClock clock = new ChessClock(clockTime);
-        return clock;
     }
 
     public void generateColumns(JPanel panel)

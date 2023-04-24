@@ -32,17 +32,6 @@ public class UnicodeMap
     public static String rapid = "\u23F2";          //10 minutes per player
     public static String bullet = "\u204C";         //1 minute per player
 
-    public static String zero = "\u0030";
-    public static String one = "\u0031";
-    public static String two = "\u0032";
-    public static String three = "\u0033";
-    public static String four = "\u0034";
-    public static String five = "\u0035";
-    public static String six = "\u0036";
-    public static String seven = "\u0037";
-    public static String eight = "\u0038";
-    public static String nine = "\u0039";
-
     private static String[] pieceArray = {wPawn, bPawn, wRook, bRook, wKnight, bKnight, wBishop, bBishop, wQueen, bQueen, wKing, bKing};
     private static Random random = new Random();
     public static String getRandomPiece()
