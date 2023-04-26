@@ -7,29 +7,19 @@ import Chess.view.UnicodeMap;
 
 import java.util.ArrayList;
 
-public class QueenW extends ChessPiece
+public class Queen extends ChessPiece
 {
-    private ChessPieceColor color = ChessPieceColor.W;
+    private ChessPieceColor color = ChessPieceColor.B;
     // private BishopB bishop;
     // private RookB rook;
 
-    public QueenW(int row, int col, ChessBoard board)
+    public Queen(int row, int col, ChessBoard board, ChessPieceColor color)
     {
-        super(row, col, board);
+        super(row, col, board, color);
         // this.bishop = new BishopB(row, col, board);
         // this.rook = new RookB(row, col, board);
     }
     
-    public ChessPieceColor getColor()
-    {
-        return this.color;
-    }
-
-    public ArrayList<int[]> legalSquares()
-    {
-        return new ArrayList<int[]>();
-    }
-
     // public ArrayList<int[]> movableSquares()
     // {
     //     ArrayList<int[]> movableSquares = new ArrayList<int[]>();
@@ -38,7 +28,7 @@ public class QueenW extends ChessPiece
     //     return movableSquares;
     // }
 
-    public ArrayList<ArrayList<int[]>> legalSquares2()
+    public ArrayList<ArrayList<int[]>> legalSquares()
     {
         ArrayList<ArrayList<int[]>> finalResult = new ArrayList<ArrayList<int[]>>();
 
@@ -117,36 +107,17 @@ public class QueenW extends ChessPiece
         return finalResult;
     }
 
-    public ArrayList<int[]> movableSquares()
-    {
-        ArrayList<ArrayList<int[]>> legalSquares = this.legalSquares2();
-
-        ArrayList<int[]> movableSquares = new ArrayList<int[]>();
-        for (ArrayList<int[]> list : legalSquares)
-        {
-            for (int[] location : list)
-            {int row = location[0];
-            int col = location[1];
-            ChessPiece piece = super.board.getChessPiece(row, col);
-
-            if (piece == null)
-            {
-                movableSquares.add(location);
-            }
-            else
-            {
-                if (piece.getColor() != this.color)
-                {
-                    movableSquares.add(location);
-                }
-                break;
-            }}
-        }
-        return movableSquares;
-    }
-    
     public String getLabel() {
-        return UnicodeMap.wQueen;
+        String result;
+        if (super.color == ChessPieceColor.B)
+        {
+            result = UnicodeMap.bQueen;
+        }
+        else
+        {
+            result = UnicodeMap.wQueen;
+        }
+        return result;
     }
 }
 

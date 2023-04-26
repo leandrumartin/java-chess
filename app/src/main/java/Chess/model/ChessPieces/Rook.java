@@ -7,26 +7,14 @@ import Chess.view.UnicodeMap;
 
 import java.util.ArrayList;
 
-public class RookB extends ChessPiece
+public class Rook extends ChessPiece
 {
-    private ChessPieceColor color = ChessPieceColor.B;
-
-    public RookB(int row, int col, ChessBoard board)
+    public Rook(int row, int col, ChessBoard board, ChessPieceColor color)
     {
-        super(row, col, board);
-    }
-    
-    public ChessPieceColor getColor()
-    {
-        return this.color;
+        super(row, col, board, color);
     }
 
-    public ArrayList<int[]> legalSquares()
-    {
-        return new ArrayList<int[]>();
-    }
-
-    public ArrayList<ArrayList<int[]>> legalSquares2()
+    public ArrayList<ArrayList<int[]>> legalSquares()
     {
         ArrayList<ArrayList<int[]>> finalResult = new ArrayList<ArrayList<int[]>>();
 
@@ -68,36 +56,17 @@ public class RookB extends ChessPiece
         return finalResult;
     }
 
-    public ArrayList<int[]> movableSquares()
-    {
-        ArrayList<ArrayList<int[]>> legalSquares = this.legalSquares2();
-
-        ArrayList<int[]> movableSquares = new ArrayList<int[]>();
-        for (ArrayList<int[]> list : legalSquares)
-        {
-            for (int[] location : list)
-            {int row = location[0];
-            int col = location[1];
-            ChessPiece piece = super.board.getChessPiece(row, col);
-
-            if (piece == null)
-            {
-                movableSquares.add(location);
-            }
-            else
-            {
-                if (piece.getColor() != this.color)
-                {
-                    movableSquares.add(location);
-                }
-                break;
-            }}
-        }
-        return movableSquares;
-    }
-    
     public String getLabel() {
-        return UnicodeMap.bRook;
+        String result;
+        if (super.color == ChessPieceColor.B)
+        {
+            result = UnicodeMap.bRook;
+        }
+        else
+        {
+            result = UnicodeMap.wRook;
+        }
+        return result;
     }
 
 }

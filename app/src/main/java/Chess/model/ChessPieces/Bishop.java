@@ -7,27 +7,15 @@ import Chess.view.UnicodeMap;
 
 import java.util.ArrayList;
 
-public class BishopW extends ChessPiece
+public class Bishop extends ChessPiece
 {
-    private ChessPieceColor color = ChessPieceColor.W;
-
-    public BishopW(int row, int col, ChessBoard board)
+    public Bishop(int row, int col, ChessBoard board, ChessPieceColor color)
     {
-        super(row, col, board);
+        super(row, col, board, color);
     }
     
-    public ChessPieceColor getColor()
-    {
-        return this.color;
-    }
-
-    public ArrayList<int[]> legalSquares()
-    {
-        return new ArrayList<int[]>();
-    }
-
     // white pawn goes up the array from row index 6 to 5, 4...
-    public ArrayList<ArrayList<int[]>> legalSquares2()
+    public ArrayList<ArrayList<int[]>> legalSquares()
     {
         ArrayList<ArrayList<int[]>> finalResult = new ArrayList<ArrayList<int[]>>();
 
@@ -69,36 +57,17 @@ public class BishopW extends ChessPiece
         return finalResult;
     }
 
-    public ArrayList<int[]> movableSquares()
-    {
-        ArrayList<ArrayList<int[]>> legalSquares = this.legalSquares2();
-
-        ArrayList<int[]> movableSquares = new ArrayList<int[]>();
-        for (ArrayList<int[]> list : legalSquares)
-        {
-            for (int[] location : list)
-            {int row = location[0];
-            int col = location[1];
-            ChessPiece piece = super.board.getChessPiece(row, col);
-
-            if (piece == null)
-            {
-                movableSquares.add(location);
-            }
-            else
-            {
-                if (piece.getColor() != this.color)
-                {
-                    movableSquares.add(location);
-                }
-                break;
-            }}
-        }
-        return movableSquares;
-    }
-    
     public String getLabel() {
-        return UnicodeMap.wBishop;
+        String result;
+        if (super.color == ChessPieceColor.B)
+        {
+            result = UnicodeMap.bBishop;
+        }
+        else
+        {
+            result = UnicodeMap.wBishop;
+        }
+        return result;
     }
 
 }

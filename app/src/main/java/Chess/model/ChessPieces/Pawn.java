@@ -7,31 +7,34 @@ import Chess.view.UnicodeMap;
 
 import java.util.ArrayList;
 
-public class PawnB extends ChessPiece
+public class Pawn extends ChessPiece
 {
-    private ChessPieceColor color = ChessPieceColor.B;
 
-    private ArrayList<int[]> squares = new ArrayList<int[]>()  { 
-        { 
-            add(new int[]{1, -1}); // diagonal 
-            add(new int[]{1, 1}); // diagonal 
-            add(new int[]{1, 0}); // forward 
-            //add(new int[]{-2, 0}); // forward two if hasNotMoved 
-        } 
-    };
+    private ArrayList<int[]> squares = new ArrayList<int[]>();
+    private int hasNotMovedForward;
+    private int rowForward;
 
-    public PawnB(int row, int col, ChessBoard board)
+    public Pawn(int row, int col, ChessBoard board, ChessPieceColor color)
     {
-        super(row, col, board);
+        super(row, col, board, color);
+        if (super.color == ChessPieceColor.B)
+        {
+            rowForward = 1;
+            hasNotMovedForward = 2;
+        }
+        else
+        {
+            rowForward = -1;
+            hasNotMovedForward = -2;
+        }            
+        squares.add(new int[]{rowForward, -1});
+        squares.add(new int[]{rowForward, 1});
+        squares.add(new int[]{rowForward, 0});
     }
-    
-    public ChessPieceColor getColor()
-    {
-        return this.color;
-    }
 
-    public ArrayList<int[]> legalSquares()
+    public ArrayList<ArrayList<int[]>> legalSquares()
     {
+        ArrayList<ArrayList<int[]>> finalResult = new ArrayList<ArrayList<int[]>>();
         ArrayList<int[]> result = new ArrayList<int[]>();
         for (int[] square : this.squares)
         {
@@ -42,17 +45,20 @@ public class PawnB extends ChessPiece
         }
         if (super.hasNotMoved)
         {
-            result.add(new int[]{super.row + 2, super.col});
+            result.add(new int[]{super.row + hasNotMovedForward, super.col});
         }
-        return result;
+        finalResult.add(result);
+        return finalResult;
     }
 
+    @Override
     public ArrayList<int[]> movableSquares()
     {
-        ArrayList<int[]> legalSquares = this.legalSquares();
-
+        ArrayList<ArrayList<int[]>> legalSquares = this.legalSquares();
+        
         ArrayList<int[]> movableSquares = new ArrayList<int[]>();
-        for (int[] location : legalSquares)
+        
+        for (int[] location : legalSquares.get(0))
         {
             int row = location[0];
             int col = location[1];
@@ -62,7 +68,7 @@ public class PawnB extends ChessPiece
             {
                 if (piece != null)
                 {
-                    if (piece.getColor() != this.color)
+                    if (piece.getColor() != super.color)
                     {
                         movableSquares.add(location);
                     }
@@ -87,7 +93,7 @@ public class PawnB extends ChessPiece
     private boolean isDiagonal(int newRow, int newCol)
     {
         boolean result = false;
-        if (newRow == super.row + 1)
+        if (newRow == super.row + rowForward)
         {
             if (newCol == super.col - 1 | newCol == super.col + 1)
             {
@@ -98,6 +104,15 @@ public class PawnB extends ChessPiece
     }
     
     public String getLabel() {
-        return UnicodeMap.bPawn;
+        String result;
+        if (super.color == ChessPieceColor.B)
+        {
+            result = UnicodeMap.bPawn;
+        }
+        else
+        {
+            result = UnicodeMap.wPawn;
+        }
+        return result;
     }
 }
