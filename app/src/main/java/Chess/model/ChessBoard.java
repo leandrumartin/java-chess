@@ -24,38 +24,28 @@ public class ChessBoard implements GameInterface, Serializable
         this.board = new ChessPiece[8][8];
 
         for (int i = 0; i < 8; i++) {
-            ChessPiece PawnW = new PawnW(6, i, this);
-            this.board[6][i] = PawnW;
-            ChessPiece PawnB = new PawnB(1, i, this);
-            this.board[1][i] = PawnB;
+            this.board[6][i] = new Pawn(6, i, this, ChessPieceColor.W);
+            this.board[1][i] = new Pawn(1, i, this, ChessPieceColor.B);
 
             if (i == 1 || i == 6) 
             {
-                ChessPiece KnightW = new KnightW(7, i, this);
-                this.board[7][i] = KnightW;
-                ChessPiece KnightB = new KnightB(0, i, this);
-                this.board[0][i] = KnightB;
+                this.board[7][i] = new Knight(7, i, this, ChessPieceColor.W);
+                this.board[0][i] = new Knight(0, i, this, ChessPieceColor.B);
             }
             else if (i == 2 || i == 5)
             {
-                ChessPiece BishopW = new BishopW(7, i, this);
-                this.board[7][i] = BishopW;
-                ChessPiece BishopB = new BishopB(0, i, this);
-                this.board[0][i] = BishopB;
+                this.board[7][i] = new Bishop(7, i, this, ChessPieceColor.W);
+                this.board[0][i] = new Bishop(0, i, this, ChessPieceColor.B);
             }
             else if (i == 0 || i == 7)
             {
-                ChessPiece RookW = new RookW(7, i, this);
-                this.board[7][i] = RookW;
-                ChessPiece RookB = new RookB(0, i, this);
-                this.board[0][i] = RookB;
+                this.board[7][i] = new Rook(7, i, this, ChessPieceColor.W);
+                this.board[0][i] = new Rook(0, i, this, ChessPieceColor.B);
             }
             else if (i == 3)
             {
-                ChessPiece QueenW = new QueenW(7, i, this);
-                this.board[7][i] = QueenW;
-                ChessPiece QueenB = new QueenB(0, i, this);
-                this.board[0][i] = QueenB;
+                this.board[7][i] = new Queen(7, i, this, ChessPieceColor.W);
+                this.board[0][i] = new Queen(0, i, this, ChessPieceColor.B);
             }
         }
 
