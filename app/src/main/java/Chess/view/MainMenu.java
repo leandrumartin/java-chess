@@ -54,7 +54,7 @@ public class MainMenu extends JFrame implements ActionListener
 
         mainPanel = new JPanel();
         mainPanel.setLayout(new FlowLayout());
-        mainPanel.setPreferredSize(new Dimension(425, 535));
+        mainPanel.setPreferredSize(new Dimension(475, 500));
         mainPanel.setBackground(new Color(119, 148, 86));
 
         JLabel wKing = new JLabel(UnicodeMap.wKing);
@@ -76,18 +76,18 @@ public class MainMenu extends JFrame implements ActionListener
         recordPanel.setBackground(new Color(119, 148, 86));
 
         data = new WinLossData();
-        //int[] dataArray = data.loadData();
-        //for(int i = 0; i < dataArray.length; i++)
-        //{
-        //    if (dataArray[i] == 1)
-        //    {
-        //        wins++;
-        //    }
-        //    else
-        //    {
-        //        losses++;
-        //    }
-        //}
+        int[] dataArray = data.loadData();
+        for(int i = 0; i < dataArray.length; i++)
+        {
+            if (dataArray[i] == 1)
+            {
+                wins++;
+            }
+            else
+            {
+                losses++;
+            }
+        }
 
         recordLabel = new JLabel("Wins: " + wins + " Losses: " + losses);
         recordLabel.setFont(new Font("Times New Roman", Font.PLAIN, 24));
@@ -197,7 +197,7 @@ public class MainMenu extends JFrame implements ActionListener
             animationLabel.setFont(new Font("Dialog", Font.BOLD, 30));
             animationPanel.add(animationLabel);
 
-            if (pieceCount <= 11)
+            if (pieceCount <= 10)
             {
                 animationPanel.revalidate();
                 animationPanel.repaint();

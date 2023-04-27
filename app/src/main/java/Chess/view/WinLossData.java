@@ -29,7 +29,7 @@ public class WinLossData
         ArrayList<Integer> list = new ArrayList<Integer>();
         try
         {
-            Scanner scanner = new Scanner(new File("C:\\Users\\btbea\\csci2300\\team_project-group11\\app\\src\\main\\java\\Chess\\view\\recorddata.txt"));
+            Scanner scanner = new Scanner(new File("recorddata.txt"));
 
             while (scanner.hasNextInt())
             {
