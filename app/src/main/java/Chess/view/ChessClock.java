@@ -17,6 +17,7 @@ public class ChessClock extends JLabel implements ActionListener
     public int blackTime;
     private ChessControllerTwoPlayer controller;
     private ChessPieceColor currentPlayer;
+    private String formattedTime;
 
     public ChessClock(int time, ControllerInterface controller)
     {
@@ -49,8 +50,13 @@ public class ChessClock extends JLabel implements ActionListener
 
     public String formatTime(int[] time)
     {
-        String formattedTime = String.format("%02d:%02d", time[0], time[1]); //2 digits for minutes and 2 digits for seconds
-        return formattedTime;
+        this.formattedTime = String.format("%02d:%02d", time[0], time[1]); //2 digits for minutes and 2 digits for seconds
+        return this.formattedTime;
+    }
+
+    public String getFormattedTime()
+    {
+        return this.formattedTime;
     }
 
     public void actionPerformed(ActionEvent event)
@@ -58,12 +64,10 @@ public class ChessClock extends JLabel implements ActionListener
         if (event.getSource() == timer)
         {
             currentPlayer = this.controller.getCurrentPlayer();
-            System.out.println(currentPlayer);
             if (currentPlayer == ChessPieceColor.W)
             {
                 int[] currentWhiteTime = setTime(whiteTime);
                 String displayWhiteTime = formatTime(currentWhiteTime);
-                setText(displayWhiteTime);
                 whiteTime--;
                 if (checkZero(whiteTime) == true)
                 {
@@ -75,7 +79,6 @@ public class ChessClock extends JLabel implements ActionListener
             {
                 int[] currentBlackTime = setTime(blackTime);
                 String displayBlackTime = formatTime(currentBlackTime);
-                setText(displayBlackTime);
                 blackTime--;
                 if (checkZero(blackTime) == true)
                 {
@@ -83,6 +86,7 @@ public class ChessClock extends JLabel implements ActionListener
                     //Figure out winner here
                 }
             }
+            this.controller.passTime();
         }
     }
 }

@@ -38,7 +38,7 @@ public class MainMenu extends JFrame implements ActionListener
     JLabel animationLabel;
     JLabel recordLabel;
     JLabel decisionLabel;
-    int time = 10;
+    int time = 0;
     int wins = 0;
     int losses = 0;
     int difficulty = 1;
@@ -134,7 +134,7 @@ public class MainMenu extends JFrame implements ActionListener
         decisionPanel.setPreferredSize(new Dimension(380, 50));
         decisionPanel.setBackground(new Color(119, 148, 86));
 
-        decisionLabel = new JLabel("Rapid - Each Player gets 10 Minutes.");
+        decisionLabel = new JLabel("            By Default - No Time Limit");
         decisionLabel.setFont(new Font("Times New Roman", Font.PLAIN, 24));
         decisionLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
         decisionPanel.add(decisionLabel);

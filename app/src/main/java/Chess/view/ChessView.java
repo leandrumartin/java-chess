@@ -11,23 +11,30 @@ import Chess.controller.ControllerInterface;
 import Chess.model.ChessBoard;
 import Chess.model.ChessPieces.ChessPieceColor;
 import Chess.view.ChessPieces;
+import Chess.view.GameDisplay;
 import Chess.GameObserver;
 
 public class ChessView extends JFrame implements ActionListener, GameObserver {
     private JButton[][] boardSegment = new JButton[8][8];
     private ChessBoard board;
-    private ControllerInterface controller;
+    private ChessControllerTwoPlayer controller;
 
     private int panelWidth = 825;
-    private int panelHeight = 700;
+    private int panelHeight = 750;
     private int whiteClockTime;
     private int blackClockTime;
+    private JPanel displayPanel;
     private JPanel boardPanel;
     private JPanel clockPanel;
+    private GameDisplay gameStatus;
+    private ChessClock whiteClock;
+    private ChessClock blackClock;
+    private ChessPieceColor currentPlayer;
+    private JLabel statusLabel;
 
     public ChessView(ControllerInterface controller, ChessBoard board, int time) {
         this.board = board;
-        this.controller = controller;
+        this.controller = (ChessControllerTwoPlayer) controller;
         this.whiteClockTime = time;
         this.blackClockTime = time;
 
@@ -52,6 +59,16 @@ public class ChessView extends JFrame implements ActionListener, GameObserver {
 
         this.boardPanel = new JPanel(new GridLayout(10, 10));
         this.boardPanel.setBackground(new Color(192,192,192));
+
+        this.displayPanel = new JPanel(new GridLayout(1, 1));
+        this.displayPanel.setBackground(new Color(192,192,192));
+        this.displayPanel.setPreferredSize(new Dimension(250, 15));
+
+        this.gameStatus = new GameDisplay(controller);
+        this.statusLabel = new JLabel("          Current Player: " + gameStatus.displayGameStatus());
+        this.displayPanel.add(statusLabel);;
+        mainPanel.add(this.displayPanel);
+
         generateColumns(this.boardPanel);
         for (int row = 0; row < 8; row++) // 8 rows
         {
@@ -88,23 +105,31 @@ public class ChessView extends JFrame implements ActionListener, GameObserver {
             this.boardPanel.add(rowLabel2);  
         }
         generateColumns(this.boardPanel);
-
-        clockPanel = new JPanel(new GridLayout(2, 2));
-        clockPanel.setPreferredSize(new Dimension(100, 50));
-        clockPanel.setBackground(new Color(192,192,192));
-
-        JLabel whiteClockLabel = new JLabel("White: ");
-        JLabel whiteClock = new ChessClock(whiteClockTime, controller);
-        clockPanel.add(whiteClockLabel);
-        clockPanel.add(whiteClock);
-
-        JLabel blackClockLabel = new JLabel("Black: ");
-        JLabel blackClock = new ChessClock(blackClockTime, controller);
-        clockPanel.add(blackClockLabel);
-        clockPanel.add(blackClock);
-
         mainPanel.add(this.boardPanel);
-        mainPanel.add(clockPanel);
+
+        if (time != 0)
+        {
+            clockPanel = new JPanel(new GridLayout(2, 2));
+            clockPanel.setPreferredSize(new Dimension(100, 50));
+            clockPanel.setBackground(new Color(192,192,192));
+    
+            JLabel whiteClockLabel = new JLabel("White: ");
+            this.whiteClock = new ChessClock(whiteClockTime, controller);
+            this.whiteClock.setText(this.whiteClock.getFormattedTime());
+            clockPanel.add(whiteClockLabel);
+            clockPanel.add(whiteClock);
+    
+            JLabel blackClockLabel = new JLabel("Black: ");
+            this.blackClock = new ChessClock(blackClockTime, controller);
+            this.blackClock.setText(this.blackClock.getFormattedTime());
+            clockPanel.add(blackClockLabel);
+            clockPanel.add(blackClock);
+            mainPanel.add(this.clockPanel);
+        }
+        else
+        {
+            mainPanel.setPreferredSize(new Dimension(panelWidth-100, panelHeight));
+        }
 
         ChessPieces chessPieces = new ChessPieces(boardSegment);
 
@@ -191,6 +216,29 @@ public class ChessView extends JFrame implements ActionListener, GameObserver {
                     boardSegment[row][col].setBorder(null);
                 }
             }
+        }
+    }
+
+    public void updateDisplay()
+    {
+        this.statusLabel.setText("          Current Player: " + this.gameStatus.displayGameStatus());
+    }
+
+    public void invalidDisplay()
+    {
+        this.statusLabel.setText("No Valid Moves. Select a New Piece.");
+    }
+
+    public void updateClock()
+    {
+        this.currentPlayer = this.controller.getCurrentPlayer();
+        if (currentPlayer == ChessPieceColor.W)
+        {
+            this.whiteClock.setText(this.whiteClock.getFormattedTime());
+        }
+        else
+        {
+            this.blackClock.setText(this.blackClock.getFormattedTime());
         }
     }
 

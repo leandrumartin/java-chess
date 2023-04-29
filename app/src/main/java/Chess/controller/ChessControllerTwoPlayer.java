@@ -38,6 +38,11 @@ public class ChessControllerTwoPlayer implements ControllerInterface {
         return this.board.getCurrentPlayer();
     }
 
+    public void passTime()
+    {
+        this.view.updateClock();
+    }
+
     private void switchPlayers() {
         if (this.board.getCurrentPlayer() == ChessPieceColor.W) 
         {
@@ -79,8 +84,9 @@ public class ChessControllerTwoPlayer implements ControllerInterface {
         if (movableSquares.size() == 0)
         {
             this.board.setClickCount(0);
+            this.view.invalidDisplay();
             ArrayList<int[]> allCurrentPieces = this.board.getPiecesLocation(this.board.getCurrentPlayer());
-            view.enableSquares(allCurrentPieces);
+            this.view.enableSquares(allCurrentPieces);
         }
     }
 
@@ -89,6 +95,7 @@ public class ChessControllerTwoPlayer implements ControllerInterface {
     {
         this.board.placeChessPiece(toRow, toCol, this.currentChessPiece);
         this.switchPlayers();
+        this.view.updateDisplay();
         ArrayList<int[]> allCurrentPieces = this.board.getPiecesLocation(this.board.getCurrentPlayer());
         this.view.enableSquares(allCurrentPieces);
     }
