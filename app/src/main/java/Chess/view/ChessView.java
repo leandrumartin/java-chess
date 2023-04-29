@@ -206,7 +206,7 @@ public class ChessView extends JFrame implements ActionListener, GameObserver {
         }
 
         // Draw pieces on board
-        ArrayList<int[]> pieces = this.board.findPieces();
+        ArrayList<int[]> pieces = this.board.getPiecesLocation();
         for (int[] piece : pieces) {
             int row = piece[0];
             int col = piece[1];

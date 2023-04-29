@@ -15,7 +15,7 @@ public class Bishop extends ChessPiece
     }
     
     // white pawn goes up the array from row index 6 to 5, 4...
-    public ArrayList<ArrayList<int[]>> legalSquares()
+    public ArrayList<ArrayList<int[]>> getLegalSquares()
     {
         ArrayList<ArrayList<int[]>> finalResult = new ArrayList<ArrayList<int[]>>();
 

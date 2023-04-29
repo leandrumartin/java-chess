@@ -10,101 +10,44 @@ import java.util.ArrayList;
 public class Queen extends ChessPiece
 {
     private ChessPieceColor color = ChessPieceColor.B;
-    // private BishopB bishop;
-    // private RookB rook;
+    private ArrayList<ChessPiece> pieces;
 
     public Queen(int row, int col, ChessBoard board, ChessPieceColor color)
     {
         super(row, col, board, color);
-        // this.bishop = new BishopB(row, col, board);
-        // this.rook = new RookB(row, col, board);
+        pieces = new ArrayList<ChessPiece>();
+        pieces.add(new Bishop(row, col, board, color));
+        pieces.add(new Rook(row, col, board, color));
+    }
+
+    public ArrayList<ArrayList<int[]>> getLegalSquares()
+    {
+        ArrayList<ArrayList<int[]>> legalSquares = new ArrayList<ArrayList<int[]>>();
+        for (ChessPiece piece: this.pieces)
+        {
+            legalSquares.addAll(piece.getLegalSquares());
+        }
+        return legalSquares;
     }
     
-    // public ArrayList<int[]> movableSquares()
-    // {
-    //     ArrayList<int[]> movableSquares = new ArrayList<int[]>();
-    //     movableSquares.addAll(this.bishop.legalSquares2());
-    //     movableSquares.addAll(this.rook.legalSquares2());
-    //     return movableSquares;
-    // }
-
-    public ArrayList<ArrayList<int[]>> legalSquares()
+    public ArrayList<int[]> getMovableSquares()
     {
-        ArrayList<ArrayList<int[]>> finalResult = new ArrayList<ArrayList<int[]>>();
-
-        int i = 1;
-        ArrayList<int[]> result1 = new ArrayList<int[]>();
-        while (super.row + i < 8)
+        ArrayList<int[]> movableSquares = new ArrayList<int[]>();
+        for (ChessPiece piece: this.pieces)
         {
-            result1.add(new int[]{super.row + i, super.col});
-            i++;
+            movableSquares.addAll(piece.getMovableSquares());
         }
-        finalResult.add(result1);
+        return movableSquares;
+    }
 
-        i = 1;
-        ArrayList<int[]> result2 = new ArrayList<int[]>();
-        while (super.col - i > -1)
+    @Override
+    public void move(int newRow, int newCol)
+    {
+        super.move(newRow, newCol);
+        for (ChessPiece piece: this.pieces)
         {
-            result2.add(new int[]{super.row, super.col - i});
-            i++;
+            piece.move(newRow, newCol);
         }
-        finalResult.add(result2);
-
-        i = 1;
-        ArrayList<int[]> result3 = new ArrayList<int[]>();
-        while (super.row - i > -1)
-        {
-            result3.add(new int[]{super.row - i, super.col});
-            i++;
-        }
-        finalResult.add(result3);
-
-        i = 1;
-        ArrayList<int[]> result4 = new ArrayList<int[]>();
-        while (super.col + i < 8)
-        {
-            result4.add(new int[]{super.row, super.col + i});
-            i++;
-        }
-        finalResult.add(result4);
-
-        // bishop
-        i = 1;
-        ArrayList<int[]> result5 = new ArrayList<int[]>();
-        while (super.row + i < 8 & super.col + i < 8)
-        {
-            result5.add(new int[]{super.row + i, super.col + i});
-            i++;
-        }
-        finalResult.add(result5);
-
-        i = 1;
-        ArrayList<int[]> result6 = new ArrayList<int[]>();
-        while (super.row + i < 8 & super.col - i > -1)
-        {
-            result6.add(new int[]{super.row + i, super.col - i});
-            i++;
-        }
-        finalResult.add(result6);
-
-        i = 1;
-        ArrayList<int[]> result7 = new ArrayList<int[]>();
-        while (super.row - i > -1 & super.col + i < 8)
-        {
-            result7.add(new int[]{super.row - i, super.col + i});
-            i++;
-        }
-        finalResult.add(result7);
-
-        i = 1;
-        ArrayList<int[]> result8 = new ArrayList<int[]>();
-        while (super.row - i > -1 & super.col - i > -1)
-        {
-            result8.add(new int[]{super.row - i, super.col - i});
-            i++;
-        }
-        finalResult.add(result8);
-        return finalResult;
     }
 
     public String getLabel() {

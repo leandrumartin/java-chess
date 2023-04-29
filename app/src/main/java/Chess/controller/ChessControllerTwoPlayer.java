@@ -28,7 +28,7 @@ public class ChessControllerTwoPlayer implements ControllerInterface {
         }
         
         this.view = new ChessView(this, this.board, time); // Make sure to pass `this.board`, not `board` from the constructor arguments
-        ArrayList<int[]> allCurrentPieces = this.board.findPieces(this.board.getCurrentPlayer());
+        ArrayList<int[]> allCurrentPieces = this.board.getPiecesLocation(this.board.getCurrentPlayer());
         this.view.enableSquares(allCurrentPieces);
         this.view.setVisible(true);
     }
@@ -74,12 +74,12 @@ public class ChessControllerTwoPlayer implements ControllerInterface {
     public void selectPiece(int fromRow, int fromCol)
     {
         this.currentChessPiece = this.board.getChessPiece(fromRow, fromCol);
-        ArrayList<int[]> movableSquares = this.board.movableSquares(this.currentChessPiece);
+        ArrayList<int[]> movableSquares = this.board.getMovableSquares(this.currentChessPiece);
         this.view.drawPossibleMoves(movableSquares);
         if (movableSquares.size() == 0)
         {
             this.board.setClickCount(0);
-            ArrayList<int[]> allCurrentPieces = this.board.findPieces(this.board.getCurrentPlayer());
+            ArrayList<int[]> allCurrentPieces = this.board.getPiecesLocation(this.board.getCurrentPlayer());
             view.enableSquares(allCurrentPieces);
         }
     }
@@ -89,7 +89,7 @@ public class ChessControllerTwoPlayer implements ControllerInterface {
     {
         this.board.placeChessPiece(toRow, toCol, this.currentChessPiece);
         this.switchPlayers();
-        ArrayList<int[]> allCurrentPieces = this.board.findPieces(this.board.getCurrentPlayer());
+        ArrayList<int[]> allCurrentPieces = this.board.getPiecesLocation(this.board.getCurrentPlayer());
         this.view.enableSquares(allCurrentPieces);
     }
 

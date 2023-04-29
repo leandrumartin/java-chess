@@ -62,26 +62,13 @@ public class ChessPieces
                 boardSegment[0][i].setText(UnicodeMap.bQueen);
                 initializePiece(boardSegment[0][i]);
             }
-            /*
-            } else if (i == 3) {
-                JLabel wQueenLabel = new JLabel(UnicodeMap.wQueen);
-                initializePiece(wQueenLabel);
-                boardSegment[7][i].add(wQueenLabel);
+            else {
+                boardSegment[7][i].setText(UnicodeMap.wKing);
+                initializePiece(boardSegment[7][i]);
 
-                JLabel bQueenLabel = new JLabel(UnicodeMap.bQueen);
-                initializePiece(bQueenLabel);
-                boardSegment[0][i].add(bQueenLabel);
-
-            } else if (i == 4) {
-                JLabel wKingLabel = new JLabel(UnicodeMap.wKing);
-                initializePiece(wKingLabel);
-                boardSegment[7][i].add(wKingLabel);
-
-                JLabel bKingLabel = new JLabel(UnicodeMap.bKing);
-                initializePiece(bKingLabel);
-                boardSegment[0][i].add(bKingLabel);
+                boardSegment[0][i].setText(UnicodeMap.bKing);
+                initializePiece(boardSegment[0][i]);
             }
-            */
         }
     }
 }

@@ -18,11 +18,15 @@ public class ChessBoard implements GameInterface, Serializable
     private transient ArrayList<GameObserver> observers; // Cannot be instantiated here or loading game fails
     private ChessPieceColor currentPlayer;
     private int clickCount;
+    private ArrayList<ChessPiece> captured;
+    private King wKing;
+    private King bKing;
 
     public ChessBoard()
     {
         this.board = new ChessPiece[8][8];
-
+        this.captured = new ArrayList<ChessPiece>();
+        
         for (int i = 0; i < 8; i++) {
             this.board[6][i] = new Pawn(6, i, this, ChessPieceColor.W);
             this.board[1][i] = new Pawn(1, i, this, ChessPieceColor.B);
@@ -47,6 +51,13 @@ public class ChessBoard implements GameInterface, Serializable
                 this.board[7][i] = new Queen(7, i, this, ChessPieceColor.W);
                 this.board[0][i] = new Queen(0, i, this, ChessPieceColor.B);
             }
+            else 
+            {
+                this.wKing = new King(7, i, this, ChessPieceColor.W);
+                this.board[7][i] = this.wKing;
+                this.bKing = new King(0, i, this, ChessPieceColor.B);
+                this.board[0][i] = this.bKing;
+            }
         }
 
         this.currentPlayer = ChessPieceColor.W;
@@ -56,6 +67,140 @@ public class ChessBoard implements GameInterface, Serializable
     public ChessPiece getChessPiece(int row, int col)
     {
         return this.board[row][col];
+    }
+
+    public String removePiece(int row, int col, ChessPiece removedPiece)
+    {
+        this.board[row][col] = null;
+        this.captured.add(removedPiece);
+        return removedPiece.getLabel();
+    }
+
+    public ArrayList<int[]> getMovableSquares(ChessPiece piece)
+    {
+        return piece.getMovableSquares();
+    }
+
+    // Function to make the move.
+    // Returns the label of captured pieces.
+    public String placeChessPiece(int toRow, int toCol, ChessPiece piece)
+    {
+        String result = new String();
+        // pickup piece
+        int fromRow = piece.getCurrentRow();
+        int fromCol = piece.getCurrentCol();
+        this.board[fromRow][fromCol] = null;
+
+        // drop piece
+        // if there is a piece at destination, remove piece
+        ChessPiece removedPiece = this.board[toRow][toCol];
+        if (removedPiece != null)
+        {
+            result = this.removePiece(toRow, toCol, removedPiece);
+        }
+        piece.move(toRow, toCol);
+        this.board[toRow][toCol] = piece;
+
+        this.notifyObservers();
+        return result;
+    }
+
+    public boolean isGameOver()
+    {
+        boolean result = false;
+        if (this.currentPlayer == ChessPieceColor.B)
+        {
+            result = bKing.isCheckMate();
+        }
+        else
+        {
+            result = wKing.isCheckMate();
+        }
+        return result;
+    }
+
+    // Function to add a new Piece to the board
+    // Specifically for when pawn reaches the end of the board
+    public void addNewPiece(int toRow, int toCol)
+    {
+        // ChessPiece newPiece = new <TYPE>(toRow, toCol, this, this.currentPlayer);
+        // this.board[toRow][toCol] = newPiece;
+    }
+
+    /**
+     * Finds all pieces of all colors.
+     * @return
+     */
+    public ArrayList<int[]> getPiecesLocation()
+    {
+        ArrayList<int[]> result = new ArrayList<int[]>();
+        for (int row = 0; row < 8; row++) //go through rows
+        {
+            for (int col = 0; col < 8; col++) //go through columns
+            {
+                if (this.board[row][col] != null) 
+                {
+                    result.add(new int[]{row, col});
+                }
+            }
+        }
+        return result;
+    }
+
+    // Get all the location of pieces on the board with a specific color.
+    public ArrayList<int[]> getPiecesLocation(ChessPieceColor color)
+    {
+        ArrayList<int[]> result = new ArrayList<int[]>();
+        for (int row = 0; row < 8; row++) //go through rows
+        {
+            for (int col = 0; col < 8; col++) //go through columns
+            {
+                if (this.board[row][col] != null) 
+                {
+                    if (color == this.board[row][col].getColor())
+                    {
+                        result.add(new int[]{row, col});
+                    }
+                }   
+            }
+        }
+        return result;
+    }
+
+    // Get all the pieces on the board with a specific color.
+    public ArrayList<ChessPiece> getPieces(ChessPieceColor color)
+    {
+        ArrayList<ChessPiece> result = new ArrayList<ChessPiece>();
+        for (int row = 0; row < 8; row++) //go through rows
+        {
+            for (int col = 0; col < 8; col++) //go through columns
+            {
+                ChessPiece piece = this.board[row][col];
+                if (piece != null) 
+                {
+                    if (color == piece.getColor())
+                    {
+                        result.add(piece);
+                    }
+                }   
+            }
+        }
+        return result;
+    }
+
+    // Get all the movable sequares of pieces on the board with a specific color.
+    public ArrayList<int[]> getAllMovableSquares(ChessPieceColor color)
+    {
+        ArrayList<ChessPiece> pieces = this.getPieces(color);
+        ArrayList<int[]> result = new ArrayList<int[]>();
+        for (ChessPiece piece : pieces) //go through rows
+        {
+            ArrayList<int[]> movableSquares = piece.getMovableSquares();
+            result.addAll(movableSquares);
+        }
+        // QUESTION: do we need to do this? unsure
+        result = removeDuplicates(result);
+        return result;
     }
 
     public int getClickCount()
@@ -78,82 +223,34 @@ public class ChessBoard implements GameInterface, Serializable
         this.currentPlayer = color;
     }
 
-    public void removePiece(int row, int col)
+    // Function to remove duplicates from an ArrayList.
+    public static <T> ArrayList<T> removeDuplicates(ArrayList<T> list)
     {
-        this.board[row][col] = null;
-        // return location information to view so that it can display captured pieces
-        
-    }
-
-    public ArrayList<int[]> movableSquares(ChessPiece piece)
-    {
-        return piece.movableSquares();
-    }
-
-    public void placeChessPiece(int toRow, int toCol, ChessPiece piece)
-    {
-        // pickup piece
-        int fromRow = piece.getCurrentRow();
-        int fromCol = piece.getCurrentCol();
-        this.removePiece(fromRow, fromCol);
-
-        // drop piece
-        // if there is a piece at destination, remove piece
-        if (this.board[toRow][toCol] != null)
-        {
-            this.removePiece(toRow, toCol);
-        }
-        piece.move(toRow, toCol);
-        this.board[toRow][toCol] = piece;
-
-        this.notifyObservers();
-    }
-
-    public ArrayList<int[]> findPieces(ChessPieceColor color)
-    {
-        ArrayList<int[]> result = new ArrayList<int[]>();
-        for (int row = 0; row < 8; row++) //go through rows
-        {
-            for (int col = 0; col < 8; col++) //go through columns
-            {
-                if (this.board[row][col] != null) 
-                {
-                    if (color == this.board[row][col].getColor())
-                    {
-                        result.add(new int[]{row, col});
-                    }
-                }   
+        // Create a new ArrayList
+        ArrayList<T> newList = new ArrayList<T>();
+    
+        // Traverse through the first list
+        for (T element : list) {
+    
+            // If this element is not present in newList
+            // then add it
+            if (!newList.contains(element)) {
+    
+                newList.add(element);
             }
         }
-        return result;
+    
+        // return the new list
+        return newList;
     }
 
-    /**
-     * Finds all pieces of all colors.
-     * @return
-     */
-    public ArrayList<int[]> findPieces()
-    {
-        ArrayList<int[]> result = new ArrayList<int[]>();
-        for (int row = 0; row < 8; row++) //go through rows
-        {
-            for (int col = 0; col < 8; col++) //go through columns
-            {
-                if (this.board[row][col] != null) 
-                {
-                    result.add(new int[]{row, col});
-                }
-            }
-        }
-        return result;
-    }
-
-    // GameInterface
+    // Functions for GameInterface.
     public void register(GameObserver observer)
     {
         if (observers == null)
         {
-            observers = new ArrayList<GameObserver>(); // Must be instantiated here or loading saved game fails
+            // Must be instantiated here or loading saved game fails
+            observers = new ArrayList<GameObserver>(); 
         }
        observers.add(observer);
     }

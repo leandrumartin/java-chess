@@ -14,7 +14,7 @@ public class Rook extends ChessPiece
         super(row, col, board, color);
     }
 
-    public ArrayList<ArrayList<int[]>> legalSquares()
+    public ArrayList<ArrayList<int[]>> getLegalSquares()
     {
         ArrayList<ArrayList<int[]>> finalResult = new ArrayList<ArrayList<int[]>>();
 

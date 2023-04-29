@@ -32,7 +32,7 @@ public class Pawn extends ChessPiece
         squares.add(new int[]{rowForward, 0});
     }
 
-    public ArrayList<ArrayList<int[]>> legalSquares()
+    public ArrayList<ArrayList<int[]>> getLegalSquares()
     {
         ArrayList<ArrayList<int[]>> finalResult = new ArrayList<ArrayList<int[]>>();
         ArrayList<int[]> result = new ArrayList<int[]>();
@@ -52,9 +52,9 @@ public class Pawn extends ChessPiece
     }
 
     @Override
-    public ArrayList<int[]> movableSquares()
+    public ArrayList<int[]> getMovableSquares()
     {
-        ArrayList<ArrayList<int[]>> legalSquares = this.legalSquares();
+        ArrayList<ArrayList<int[]>> legalSquares = this.getLegalSquares();
         
         ArrayList<int[]> movableSquares = new ArrayList<int[]>();
         

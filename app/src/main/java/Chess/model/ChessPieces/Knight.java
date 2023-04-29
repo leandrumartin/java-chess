@@ -6,6 +6,7 @@ import Chess.model.ChessPieces.ChessPieceColor;
 import Chess.view.UnicodeMap;
 
 import java.util.ArrayList;
+import java.lang.Math;
 
 public class Knight extends ChessPiece
 {
@@ -27,7 +28,7 @@ public class Knight extends ChessPiece
     }
 
     // white pawn goes up the array from row index 6 to 5, 4...
-    public ArrayList<ArrayList<int[]>> legalSquares()
+    public ArrayList<ArrayList<int[]>> getLegalSquares()
     {
         ArrayList<ArrayList<int[]>> finalResult = new ArrayList<ArrayList<int[]>>();
         ArrayList<int[]> result = new ArrayList<int[]>();
@@ -43,9 +44,9 @@ public class Knight extends ChessPiece
     }
 
     @Override
-    public ArrayList<int[]> movableSquares()
+    public ArrayList<int[]> getMovableSquares()
     {
-        ArrayList<ArrayList<int[]>> legalSquares = this.legalSquares();
+        ArrayList<ArrayList<int[]>> legalSquares = this.getLegalSquares();
         ArrayList<int[]> movableSquares = new ArrayList<int[]>();
         for (int[] location : legalSquares.get(0))
         {

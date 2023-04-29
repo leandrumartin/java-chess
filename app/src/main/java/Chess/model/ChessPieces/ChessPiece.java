@@ -37,7 +37,7 @@ public abstract class ChessPiece implements Serializable
         return this.color;
     }
 
-    public boolean move(int newRow, int newCol)
+    public void move(int newRow, int newCol)
     {
         this.row = newRow;
         this.col = newCol;
@@ -45,12 +45,11 @@ public abstract class ChessPiece implements Serializable
         {
             this.hasNotMoved = false;
         }
-        return this.hasNotMoved;
     }
 
-    public ArrayList<int[]> movableSquares()
+    public ArrayList<int[]> getMovableSquares()
     {
-        ArrayList<ArrayList<int[]>> legalSquares = this.legalSquares();
+        ArrayList<ArrayList<int[]>> legalSquares = this.getLegalSquares();
 
         ArrayList<int[]> movableSquares = new ArrayList<int[]>();
         for (ArrayList<int[]> list : legalSquares)
@@ -76,6 +75,6 @@ public abstract class ChessPiece implements Serializable
         return movableSquares;
     }
 
-    public abstract ArrayList<ArrayList<int[]>> legalSquares();
+    public abstract ArrayList<ArrayList<int[]>> getLegalSquares();
     public abstract String getLabel();
 }
