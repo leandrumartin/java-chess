@@ -20,6 +20,7 @@ public class ChessBoard implements GameInterface, Serializable
     private ChessPieceColor currentPlayer;
     private int clickCount;
     private ArrayList<ChessPiece> captured;
+    private ArrayList<ChessPiece> pawns;
     private King wKing;
     private King bKing;
 
@@ -27,10 +28,13 @@ public class ChessBoard implements GameInterface, Serializable
     {
         this.board = new ChessPiece[8][8];
         this.captured = new ArrayList<ChessPiece>();
+        this.pawns = new ArrayList<ChessPiece>();
         
         for (int i = 0; i < 8; i++) {
             this.board[6][i] = new Pawn(6, i, this, ChessPieceColor.W);
             this.board[1][i] = new Pawn(1, i, this, ChessPieceColor.B);
+            pawns.add(this.board[6][i]);
+            pawns.add(this.board[1][i]);
 
             if (i == 1 || i == 6) 
             {
@@ -79,13 +83,51 @@ public class ChessBoard implements GameInterface, Serializable
 
     public ArrayList<int[]> getMovableSquares(ChessPiece piece)
     {
-        return piece.getMovableSquares();
+        int originalRow = piece.getCurrentRow();
+        int originalCol = piece.getCurrentCol();
+        ArrayList<int[]> squares = piece.getMovableSquares();
+
+        // Make sure that the move is not putting King in check
+        King myKing;
+        ChessPieceColor opponentColor;
+        if (this.currentPlayer == ChessPieceColor.B)
+        {
+            opponentColor = ChessPieceColor.W;
+            myKing = bKing;
+        }
+        else {
+            opponentColor = ChessPieceColor.B;
+            myKing = wKing;
+        }
+        for (int[] square : squares)
+        {
+            piece.move(square[0], square[1]);
+            ArrayList<int[]> opponentSquares = this.getAllMovableSquares(opponentColor);
+            for (int[] opponentSquare : opponentSquares)
+            {
+                if (opponentSquare[0] == myKing.getCurrentRow() & opponentSquare[1] == myKing.getCurrentCol())
+                {
+                    squares.remove(square);
+                }
+            }
+        }
+        piece.move(originalRow, originalCol);
+        return squares;
+    }
+
+    public void resetEnPassant()
+    {
+        for (ChessPiece pawn : this.pawns)
+        {
+            pawn.resetEnPassant();
+        }
     }
 
     // Function to make the move.
     // Returns the label of captured pieces.
     public String placeChessPiece(int toRow, int toCol, ChessPiece piece)
     {
+        this.resetEnPassant();
         String result = new String();
         // pickup piece
         int fromRow = piece.getCurrentRow();
@@ -141,10 +183,8 @@ public class ChessBoard implements GameInterface, Serializable
         {
             newPiece = new Knight(toRow, toCol, this, this.currentPlayer);
         }
-
         this.board[toRow][toCol] = newPiece;
         this.notifyObservers();
-
     }
 
     /**

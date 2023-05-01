@@ -49,6 +49,11 @@ public abstract class ChessPiece implements Serializable
         }
     }
 
+    public void resetEnPassant()
+    {
+        this.ableToEnPassant = false;
+    }
+
     public ArrayList<int[]> getMovableSquares()
     {
         ArrayList<ArrayList<int[]>> legalSquares = this.getLegalSquares();
