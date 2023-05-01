@@ -84,53 +84,60 @@ public class ChessBoard implements GameInterface, Serializable
     public ArrayList<int[]> getMovableSquares(ChessPiece piece)
     {
         ArrayList<int[]> result = new ArrayList<int[]>();
-
-        // Store row and column information
-        int originalRow = piece.getCurrentRow();
-        int originalCol = piece.getCurrentCol();
-        ArrayList<int[]> squares = piece.getMovableSquares();
-
-        // Make sure that the move is not putting King in check
-        King currentKing;
-        ChessPieceColor opponentColor;
-        if (piece.getColor() == ChessPieceColor.B)
+        if (piece != wKing | piece != bKing)
         {
-            opponentColor = ChessPieceColor.W;
-            currentKing = bKing;
-        }
-        else {
-            opponentColor = ChessPieceColor.B;
-            currentKing = wKing;
-        }
+            // Store row and column information
+            int originalRow = piece.getCurrentRow();
+            int originalCol = piece.getCurrentCol();
+            ArrayList<int[]> squares = piece.getMovableSquares();
 
-        // Take out the piece
-        this.board[originalRow][originalCol] = null;
-
-        // Move to all potential squares and see if it puts it in check
-        for (int[] square : squares)
-        {
-            this.board[square[0]][square[1]] = piece;
-            ArrayList<int[]> opponentSquares = this.getAllMovableSquares(opponentColor);
-            boolean found = false;
-            for (int[] opponentSquare : opponentSquares)
+            // Make sure that the move is not putting King in check
+            King currentKing;
+            ChessPieceColor opponentColor;
+            if (piece.getColor() == ChessPieceColor.B)
             {
-                if (opponentSquare[0] == currentKing.getCurrentRow() & opponentSquare[1] == currentKing.getCurrentCol())
+                opponentColor = ChessPieceColor.W;
+                currentKing = bKing;
+            }
+            else {
+                opponentColor = ChessPieceColor.B;
+                currentKing = wKing;
+            }
+
+            // Take out the piece
+            this.board[originalRow][originalCol] = null;
+
+            // Move to all potential squares and see if it causes a check
+            for (int[] square : squares)
+            {
+                ChessPiece temp = this.board[square[0]][square[1]];
+                this.board[square[0]][square[1]] = piece;
+                ArrayList<int[]> opponentSquares = this.getAllMovableSquares(opponentColor);
+                boolean checkFound = false;
+                for (int[] opponentSquare : opponentSquares)
                 {
-                    found = true;
-                    break;
+                    if (opponentSquare[0] == currentKing.getCurrentRow() & opponentSquare[1] == currentKing.getCurrentCol())
+                    {
+                        checkFound = true;
+                        break;
+                    }
                 }
+                if (!checkFound)
+                {
+                    result.add(square);
+                }
+                this.board[square[0]][square[1]] = temp;
             }
-            if (!found)
-            {
-                result.add(square);
-                System.out.println("row: "+square[0]+" col: "+square[1]);
-            }
-            this.board[square[0]][square[1]] = null;
+
+            // Put the piece back 
+            this.board[originalRow][originalCol] = piece;
+
         }
-
-        // Put the piece back 
-        this.board[originalRow][originalCol] = piece;
-
+        else 
+        {
+            result = piece.getMovableSquares();
+        }
+        
         return result;
     }
 
@@ -146,7 +153,7 @@ public class ChessBoard implements GameInterface, Serializable
     // Returns the label of captured pieces.
     public String placeChessPiece(int toRow, int toCol, ChessPiece piece)
     {
-        this.resetEnPassant();
+        // this.resetEnPassant();
         String result = new String();
         // pickup piece
         int fromRow = piece.getCurrentRow();
