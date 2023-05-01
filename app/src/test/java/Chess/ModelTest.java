@@ -12,7 +12,7 @@ import Chess.view.UnicodeMap;
 
 //Only Pawns need to be tested based on Color
 public class ModelTest {
-    ChessBoard board;
+    ChessBoard board = new ChessBoard();
 
     // LegalSquares returns an arrayList of squares that it can be moved by the
     // piece rules
@@ -86,28 +86,28 @@ public class ModelTest {
         assertArrayEquals(new int[] { 4, 0 }, pawnLegalSquares.get(0).get(1));
     }
 
-    /*
-     * @Test
-     * public void testWhitePawnInitialMoveableSquares()
-     * {
-     * ChessPiece pawn = new Pawn(6, 0, board, ChessPieceColor.W);
-     * ArrayList<ArrayList<int[]>> legalSquares = pawn.getLegalSquares();
-     * ArrayList<int[]> pawnMovableSquares = pawn.getMovableSquares();
-     * assertEquals(2, pawnMovableSquares.size());
-     * assertArrayEquals(new int[]{5, 0}, pawnMovableSquares.get(0));
-     * assertArrayEquals(new int[]{4, 0}, pawnMovableSquares.get(1));
-     * }
-     * 
-     * @Test
-     * public void testBlackPawnInitialMoveableSquares()
-     * {
-     * ChessPiece pawn = new Pawn(1, 0, board, ChessPieceColor.B);
-     * ArrayList<int[]> pawnMovableSquares = pawn.getMovableSquares();
-     * assertEquals(2, pawnMovableSquares.size());
-     * assertArrayEquals(new int[]{2, 0}, pawnMovableSquares.get(0));
-     * assertArrayEquals(new int[]{3, 0}, pawnMovableSquares.get(1));
-     * }
-     */
+    
+      @Test
+      public void testWhitePawnInitialMoveableSquares()
+      {
+      ChessPiece pawn = new Pawn(6, 0, board, ChessPieceColor.W);
+      ArrayList<ArrayList<int[]>> legalSquares = pawn.getLegalSquares();
+      ArrayList<int[]> pawnMovableSquares = pawn.getMovableSquares();
+      assertEquals(2, pawnMovableSquares.size());
+      assertArrayEquals(new int[]{5, 0}, pawnMovableSquares.get(0));
+      assertArrayEquals(new int[]{4, 0}, pawnMovableSquares.get(1));
+      }
+      
+      @Test
+      public void testBlackPawnInitialMoveableSquares()
+      {
+      ChessPiece pawn = new Pawn(1, 0, board, ChessPieceColor.B);
+      ArrayList<int[]> pawnMovableSquares = pawn.getMovableSquares();
+      assertEquals(2, pawnMovableSquares.size());
+      assertArrayEquals(new int[]{2, 0}, pawnMovableSquares.get(0));
+      assertArrayEquals(new int[]{3, 0}, pawnMovableSquares.get(1));
+      }
+     
 
     @Test
     public void testGetLabelBlack() 

@@ -169,6 +169,8 @@ public class ChessView extends JFrame implements ActionListener, GameObserver {
     {
         return boardSegment[row][col].getText();
     }
+
+    
     
     public void drawPossibleMoves(ArrayList<int[]> enabledSquares) 
     {

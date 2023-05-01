@@ -54,7 +54,7 @@ public class MainMenu extends JFrame implements ActionListener
 
         mainPanel = new JPanel();
         mainPanel.setLayout(new FlowLayout());
-        mainPanel.setPreferredSize(new Dimension(475, 500));
+        mainPanel.setPreferredSize(new Dimension(500, 500));
         mainPanel.setBackground(new Color(119, 148, 86));
 
         JLabel wKing = new JLabel(UnicodeMap.wKing);
@@ -67,7 +67,7 @@ public class MainMenu extends JFrame implements ActionListener
         mainPanel.add(title);
 
         JLabel bKing = new JLabel(UnicodeMap.bKing);
-        bKing.setFont(new Font("Dialog", Font.BOLD, 80));
+        bKing.setFont(new Font("Dialog", Font.BOLD, 75));
         bKing.setAlignmentX(Component.CENTER_ALIGNMENT);
         mainPanel.add(bKing);
 
