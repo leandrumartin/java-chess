@@ -63,7 +63,7 @@ public class MainMenu extends JFrame implements ActionListener
         // mainPanel.add(wKing);
 
         title = new JLabel(UnicodeMap.wKing + " CHESS " + UnicodeMap.bKing + "  ");
-        title.setFont(new Font("Times New Roman", Font.PLAIN, 60));
+        title.setFont(new Font("Dialog", Font.PLAIN, 60));
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
         mainPanel.add(title);
 
@@ -91,7 +91,7 @@ public class MainMenu extends JFrame implements ActionListener
         }
 
         recordLabel = new JLabel("Wins: " + wins + " Losses: " + losses);
-        recordLabel.setFont(new Font("Times New Roman", Font.PLAIN, 24));
+        recordLabel.setFont(new Font("Dialog", Font.PLAIN, 24));
         recordPanel.add(recordLabel);
 
         instructionPanel = new JPanel();
@@ -100,12 +100,12 @@ public class MainMenu extends JFrame implements ActionListener
         instructionPanel.setBackground(new Color(119, 148, 86));
 
         instructions = new JLabel("Select A Game Mode:");
-        instructions.setFont(new Font("Times New Roman", Font.PLAIN, 24));
+        instructions.setFont(new Font("Dialog", Font.PLAIN, 24));
         instructions.setAlignmentX(Component.CENTER_ALIGNMENT);
         
         instructionPanel.add(instructions);
         //difficultyLabel = new JLabel(Integer.toString(difficulty));
-        //difficultyLabel.setFont(new Font("Times New Roman", Font.PLAIN, 40));
+        //difficultyLabel.setFont(new Font("Dialog", Font.PLAIN, 40));
 
         speedPanel = new JPanel();
         speedPanel.setLayout(new GridLayout(1, 4));
@@ -136,7 +136,7 @@ public class MainMenu extends JFrame implements ActionListener
         decisionPanel.setBackground(new Color(119, 148, 86));
 
         decisionLabel = new JLabel("            By Default - No Time Limit");
-        decisionLabel.setFont(new Font("Times New Roman", Font.PLAIN, 24));
+        decisionLabel.setFont(new Font("Dialog", Font.PLAIN, 24));
         decisionLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
         decisionPanel.add(decisionLabel);
 
