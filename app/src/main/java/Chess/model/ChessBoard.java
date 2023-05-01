@@ -9,13 +9,14 @@ import java.util.ArrayList;
 import java.io.Serializable;
 
 import Chess.model.ChessPieces.*;
+import Chess.view.UnicodeMap;
 import Chess.GameInterface;
 import Chess.GameObserver;
 
 public class ChessBoard implements GameInterface, Serializable
 {
     private ChessPiece[][] board;
-    private transient ArrayList<GameObserver> observers; // Cannot be instantiated here or loading game fails
+    private transient ArrayList<GameObserver> observers;
     private ChessPieceColor currentPlayer;
     private int clickCount;
     private ArrayList<ChessPiece> captured;
@@ -121,10 +122,29 @@ public class ChessBoard implements GameInterface, Serializable
 
     // Function to add a new Piece to the board
     // Specifically for when pawn reaches the end of the board
-    public void addNewPiece(int toRow, int toCol)
+    public void addNewPiece(int toRow, int toCol, String unicode)
     {
-        // ChessPiece newPiece = new <TYPE>(toRow, toCol, this, this.currentPlayer);
-        // this.board[toRow][toCol] = newPiece;
+        ChessPiece newPiece;
+        if (unicode == UnicodeMap.wQueen | unicode == UnicodeMap.bQueen)
+        {
+            newPiece = new Queen(toRow, toCol, this, this.currentPlayer);
+        }
+        else if (unicode == UnicodeMap.wBishop | unicode == UnicodeMap.bBishop)
+        {
+            newPiece = new Bishop(toRow, toCol, this, this.currentPlayer);
+        }
+        else if (unicode == UnicodeMap.wRook | unicode == UnicodeMap.bRook)
+        {
+            newPiece = new Rook(toRow, toCol, this, this.currentPlayer);
+        }
+        else
+        {
+            newPiece = new Knight(toRow, toCol, this, this.currentPlayer);
+        }
+
+        this.board[toRow][toCol] = newPiece;
+        this.notifyObservers();
+
     }
 
     /**
