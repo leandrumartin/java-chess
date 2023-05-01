@@ -24,6 +24,7 @@ public class Bishop extends ChessPiece
         while (super.row + i < 8 & super.col + i < 8)
         {
             result1.add(new int[]{super.row + i, super.col + i});
+            System.out.println("Added Move: " + (row + i) + ", " + (col + i));
             i++;
         }
         finalResult.add(result1);
@@ -33,6 +34,7 @@ public class Bishop extends ChessPiece
         while (super.row + i < 8 & super.col - i > -1)
         {
             result2.add(new int[]{super.row + i, super.col - i});
+            System.out.println("Added Move: " + (row + i) + ", " + (col - i));
             i++;
         }
         finalResult.add(result2);
@@ -42,6 +44,7 @@ public class Bishop extends ChessPiece
         while (super.row - i > -1 & super.col + i < 8)
         {
             result3.add(new int[]{super.row - i, super.col + i});
+            System.out.println("Added Move: " + (row - i) + ", " + (col + i));
             i++;
         }
         finalResult.add(result3);
@@ -51,9 +54,11 @@ public class Bishop extends ChessPiece
         while (super.row - i > -1 & super.col - i > -1)
         {
             result4.add(new int[]{super.row - i, super.col - i});
+            System.out.println("Added Move: " + (row - i) + ", " + (col - i));
             i++;
         }
         finalResult.add(result4);
+        System.out.println(finalResult.size());
         return finalResult;
     }
 
