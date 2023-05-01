@@ -63,21 +63,10 @@ public class MainMenu extends JFrame implements ActionListener
         titlePanel.setLayout(new FlowLayout());
         titlePanel.setPreferredSize(new Dimension(450, 100));
         titlePanel.setBackground(new Color(119, 148, 86));
-        
-        JLabel wKing = new JLabel(UnicodeMap.wKing);
-        wKing.setFont(new Font("Dialog", Font.BOLD, 75));
-        wKing.setAlignmentX(Component.CENTER_ALIGNMENT);
-        titlePanel.add(wKing);
-
-        title = new JLabel("CHESS");
-        title.setFont(new Font("Times New Roman", Font.PLAIN, 75));
-        title.setAlignmentX(Component.CENTER_ALIGNMENT);
+    
+        title = new JLabel(UnicodeMap.wKing + (" CHESS ") + UnicodeMap.bKing, SwingConstants.CENTER);
+        title.setFont(new Font("Dialog", Font.PLAIN, 75));
         titlePanel.add(title);
-
-        JLabel bKing = new JLabel(UnicodeMap.bKing);
-        bKing.setFont(new Font("Dialog", Font.BOLD, 75));
-        bKing.setAlignmentX(Component.CENTER_ALIGNMENT);
-        titlePanel.add(bKing);
 
         recordPanel = new JPanel();
         recordPanel.setPreferredSize(new Dimension(400, 40));
@@ -146,7 +135,7 @@ public class MainMenu extends JFrame implements ActionListener
         decisionPanel.setPreferredSize(new Dimension(450, 50));
         decisionPanel.setBackground(new Color(119, 148, 86));
 
-        decisionLabel = new JLabel("By Default - No Time Limit", SwingConstants.CENTER);
+        decisionLabel = new JLabel("Default - No Time Limits", SwingConstants.CENTER);
         decisionLabel.setFont(new Font("Dialog", Font.PLAIN, 24));
         decisionLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
         decisionPanel.add(decisionLabel);
@@ -203,10 +192,6 @@ public class MainMenu extends JFrame implements ActionListener
             pieceCount++;
             String piece = UnicodeMap.getRandomPiece();
             animationLabel = new JLabel(piece);
-            //Point point = animationLabel.getLocation();
-            //int x = point.x;
-            //int y = point.y;
-            //animationLabel.setLocation(x + 50, y);
             animationLabel.setFont(new Font("Dialog", Font.BOLD, 30));
             animationPanel.add(animationLabel);
 
@@ -223,35 +208,30 @@ public class MainMenu extends JFrame implements ActionListener
 
         else if (event.getSource() == this.defaultChess)
         {
-            decisionLabel.setText("Default - No Time Limits for Either Player");
-            decisionLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+            decisionLabel.setText("Default - No Time Limits");
             this.time = 0;
         }
         else if (event.getSource() == this.bulletChess)
         {
             decisionLabel.setText("Bullet - Each Player will get 1 minute");
-            decisionLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
             this.time = 1;
         }
 
         else if (event.getSource() == this.blitzChess)
         {
             decisionLabel.setText("Blitz - Each Player will get 3 minutes");
-            decisionLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
             this.time = 3;
         }
 
         else if (event.getSource() == this.rapidChess)
         {
             decisionLabel.setText("Rapid - Each Player will get 10 minutes");
-            decisionLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
             this.time = 10;
         }
 
         else if (event.getSource() == this.turtleChess)
         {
             decisionLabel.setText("Turtle - Each Player will get 30 minutes");
-            decisionLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
             this.time = 30;
         }
 
