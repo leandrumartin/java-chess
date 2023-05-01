@@ -195,11 +195,14 @@ public class ChessBoard implements GameInterface, Serializable
         ArrayList<int[]> result = new ArrayList<int[]>();
         for (ChessPiece piece : pieces) //go through rows
         {
-            ArrayList<int[]> movableSquares = piece.getMovableSquares();
-            result.addAll(movableSquares);
+            if (piece != wKing & piece != bKing)
+            {
+                ArrayList<int[]> movableSquares = piece.getMovableSquares();
+                result.addAll(movableSquares);
+            }
         }
         // QUESTION: do we need to do this? unsure
-        result = removeDuplicates(result);
+        //result = removeDuplicates(result);
         return result;
     }
 

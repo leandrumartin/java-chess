@@ -50,7 +50,7 @@ public class King extends ChessPiece
         {
             int row = location[0];
             int col = location[1];
-            ChessPiece piece = this.board.getChessPiece(row, col);
+            ChessPiece piece = super.board.getChessPiece(row, col);
             if (piece != null)
             {
                 if (piece.getColor() != super.color)
@@ -64,7 +64,10 @@ public class King extends ChessPiece
             }
         }
 
-        // 2. check if you are a move is putting a king in check
+        // 2. check for castling squares
+        result.addAll(this.canCastle());
+
+        // 3. check if you are a move is putting a king in check
         ChessPieceColor opponentColor;
         if (super.color == ChessPieceColor.B)
         {
@@ -77,9 +80,12 @@ public class King extends ChessPiece
         ArrayList<int[]> opponentSquares = super.board.getAllMovableSquares(opponentColor);
         for (int[] movableSquare : result)
         {
-            if (opponentSquares.contains(movableSquare))
+            for (int[] opponentSquare : opponentSquares)
             {
-                result.remove(movableSquare);
+                if (opponentSquare[0] == movableSquare[0] & opponentSquare[1] == movableSquare[1])
+                {
+                    result.remove(movableSquare);
+                }
             }
         }
         return result;
@@ -103,35 +109,52 @@ public class King extends ChessPiece
         {
             for (int end = 3; end <= 4; end++)
             {
-                int rowShftDir = (int) Math.pow((double)-1, (double)end+1);
-                for (int rowShftAmt = 1; rowShftAmt <= end; rowShftAmt++)
+                int colShftDir = (int) Math.pow((double)-1, (double)end+1);
+                for (int colShftAmt = 1; colShftAmt <= end; colShftAmt++)
                 {
-                    if (rowShftAmt  < end)
+                    if (colShftAmt  < end)
                     {
-                        if (this.board.getChessPiece(super.row - rowShftDir*rowShftAmt, super.col) != null)
+                        if (this.board.getChessPiece(super.row, super.col + colShftDir*colShftAmt) != null)
                         {
                             break;
                         }
                     }
                     else
                     {
-                        ChessPiece potentialRook = this.board.getChessPiece(super.row - rowShftDir*rowShftAmt, super.col);
+                        ChessPiece potentialRook = this.board.getChessPiece(super.row, super.col + colShftDir*colShftAmt);
                         if(potentialRook == null)
                         {
                             break;
                         }
                         else {
-                            if (!potentialRook.hasNotMoved)
+                            if (potentialRook.hasNotMoved)
                             {
-                                break;
+                                castleSquares.add(new int[]{super.row, super.col + colShftDir*2});
                             }
                         }
                     }
-                    castleSquares.add(new int[]{super.row + rowShftDir, super.col});
                 }
             }
         }
         return castleSquares;
+    }
+
+    @Override
+    public void move(int newRow, int newCol)
+    {
+        // left castle
+        if (super.col - newCol == 2)
+        {
+            System.out.println("left castle");
+            super.board.placeChessPiece(super.row, newCol + 1, super.board.getChessPiece(super.row, super.col - 4));
+        }
+        // right castle
+        else if (super.col - newCol == -2)
+        {
+            System.out.println("right castle");
+            super.board.placeChessPiece(super.row, newCol - 1, super.board.getChessPiece(super.row, super.col + 3));
+        }
+        super.move(newRow, newCol);
     }
 
     public String getLabel() {
