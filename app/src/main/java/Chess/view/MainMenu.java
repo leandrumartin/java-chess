@@ -64,7 +64,7 @@ public class MainMenu extends JFrame implements ActionListener
         titlePanel.setPreferredSize(new Dimension(450, 100));
         titlePanel.setBackground(new Color(119, 148, 86));
     
-        title = new JLabel(UnicodeMap.wKing + (" CHESS ") + UnicodeMap.bKing, SwingConstants.CENTER);
+        title = new JLabel((" CHESS "), SwingConstants.CENTER);
         title.setFont(new Font("Dialog", Font.PLAIN, 75));
         titlePanel.add(title);
 
@@ -132,7 +132,7 @@ public class MainMenu extends JFrame implements ActionListener
         decisionPanel = new JPanel();
         decisionPanel = new JPanel();
         decisionPanel.setLayout(new GridLayout(1, 1));
-        decisionPanel.setPreferredSize(new Dimension(450, 50));
+        decisionPanel.setPreferredSize(new Dimension(500, 50));
         decisionPanel.setBackground(new Color(119, 148, 86));
 
         decisionLabel = new JLabel("Default - No Time Limits", SwingConstants.CENTER);
