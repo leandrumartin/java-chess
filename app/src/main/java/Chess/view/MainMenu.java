@@ -25,9 +25,11 @@ public class MainMenu extends JFrame implements ActionListener
     JPanel instructionPanel;
     JPanel recordPanel;
     JPanel decisionPanel;
+    JPanel titlePanel;
     JButton onePlayer;
     JButton twoPlayer;
     // JButton loadGame;
+    JButton defaultChess;
     JButton bulletChess;
     JButton blitzChess;
     JButton rapidChess;
@@ -57,20 +59,25 @@ public class MainMenu extends JFrame implements ActionListener
         mainPanel.setPreferredSize(new Dimension(500, 500));
         mainPanel.setBackground(new Color(119, 148, 86));
 
-        // JLabel wKing = new JLabel(UnicodeMap.wKing);
-        // wKing.setFont(new Font("Dialog", Font.BOLD, 75));
-        // wKing.setAlignmentX(Component.CENTER_ALIGNMENT);
-        // mainPanel.add(wKing);
+        titlePanel = new JPanel();
+        titlePanel.setLayout(new FlowLayout());
+        titlePanel.setPreferredSize(new Dimension(450, 100));
+        titlePanel.setBackground(new Color(119, 148, 86));
+        
+        JLabel wKing = new JLabel(UnicodeMap.wKing);
+        wKing.setFont(new Font("Dialog", Font.BOLD, 75));
+        wKing.setAlignmentX(Component.CENTER_ALIGNMENT);
+        titlePanel.add(wKing);
 
-        title = new JLabel(UnicodeMap.wKing + " CHESS " + UnicodeMap.bKing + "  ");
-        title.setFont(new Font("Dialog", Font.PLAIN, 60));
+        title = new JLabel("CHESS");
+        title.setFont(new Font("Times New Roman", Font.PLAIN, 75));
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
-        mainPanel.add(title);
+        titlePanel.add(title);
 
-        // JLabel bKing = new JLabel(UnicodeMap.bKing);
-        // bKing.setFont(new Font("Dialog", Font.BOLD, 75));
-        // bKing.setAlignmentX(Component.CENTER_ALIGNMENT);
-        // mainPanel.add(bKing);
+        JLabel bKing = new JLabel(UnicodeMap.bKing);
+        bKing.setFont(new Font("Dialog", Font.BOLD, 75));
+        bKing.setAlignmentX(Component.CENTER_ALIGNMENT);
+        titlePanel.add(bKing);
 
         recordPanel = new JPanel();
         recordPanel.setPreferredSize(new Dimension(400, 40));
@@ -90,16 +97,16 @@ public class MainMenu extends JFrame implements ActionListener
             }
         }
 
-        recordLabel = new JLabel("Wins: " + wins + " Losses: " + losses);
+        recordLabel = new JLabel("Wins: " + wins + " Losses: " + losses, SwingConstants.CENTER);
         recordLabel.setFont(new Font("Dialog", Font.PLAIN, 24));
         recordPanel.add(recordLabel);
 
         instructionPanel = new JPanel();
         instructionPanel.setLayout(new GridLayout(1,1));
-        instructionPanel.setPreferredSize(new Dimension(215, 50));
+        instructionPanel.setPreferredSize(new Dimension(400, 50));
         instructionPanel.setBackground(new Color(119, 148, 86));
 
-        instructions = new JLabel("Select A Game Mode:");
+        instructions = new JLabel("Select A Game Mode:", SwingConstants.CENTER);
         instructions.setFont(new Font("Dialog", Font.PLAIN, 24));
         instructions.setAlignmentX(Component.CENTER_ALIGNMENT);
         
@@ -108,9 +115,12 @@ public class MainMenu extends JFrame implements ActionListener
         //difficultyLabel.setFont(new Font("Dialog", Font.PLAIN, 40));
 
         speedPanel = new JPanel();
-        speedPanel.setLayout(new GridLayout(1, 4));
+        speedPanel.setLayout(new GridLayout(1, 5));
         speedPanel.setPreferredSize(new Dimension(300, 50));
         speedPanel.setBackground(new Color(119, 148, 86));
+
+        defaultChess = new JButton(UnicodeMap.noLimit);
+        initializeDifficultyButton(defaultChess);
 
         bulletChess = new JButton(UnicodeMap.bullet);
         initializeDifficultyButton(bulletChess);
@@ -124,6 +134,7 @@ public class MainMenu extends JFrame implements ActionListener
         turtleChess = new JButton(UnicodeMap.turtle);
         initializeDifficultyButton(turtleChess);
 
+        speedPanel.add(defaultChess);
         speedPanel.add(bulletChess);
         speedPanel.add(blitzChess);
         speedPanel.add(rapidChess);
@@ -132,10 +143,10 @@ public class MainMenu extends JFrame implements ActionListener
         decisionPanel = new JPanel();
         decisionPanel = new JPanel();
         decisionPanel.setLayout(new GridLayout(1, 1));
-        decisionPanel.setPreferredSize(new Dimension(380, 50));
+        decisionPanel.setPreferredSize(new Dimension(450, 50));
         decisionPanel.setBackground(new Color(119, 148, 86));
 
-        decisionLabel = new JLabel("            By Default - No Time Limit");
+        decisionLabel = new JLabel("By Default - No Time Limit", SwingConstants.CENTER);
         decisionLabel.setFont(new Font("Dialog", Font.PLAIN, 24));
         decisionLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
         decisionPanel.add(decisionLabel);
@@ -171,6 +182,7 @@ public class MainMenu extends JFrame implements ActionListener
         timer = new Timer(UPDATE_INTERVAL, this);
         timer.start();
 
+        mainPanel.add(titlePanel);
         mainPanel.add(recordPanel);
         mainPanel.add(instructionPanel);
         mainPanel.add(speedPanel);
@@ -209,6 +221,12 @@ public class MainMenu extends JFrame implements ActionListener
             }
         }
 
+        else if (event.getSource() == this.defaultChess)
+        {
+            decisionLabel.setText("Default - No Time Limits for Either Player");
+            decisionLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+            this.time = 0;
+        }
         else if (event.getSource() == this.bulletChess)
         {
             decisionLabel.setText("Bullet - Each Player will get 1 minute");

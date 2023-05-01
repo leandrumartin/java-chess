@@ -31,6 +31,7 @@ public class UnicodeMap
     public static String blitz = "\u26A1";          //3 minutes per player
     public static String rapid = "\u23F2";          //10 minutes per player
     public static String bullet = "\u204C";         //1 minute per player
+    public static String noLimit = "\uD83D\uDEAB";  //No Time Limit
 
     private static String[] pieceArray = {wPawn, bPawn, wRook, bRook, wKnight, bKnight, wBishop, bBishop, wQueen, bQueen, wKing, bKing};
     private static Random random = new Random();
