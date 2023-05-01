@@ -57,19 +57,20 @@ public class MainMenu extends JFrame implements ActionListener
         mainPanel.setPreferredSize(new Dimension(500, 500));
         mainPanel.setBackground(new Color(119, 148, 86));
 
-        JLabel wKing = new JLabel(UnicodeMap.wKing);
-        wKing.setFont(new Font("Dialog", Font.BOLD, 75));
-        wKing.setAlignmentX(Component.CENTER_ALIGNMENT);
-        mainPanel.add(wKing);
+        // JLabel wKing = new JLabel(UnicodeMap.wKing);
+        // wKing.setFont(new Font("Dialog", Font.BOLD, 75));
+        // wKing.setAlignmentX(Component.CENTER_ALIGNMENT);
+        // mainPanel.add(wKing);
 
-        title = new JLabel("CHESS");
-        title.setFont(new Font("Times New Roman", Font.PLAIN, 75));
+        title = new JLabel(UnicodeMap.wKing + " CHESS " + UnicodeMap.bKing + "  ");
+        title.setFont(new Font("Times New Roman", Font.PLAIN, 60));
+        title.setAlignmentX(Component.CENTER_ALIGNMENT);
         mainPanel.add(title);
 
-        JLabel bKing = new JLabel(UnicodeMap.bKing);
-        bKing.setFont(new Font("Dialog", Font.BOLD, 75));
-        bKing.setAlignmentX(Component.CENTER_ALIGNMENT);
-        mainPanel.add(bKing);
+        // JLabel bKing = new JLabel(UnicodeMap.bKing);
+        // bKing.setFont(new Font("Dialog", Font.BOLD, 75));
+        // bKing.setAlignmentX(Component.CENTER_ALIGNMENT);
+        // mainPanel.add(bKing);
 
         recordPanel = new JPanel();
         recordPanel.setPreferredSize(new Dimension(400, 40));
