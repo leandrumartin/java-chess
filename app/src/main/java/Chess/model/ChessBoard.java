@@ -15,7 +15,7 @@ import Chess.GameObserver;
 public class ChessBoard implements GameInterface, Serializable
 {
     private ChessPiece[][] board;
-    private transient ArrayList<GameObserver> observers; // Cannot be instantiated here or loading game fails
+    private transient ArrayList<GameObserver> observers;
     private ChessPieceColor currentPlayer;
     private int clickCount;
     private ArrayList<ChessPiece> captured;
@@ -121,8 +121,9 @@ public class ChessBoard implements GameInterface, Serializable
 
     // Function to add a new Piece to the board
     // Specifically for when pawn reaches the end of the board
-    public void addNewPiece(int toRow, int toCol)
+    public void addNewPiece(int toRow, int toCol, String unicode)
     {
+        // if (unicode == )
         // ChessPiece newPiece = new <TYPE>(toRow, toCol, this, this.currentPlayer);
         // this.board[toRow][toCol] = newPiece;
     }

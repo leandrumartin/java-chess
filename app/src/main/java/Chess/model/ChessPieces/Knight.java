@@ -15,16 +15,12 @@ public class Knight extends ChessPiece
     public Knight(int row, int col, ChessBoard board, ChessPieceColor color)
     {
         super(row, col, board, color);
-
+        
         squares = new ArrayList<int[]>();
-        squares.add(new int[]{-1, -2});
-        squares.add(new int[]{-2, -1});
-        squares.add(new int[]{-2, 1});
-        squares.add(new int[]{-1, 2});
-        squares.add(new int[]{1, -2});
-        squares.add(new int[]{2, -1});
-        squares.add(new int[]{2, 1});
-        squares.add(new int[]{1, 2});
+                        squares.add(new int[]{-1, 2}); squares.add(new int[]{1, 2});
+        squares.add(new int[]{-2, 1});                              squares.add(new int[]{2, 1});
+        squares.add(new int[]{-2, -1});                             squares.add(new int[]{2, -1});
+                        squares.add(new int[]{-1, -2}); squares.add(new int[]{1, -2});
     }
 
     // white pawn goes up the array from row index 6 to 5, 4...

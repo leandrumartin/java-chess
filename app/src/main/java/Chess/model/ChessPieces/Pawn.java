@@ -9,7 +9,6 @@ import java.util.ArrayList;
 
 public class Pawn extends ChessPiece
 {
-
     private ArrayList<int[]> squares = new ArrayList<int[]>();
     private int hasNotMovedForward;
     private int rowForward;
@@ -89,7 +88,6 @@ public class Pawn extends ChessPiece
         return movableSquares;
     }
 
-
     private boolean isDiagonal(int newRow, int newCol)
     {
         boolean result = false;
@@ -101,6 +99,21 @@ public class Pawn extends ChessPiece
             }
         }
         return result;
+    }
+
+    @Override
+    public void move(int newRow, int newCol)
+    {
+        if (this.hasNotMoved)
+        {
+            this.hasNotMoved = false;
+            if (super.row - newRow == 2 | super.row - newRow == -2)
+            {
+                super.canEnPassant = true;
+            }
+        }
+        super.row = newRow;
+        super.col = newCol;
     }
     
     public String getLabel() {

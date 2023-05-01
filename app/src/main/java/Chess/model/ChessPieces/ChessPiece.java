@@ -11,6 +11,7 @@ public abstract class ChessPiece implements Serializable
     protected int row;
     protected int col;
     protected boolean hasNotMoved;
+    protected boolean canEnPassant;
     protected ChessBoard board;
     protected ChessPieceColor color;
 
@@ -19,6 +20,7 @@ public abstract class ChessPiece implements Serializable
         this.row = row;
         this.col = col;
         this.hasNotMoved = true;
+        this.canEnPassant = false;
         this.board = board;
         this.color = color;
     }
@@ -55,22 +57,24 @@ public abstract class ChessPiece implements Serializable
         for (ArrayList<int[]> list : legalSquares)
         {
             for (int[] location : list)
-            {int row = location[0];
-            int col = location[1];
-            ChessPiece piece = this.board.getChessPiece(row, col);
+            {
+                int row = location[0];
+                int col = location[1];
+                ChessPiece piece = this.board.getChessPiece(row, col);
 
-            if (piece == null)
-            {
-                movableSquares.add(location);
-            }
-            else
-            {
-                if (piece.getColor() != this.color)
+                if (piece == null)
                 {
                     movableSquares.add(location);
                 }
-                break;
-            }}
+                else
+                {
+                    if (piece.getColor() != this.color)
+                    {
+                        movableSquares.add(location);
+                    }
+                    break;
+                }
+            }
         }
         return movableSquares;
     }
