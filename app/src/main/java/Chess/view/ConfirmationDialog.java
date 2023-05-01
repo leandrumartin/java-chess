@@ -18,10 +18,13 @@ public class ConfirmationDialog
 
     private static boolean interpretInput(int input)
     {
-        if (input == 0)
+        if (input == JOptionPane.YES_OPTION)
         {
             return true;
         }
-        return false;
+        else
+        {
+            return false;
+        }
     }
 }
