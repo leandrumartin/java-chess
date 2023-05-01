@@ -83,10 +83,12 @@ public class ChessBoard implements GameInterface, Serializable
 
     public ArrayList<int[]> getMovableSquares(ChessPiece piece)
     {
+        ArrayList<int[]> result = new ArrayList<int[]>();
+
+        // Store row and column information
         int originalRow = piece.getCurrentRow();
         int originalCol = piece.getCurrentCol();
         ArrayList<int[]> squares = piece.getMovableSquares();
-        System.out.println("size: "+squares.size());
 
         // Make sure that the move is not putting King in check
         King currentKing;
@@ -109,14 +111,19 @@ public class ChessBoard implements GameInterface, Serializable
         {
             this.board[square[0]][square[1]] = piece;
             ArrayList<int[]> opponentSquares = this.getAllMovableSquares(opponentColor);
+            boolean found = false;
             for (int[] opponentSquare : opponentSquares)
             {
                 if (opponentSquare[0] == currentKing.getCurrentRow() & opponentSquare[1] == currentKing.getCurrentCol())
                 {
-                    System.out.println("row: " + square[0] + " col: " + square[1]);
-                    squares.remove(square);
-                    //square = null;
+                    found = true;
+                    break;
                 }
+            }
+            if (!found)
+            {
+                result.add(square);
+                System.out.println("row: "+square[0]+" col: "+square[1]);
             }
             this.board[square[0]][square[1]] = null;
         }
@@ -124,7 +131,7 @@ public class ChessBoard implements GameInterface, Serializable
         // Put the piece back 
         this.board[originalRow][originalCol] = piece;
 
-        return squares;
+        return result;
     }
 
     public void resetEnPassant()
