@@ -11,7 +11,7 @@ public abstract class ChessPiece implements Serializable
     protected int row;
     protected int col;
     protected boolean hasNotMoved;
-    protected boolean canEnPassant;
+    protected boolean ableToEnPassant;
     protected ChessBoard board;
     protected ChessPieceColor color;
 
@@ -20,7 +20,7 @@ public abstract class ChessPiece implements Serializable
         this.row = row;
         this.col = col;
         this.hasNotMoved = true;
-        this.canEnPassant = false;
+        this.ableToEnPassant = false;
         this.board = board;
         this.color = color;
     }

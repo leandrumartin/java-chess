@@ -72,6 +72,12 @@ public class Pawn extends ChessPiece
                         movableSquares.add(location);
                     }
                 }
+                // Check for En Passant
+                ChessPiece potentialPawn = super.board.getChessPiece(row - rowForward, col);
+                if (this.canEnPassant(potentialPawn))
+                {
+                    movableSquares.add(location);
+                }
             }
             else
             {
@@ -86,6 +92,32 @@ public class Pawn extends ChessPiece
             }
         }
         return movableSquares;
+    }
+
+    private boolean isPassing(int newRow, int newCol)
+    {
+        boolean result = false;
+        if (newRow == super.row)
+        {
+            if (newCol == super.col - 1 | newCol == super.col + 1)
+            {
+                result = true;
+            }
+        }
+        return result;
+    }
+
+    private boolean canEnPassant(ChessPiece potentialPassingPawn)
+    {
+        boolean result = false;
+        if (potentialPassingPawn != null)
+        {
+            if (potentialPassingPawn.ableToEnPassant & potentialPassingPawn.getColor() != super.color)
+            {
+                result = true;
+            }
+        }
+        return result;
     }
 
     private boolean isDiagonal(int newRow, int newCol)
@@ -109,7 +141,15 @@ public class Pawn extends ChessPiece
             this.hasNotMoved = false;
             if (super.row - newRow == 2 | super.row - newRow == -2)
             {
-                super.canEnPassant = true;
+                super.ableToEnPassant = true;
+            }
+        }
+        if (isDiagonal(newRow, newCol))
+        {
+            ChessPiece potentialPassingPawn = super.board.getChessPiece(newRow - rowForward, newCol);
+            if (canEnPassant(potentialPassingPawn))
+            {
+                super.board.removePiece(newRow - rowForward, newCol, potentialPassingPawn);
             }
         }
         super.row = newRow;
