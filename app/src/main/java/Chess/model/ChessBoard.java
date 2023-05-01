@@ -125,15 +125,15 @@ public class ChessBoard implements GameInterface, Serializable
     public void addNewPiece(int toRow, int toCol, String unicode)
     {
         ChessPiece newPiece;
-        if (unicode == UnicodeMap.wQueen | unicode == UnicodeMap.bQueen)
+        if (unicode == UnicodeMap.wQueen || unicode == UnicodeMap.bQueen)
         {
             newPiece = new Queen(toRow, toCol, this, this.currentPlayer);
         }
-        else if (unicode == UnicodeMap.wBishop | unicode == UnicodeMap.bBishop)
+        else if (unicode == UnicodeMap.wBishop || unicode == UnicodeMap.bBishop)
         {
             newPiece = new Bishop(toRow, toCol, this, this.currentPlayer);
         }
-        else if (unicode == UnicodeMap.wRook | unicode == UnicodeMap.bRook)
+        else if (unicode == UnicodeMap.wRook || unicode == UnicodeMap.bRook)
         {
             newPiece = new Rook(toRow, toCol, this, this.currentPlayer);
         }

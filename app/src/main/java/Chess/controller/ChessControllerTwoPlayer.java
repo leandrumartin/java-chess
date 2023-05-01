@@ -14,6 +14,7 @@ import Chess.model.ChessPieces.ChessPiece;
 import Chess.view.ChessView;
 import Chess.view.ConfirmationDialog;
 import Chess.view.FileSelector;
+import Chess.view.UnicodeMap;
 
 public class ChessControllerTwoPlayer implements ControllerInterface {
     private ChessBoard board;
@@ -94,8 +95,34 @@ public class ChessControllerTwoPlayer implements ControllerInterface {
     public void selectDestination(int toRow, int toCol)
     {
         this.board.placeChessPiece(toRow, toCol, this.currentChessPiece);
-        this.switchPlayers();
         this.view.updateDisplay();
+
+        System.out.println(toRow);
+
+        // Check if a pawn has reached the opposite end of the board
+        if (this.currentChessPiece.getLabel() == UnicodeMap.wPawn && toRow == 0
+                || this.currentChessPiece.getLabel() == UnicodeMap.bPawn && toRow == 7) {
+
+            // TODO: Replace this temporary code block...
+            String newPiece;
+            if (this.currentChessPiece.getLabel() == UnicodeMap.wPawn) {
+                newPiece = UnicodeMap.wQueen;
+            } else {
+                newPiece = UnicodeMap.bQueen;
+            }
+            // TODO: With this one (once method is implmented):
+            // String newPiece = this.view.promptNewPiece();
+
+            this.board.addNewPiece(toRow, toCol, newPiece);
+        }
+
+        this.switchPlayers();
+
+        // Check for game over
+        if (board.isGameOver()) {
+            System.out.println("Game over!"); // TODO: replace with visual once that's been made
+        }
+
         ArrayList<int[]> allCurrentPieces = this.board.getPiecesLocation(this.board.getCurrentPlayer());
         this.view.enableSquares(allCurrentPieces);
     }

@@ -3,7 +3,8 @@ package Chess.controller;
 public interface ControllerInterface 
 {
     /**
-     * Hanldes selection of a chess board square.
+     * Handles selection of a chess board square.
+     * 
      * @param row
      * @param col
      */
