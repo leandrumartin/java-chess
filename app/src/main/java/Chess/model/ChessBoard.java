@@ -86,18 +86,19 @@ public class ChessBoard implements GameInterface, Serializable
         int originalRow = piece.getCurrentRow();
         int originalCol = piece.getCurrentCol();
         ArrayList<int[]> squares = piece.getMovableSquares();
+        System.out.println("size: "+squares.size());
 
         // Make sure that the move is not putting King in check
-        King myKing;
+        King currentKing;
         ChessPieceColor opponentColor;
         if (piece.getColor() == ChessPieceColor.B)
         {
             opponentColor = ChessPieceColor.W;
-            myKing = bKing;
+            currentKing = bKing;
         }
         else {
             opponentColor = ChessPieceColor.B;
-            myKing = wKing;
+            currentKing = wKing;
         }
 
         // Take out the piece
@@ -106,14 +107,15 @@ public class ChessBoard implements GameInterface, Serializable
         // Move to all potential squares and see if it puts it in check
         for (int[] square : squares)
         {
-            System.out.println("row: " + square[0] + " col: " + square[1]);
             this.board[square[0]][square[1]] = piece;
             ArrayList<int[]> opponentSquares = this.getAllMovableSquares(opponentColor);
             for (int[] opponentSquare : opponentSquares)
             {
-                if (opponentSquare[0] == myKing.getCurrentRow() & opponentSquare[1] == myKing.getCurrentCol())
+                if (opponentSquare[0] == currentKing.getCurrentRow() & opponentSquare[1] == currentKing.getCurrentCol())
                 {
+                    System.out.println("row: " + square[0] + " col: " + square[1]);
                     squares.remove(square);
+                    //square = null;
                 }
             }
             this.board[square[0]][square[1]] = null;
@@ -121,6 +123,7 @@ public class ChessBoard implements GameInterface, Serializable
 
         // Put the piece back 
         this.board[originalRow][originalCol] = piece;
+
         return squares;
     }
 
