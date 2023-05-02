@@ -20,7 +20,8 @@ public class ChessBoard implements GameInterface, Serializable
     private ChessPieceColor currentPlayer;
     private int clickCount;
     private ArrayList<ChessPiece> captured;
-    private ArrayList<ChessPiece> pawns;
+    private ArrayList<ChessPiece> wPawns;
+    private ArrayList<ChessPiece> bPawns;
     private King wKing;
     private King bKing;
 
@@ -28,13 +29,15 @@ public class ChessBoard implements GameInterface, Serializable
     {
         this.board = new ChessPiece[8][8];
         this.captured = new ArrayList<ChessPiece>();
-        this.pawns = new ArrayList<ChessPiece>();
+        this.wPawns = new ArrayList<ChessPiece>();
+        this.bPawns = new ArrayList<ChessPiece>();
         
         for (int i = 0; i < 8; i++) {
             this.board[6][i] = new Pawn(6, i, this, ChessPieceColor.W);
+            wPawns.add(this.board[6][i]);
+
             this.board[1][i] = new Pawn(1, i, this, ChessPieceColor.B);
-            pawns.add(this.board[6][i]);
-            pawns.add(this.board[1][i]);
+            bPawns.add(this.board[1][i]);
 
             if (i == 1 || i == 6) 
             {
@@ -143,17 +146,28 @@ public class ChessBoard implements GameInterface, Serializable
 
     public void resetEnPassant()
     {
-        for (ChessPiece pawn : this.pawns)
+        if (this.currentPlayer == ChessPieceColor.W)
         {
-            pawn.resetEnPassant();
+            for (ChessPiece wPawn : this.wPawns)
+            {
+                wPawn.resetEnPassant();
+            }
         }
+        else 
+        {
+            for (ChessPiece bPawn : this.bPawns)
+            {
+                bPawn.resetEnPassant();
+            }
+        }
+
     }
 
     // Function to make the move.
     // Returns the label of captured pieces.
     public String placeChessPiece(int toRow, int toCol, ChessPiece piece)
     {
-        // this.resetEnPassant();
+        this.resetEnPassant(); // ! this may or may not work
         String result = new String();
         // pickup piece
         int fromRow = piece.getCurrentRow();
@@ -169,7 +183,7 @@ public class ChessBoard implements GameInterface, Serializable
         }
         piece.move(toRow, toCol);
         this.board[toRow][toCol] = piece;
-
+       
         this.notifyObservers();
         return result;
     }
