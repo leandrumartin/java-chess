@@ -103,7 +103,6 @@ public class ChessControllerTwoPlayer implements ControllerInterface {
         if (this.currentChessPiece.getLabel() == UnicodeMap.wPawn && toRow == 0
                 || this.currentChessPiece.getLabel() == UnicodeMap.bPawn && toRow == 7) {
             String newPiece = this.view.promptNewPiece();
-            System.out.println(newPiece);
             this.board.addNewPiece(toRow, toCol, newPiece);
         }
 

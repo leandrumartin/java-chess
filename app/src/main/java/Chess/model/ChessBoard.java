@@ -194,12 +194,6 @@ public class ChessBoard implements GameInterface, Serializable
         return result;
     }
 
-    public void pawnAtEnd(int toRow, int toCol, String unicode)
-    {
-        this.
-    }
-
-    // Function to add a new Piece to the board
     // Specifically for when pawn reaches the end of the board
     public void addNewPiece(int toRow, int toCol, String unicode)
     {
