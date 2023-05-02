@@ -268,10 +268,10 @@ public class ChessView extends JFrame implements ActionListener, GameObserver {
         }
     }
 
-    public void displayWinner()
+    public void displayWinner(String winner)
     {
         this.disableBoard();
-        this.statusLabel.setText("The Winner Is: ");
+        this.statusLabel.setText("The Winner Is: " + winner);
     }
 
     public void promptNewPiece()
