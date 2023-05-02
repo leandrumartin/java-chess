@@ -26,6 +26,8 @@ public class ChessView extends JFrame implements ActionListener, GameObserver {
     private JPanel displayPanel;
     private JPanel boardPanel;
     private JPanel clockPanel;
+    private JPanel mainPanel;
+    private JFrame frame;
     private GameDisplay gameStatus;
     private ChessClock whiteClock;
     private ChessClock blackClock;
@@ -41,7 +43,7 @@ public class ChessView extends JFrame implements ActionListener, GameObserver {
         // register this object as the observer of the game
         this.board.register(this);
 
-        JFrame frame = new JFrame("Chess Board");
+        frame = new JFrame("Chess Board");
         frame.setResizable(false);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -53,7 +55,7 @@ public class ChessView extends JFrame implements ActionListener, GameObserver {
             }
          });
 
-        JPanel mainPanel = new JPanel();
+        mainPanel = new JPanel();
         mainPanel.setPreferredSize(new Dimension(panelWidth, panelHeight));
         mainPanel.setBackground(new Color(192,192,192));
 
@@ -264,6 +266,52 @@ public class ChessView extends JFrame implements ActionListener, GameObserver {
             this.boardSegment[row][col].setText(label);
             this.boardSegment[row][col].setFont(new Font("Dialog", Font.PLAIN, 45));
         }
+    }
+
+    public void displayWinner()
+    {
+
+    }
+
+    public String promptNewPiece()
+    {
+        ConvertPawn convertPanel = new ConvertPawn(this.controller.getCurrentPlayer(), this.frame);
+        int newPieceIndex = convertPanel.getIndex();
+        System.out.println(newPieceIndex);
+        String newPiece;
+        if (newPieceIndex == 0)
+        {
+            newPiece = UnicodeMap.wKnight;
+        }
+        else if(newPieceIndex == 1)
+        {
+            newPiece = UnicodeMap.bKnight;
+        }
+        else if (newPieceIndex == 2)
+        {
+            newPiece = UnicodeMap.wBishop;
+        }
+        else if (newPieceIndex == 3)
+        {
+            newPiece = UnicodeMap.bBishop;
+        }
+        else if (newPieceIndex == 4)
+        {
+            newPiece = UnicodeMap.wRook;
+        }
+        else if (newPieceIndex == 5)
+        {
+            newPiece = UnicodeMap.bRook;
+        }
+        else if (newPieceIndex == 6)
+        {
+            newPiece = UnicodeMap.wQueen;
+        }
+        else
+        {
+            newPiece = UnicodeMap.bQueen;
+        }
+        return newPiece;
     }
 
     @Override

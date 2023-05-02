@@ -102,17 +102,8 @@ public class ChessControllerTwoPlayer implements ControllerInterface {
         // Check if a pawn has reached the opposite end of the board
         if (this.currentChessPiece.getLabel() == UnicodeMap.wPawn && toRow == 0
                 || this.currentChessPiece.getLabel() == UnicodeMap.bPawn && toRow == 7) {
-
-            // TODO: Replace this temporary code block...
-            String newPiece;
-            if (this.currentChessPiece.getLabel() == UnicodeMap.wPawn) {
-                newPiece = UnicodeMap.wQueen;
-            } else {
-                newPiece = UnicodeMap.bQueen;
-            }
-            // TODO: With this one (once method is implmented):
-            // String newPiece = this.view.promptNewPiece();
-
+            String newPiece = this.view.promptNewPiece();
+            System.out.println(newPiece);
             this.board.addNewPiece(toRow, toCol, newPiece);
         }
 
