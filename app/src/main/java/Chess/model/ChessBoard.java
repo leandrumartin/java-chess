@@ -81,29 +81,30 @@ public class ChessBoard implements GameInterface, Serializable
     public ArrayList<int[]> getMovableSquares(ChessPiece piece)
     {
         ArrayList<int[]> result = new ArrayList<int[]>();
+
+        // Make sure that the move is not putting King in check.
+        King currentKing;
+        ChessPieceColor opponentColor;
+        if (piece.getColor() == ChessPieceColor.B)
+        {
+            opponentColor = ChessPieceColor.W;
+            currentKing = bKing;
+        }
+        else {
+            opponentColor = ChessPieceColor.B;
+            currentKing = wKing;
+        }
+        ArrayList<int[]> squares = piece.getMovableSquares();
+
+        // Store row and column information.
+        int originalRow = piece.getCurrentRow();
+        int originalCol = piece.getCurrentCol();
+
+        // Take out the piece.
+        this.board[originalRow][originalCol] = null;
+
         if (piece != wKing | piece != bKing)
         {
-            // Store row and column information.
-            int originalRow = piece.getCurrentRow();
-            int originalCol = piece.getCurrentCol();
-            ArrayList<int[]> squares = piece.getMovableSquares();
-
-            // Make sure that the move is not putting King in check.
-            King currentKing;
-            ChessPieceColor opponentColor;
-            if (piece.getColor() == ChessPieceColor.B)
-            {
-                opponentColor = ChessPieceColor.W;
-                currentKing = bKing;
-            }
-            else {
-                opponentColor = ChessPieceColor.B;
-                currentKing = wKing;
-            }
-
-            // Take out the piece.
-            this.board[originalRow][originalCol] = null;
-
             // Move to all potential squares and see if it causes a check.
             for (int[] square : squares)
             {
@@ -125,15 +126,28 @@ public class ChessBoard implements GameInterface, Serializable
                 }
                 this.board[square[0]][square[1]] = temp;
             }
-
-            // Put the piece back.
-            this.board[originalRow][originalCol] = piece;
-
         }
+        // If it is a king
         else 
         {
-            result = piece.getMovableSquares();
+            ArrayList<int[]> opponentSquares = this.getAllMovableSquares(opponentColor);
+            for (int[] movableSquare : squares)
+            {
+                for (int[] opponentSquare : opponentSquares)
+                {
+                    if (opponentSquare[0] == movableSquare[0] & opponentSquare[1] == movableSquare[1])
+                    {
+                        //result.remove(movableSquare);
+                    }
+                    else
+                    {
+                        result.add(movableSquare);
+                    }
+                }
+            }
         }
+        // Put the piece back.
+        this.board[originalRow][originalCol] = piece;
         
         return result;
     }
@@ -186,13 +200,18 @@ public class ChessBoard implements GameInterface, Serializable
     public boolean isGameOver()
     {
         boolean result = false;
-        ArrayList<int[]> movableSquares = this.getAllMovableSquares(this.currentPlayer);
-        if (movableSquares.size() == 0)
+        ArrayList<int[]> finalResult = new ArrayList<int[]>();
+
+        ArrayList<ChessPiece> pieces = this.getPieces(this.currentPlayer);
+        for (ChessPiece piece : pieces)
+        {
+            finalResult.addAll(this.getMovableSquares(piece));
+        }
+        // ArrayList<int[]> movableSquares = this.getAllMovableSquares(this.currentPlayer);
+        if (finalResult.size() == 0)
         {
             result = true;
         }
-        System.out.println(movableSquares.size());
-        System.out.println(this.currentPlayer);
         return result;
     }
 
@@ -301,7 +320,7 @@ public class ChessBoard implements GameInterface, Serializable
         return result;
     }
 
-    // Get all the movable sequares of pieces on the board with a specific color.
+    // Get all the movable squares of pieces on the board with a specific color.
     public ArrayList<int[]> getAllMovableSquares(ChessPieceColor color)
     {
         ArrayList<ChessPiece> pieces = this.getPieces(color);
@@ -310,7 +329,7 @@ public class ChessBoard implements GameInterface, Serializable
         {
             if (piece != wKing & piece != bKing)
             {
-                ArrayList<int[]> movableSquares = this.getMovableSquares(piece);
+                ArrayList<int[]> movableSquares = piece.getMovableSquares();
                 result.addAll(movableSquares);
             }
         }
