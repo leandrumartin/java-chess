@@ -194,6 +194,26 @@ public class ChessBoard implements GameInterface, Serializable
         return result;
     }
 
+    public boolean isPawnAtEnd(ChessPiece potentialPawn)
+    {
+        boolean result = false;
+        if (potentialPawn.getLabel() == UnicodeMap.bPawn)
+        {
+            if (potentialPawn.getCurrentRow() == 7)
+            {
+                result = true;
+            }
+        }
+        else if (potentialPawn.getLabel() == UnicodeMap.wPawn)
+        {
+            if (potentialPawn.getCurrentRow() == 0)
+            {
+                result = true;
+            }
+        }
+        return result;
+    }
+
     // Specifically for when pawn reaches the end of the board
     public void addNewPiece(int toRow, int toCol, String unicode)
     {
