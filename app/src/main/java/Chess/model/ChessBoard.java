@@ -138,6 +138,7 @@ public class ChessBoard implements GameInterface, Serializable
         return result;
     }
 
+    // Reset Pawns' ability to En Passant.
     public void resetEnPassant()
     {
         if (this.currentPlayer == ChessPieceColor.W)
@@ -185,15 +186,17 @@ public class ChessBoard implements GameInterface, Serializable
     public boolean isGameOver()
     {
         boolean result = false;
-        if (this.currentPlayer == ChessPieceColor.B)
+        ArrayList<int[]> movableSquares = this.getAllMovableSquares(this.currentPlayer);
+        if (movableSquares.size() == 0)
         {
-            result = bKing.isCheckMate();
-        }
-        else
-        {
-            result = wKing.isCheckMate();
+            result = true;
         }
         return result;
+    }
+
+    public void pawnAtEnd(int toRow, int toCol, String unicode)
+    {
+        this.
     }
 
     // Function to add a new Piece to the board

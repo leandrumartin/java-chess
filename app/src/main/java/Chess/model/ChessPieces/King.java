@@ -91,16 +91,16 @@ public class King extends ChessPiece
         return result;
     }
 
-    public boolean isCheckMate()
-    {
-        boolean result = false;
-        ArrayList<int[]> movableSquares = super.board.getAllMovableSquares(super.color);
-        if (movableSquares.size() == 0)
-        {
-            result = true;
-        }
-        return result;
-    }
+    // public boolean isCheckMate()
+    // {
+    //     boolean result = false;
+    //     ArrayList<int[]> movableSquares = super.board.getAllMovableSquares(super.color);
+    //     if (movableSquares.size() == 0)
+    //     {
+    //         result = true;
+    //     }
+    //     return result;
+    // }
 
     public ArrayList<int[]> canCastle()
     {
