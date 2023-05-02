@@ -31,6 +31,7 @@ public class GameDisplay extends JLabel
             return "Black";
         }
     }
+    
     public void invalidMove()
     {
         setText("No Valid Moves. Select A New Piece");

@@ -277,42 +277,6 @@ public class ChessView extends JFrame implements ActionListener, GameObserver {
     public String promptNewPiece()
     {
         ConvertPawn convertPanel = new ConvertPawn(this.controller.getCurrentPlayer());
-        int newPieceIndex = convertPanel.getIndex();
-        System.out.println(newPieceIndex);
-        String newPiece;
-        if (newPieceIndex == 0)
-        {
-            newPiece = UnicodeMap.wKnight;
-        }
-        else if(newPieceIndex == 1)
-        {
-            newPiece = UnicodeMap.bKnight;
-        }
-        else if (newPieceIndex == 2)
-        {
-            newPiece = UnicodeMap.wBishop;
-        }
-        else if (newPieceIndex == 3)
-        {
-            newPiece = UnicodeMap.bBishop;
-        }
-        else if (newPieceIndex == 4)
-        {
-            newPiece = UnicodeMap.wRook;
-        }
-        else if (newPieceIndex == 5)
-        {
-            newPiece = UnicodeMap.bRook;
-        }
-        else if (newPieceIndex == 6)
-        {
-            newPiece = UnicodeMap.wQueen;
-        }
-        else
-        {
-            newPiece = UnicodeMap.bQueen;
-        }
-        return newPiece;
     }
 
     @Override

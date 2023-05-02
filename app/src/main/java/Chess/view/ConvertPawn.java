@@ -5,6 +5,8 @@ import javax.swing.*;
 import java.awt.event.*;
 
 import Chess.model.ChessPieces.ChessPieceColor;
+import Chess.controller.ChessControllerTwoPlayer;
+import Chess.controller.ControllerInterface;
 
 public class ConvertPawn extends JFrame implements ActionListener
 {
@@ -15,10 +17,12 @@ public class ConvertPawn extends JFrame implements ActionListener
     private JFrame mainFrame;
     private JPanel convertPanel;
     private ChessPieceColor color;
-    private int index;
+    private ChessControllerTwoPlayer controller;
+    private String passPiece;
 
-    public ConvertPawn(ChessPieceColor color)
+    public ConvertPawn(ChessPieceColor color, ControllerInterface controller)
     {
+        this.controller = (ChessControllerTwoPlayer) controller;
         mainFrame = new JFrame("Select A New Piece");
         mainFrame.setResizable(false);
         mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
@@ -53,11 +57,6 @@ public class ConvertPawn extends JFrame implements ActionListener
         mainFrame.setVisible(true);
     }
 
-    public int getIndex()
-    {
-        return this.index;
-    }
-
     public void initSwapButtons(JPanel panel, JButton button)
     {
         button.setFont(new Font("Arial Unicode MS", Font.PLAIN, 40));
@@ -76,46 +75,47 @@ public class ConvertPawn extends JFrame implements ActionListener
         {
             if (this.color == ChessPieceColor.W)
             {
-                this.index = 0;
+                this.passPiece = UnicodeMap.wKnight;
             }
             else
             {
-                this.index = 1;;
+                this.passPiece = UnicodeMap.bKnight;
             }
         }
         else if (event.getSource() == this.bishopButton)
         {
             if (this.color == ChessPieceColor.W)
             {
-                this.index = 2;;
+                this.passPiece = UnicodeMap.wBishop;
             }
             else
             {
-                this.index = 3;
+                this.passPiece = UnicodeMap.bBishop;
             }
         }
         else if (event.getSource() == this.rookButton)
         {
             if (this.color == ChessPieceColor.W)
             {
-                this.index = 4;
+                this.passPiece = UnicodeMap.wRook;
             }
             else
             {
-                this.index = 5;
+                this.passPiece = UnicodeMap.bRook;
             }
         }
         else                               
         {
             if (this.color == ChessPieceColor.W)
             {
-                this.index = 6;
+                this.passPiece = UnicodeMap.wQueen;
             }
             else
             {
-                this.index = 7;
+                this.passPiece = UnicodeMap.bQueen;
             }
         }
         this.mainFrame.dispose();
+        this.controller.convertPawn(this.passPiece);
     }
 }
