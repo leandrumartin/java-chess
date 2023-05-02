@@ -6,7 +6,7 @@ import java.awt.event.*;
 
 import Chess.model.ChessPieces.ChessPieceColor;
 
-public class ConvertPawn extends JDialog implements ActionListener
+public class ConvertPawn extends JFrame implements ActionListener
 {
     private JButton knightButton;
     private JButton bishopButton;
@@ -17,15 +17,17 @@ public class ConvertPawn extends JDialog implements ActionListener
     private ChessPieceColor color;
     private int index;
 
-    public ConvertPawn(ChessPieceColor color, JFrame parent)
+    public ConvertPawn(ChessPieceColor color)
     {
-        super(parent, "Select A New Piece", true);
-        setLayout(new GridLayout(1,4));
-        setSize(400, 50);
-        setLocationRelativeTo(parent);
-        
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
+        mainFrame = new JFrame("Select A New Piece");
+        mainFrame.setResizable(false);
+        mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
 
+
+        convertPanel = new JPanel();
+        convertPanel.setLayout(new GridLayout(1,4));
+        convertPanel.setSize(400, 50);
+        
         this.color = color;
         if (this.color == ChessPieceColor.W)
         {
@@ -45,6 +47,15 @@ public class ConvertPawn extends JDialog implements ActionListener
         initSwapButtons(convertPanel, bishopButton);
         initSwapButtons(convertPanel, rookButton);
         initSwapButtons(convertPanel, queenButton);
+
+        mainFrame.add(convertPanel);
+        mainFrame.pack();
+        mainFrame.setVisible(true);
+    }
+
+    public int getIndex()
+    {
+        return this.index;
     }
 
     public void initSwapButtons(JPanel panel, JButton button)
@@ -56,11 +67,6 @@ public class ConvertPawn extends JDialog implements ActionListener
         button.setBorder(BorderFactory.createEmptyBorder());
         button.addActionListener(this);
         panel.add(button);
-    }
-
-    public int getIndex()
-    {
-        return this.index;
     }
 
     @Override
@@ -110,6 +116,6 @@ public class ConvertPawn extends JDialog implements ActionListener
                 this.index = 7;
             }
         }
-        this.dispose();
+        this.mainFrame.dispose();
     }
 }

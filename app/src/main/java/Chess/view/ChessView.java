@@ -276,7 +276,7 @@ public class ChessView extends JFrame implements ActionListener, GameObserver {
 
     public String promptNewPiece()
     {
-        ConvertPawn convertPanel = new ConvertPawn(this.controller.getCurrentPlayer(), this.frame);
+        ConvertPawn convertPanel = new ConvertPawn(this.controller.getCurrentPlayer());
         int newPieceIndex = convertPanel.getIndex();
         System.out.println(newPieceIndex);
         String newPiece;
