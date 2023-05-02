@@ -1,13 +1,7 @@
 package Chess.model;
 
-/*
-    Create a ChessBoard class that represents the chessboard. 
-    The ChessBoard class should contain a two-dimensional array of ChessPiece objects representing 
-    the current state of the board. 
-*/
 import java.util.ArrayList;
 import java.io.Serializable;
-
 import Chess.model.ChessPieces.*;
 import Chess.view.UnicodeMap;
 import Chess.GameInterface;
@@ -89,12 +83,12 @@ public class ChessBoard implements GameInterface, Serializable
         ArrayList<int[]> result = new ArrayList<int[]>();
         if (piece != wKing | piece != bKing)
         {
-            // Store row and column information
+            // Store row and column information.
             int originalRow = piece.getCurrentRow();
             int originalCol = piece.getCurrentCol();
             ArrayList<int[]> squares = piece.getMovableSquares();
 
-            // Make sure that the move is not putting King in check
+            // Make sure that the move is not putting King in check.
             King currentKing;
             ChessPieceColor opponentColor;
             if (piece.getColor() == ChessPieceColor.B)
@@ -107,10 +101,10 @@ public class ChessBoard implements GameInterface, Serializable
                 currentKing = wKing;
             }
 
-            // Take out the piece
+            // Take out the piece.
             this.board[originalRow][originalCol] = null;
 
-            // Move to all potential squares and see if it causes a check
+            // Move to all potential squares and see if it causes a check.
             for (int[] square : squares)
             {
                 ChessPiece temp = this.board[square[0]][square[1]];
@@ -132,7 +126,7 @@ public class ChessBoard implements GameInterface, Serializable
                 this.board[square[0]][square[1]] = temp;
             }
 
-            // Put the piece back 
+            // Put the piece back.
             this.board[originalRow][originalCol] = piece;
 
         }
@@ -144,6 +138,7 @@ public class ChessBoard implements GameInterface, Serializable
         return result;
     }
 
+    // Reset Pawns' ability to En Passant.
     public void resetEnPassant()
     {
         if (this.currentPlayer == ChessPieceColor.W)
@@ -191,15 +186,17 @@ public class ChessBoard implements GameInterface, Serializable
     public boolean isGameOver()
     {
         boolean result = false;
-        if (this.currentPlayer == ChessPieceColor.B)
+        ArrayList<int[]> movableSquares = this.getAllMovableSquares(this.currentPlayer);
+        if (movableSquares.size() == 0)
         {
-            result = bKing.isCheckMate();
-        }
-        else
-        {
-            result = wKing.isCheckMate();
+            result = true;
         }
         return result;
+    }
+
+    public void pawnAtEnd(int toRow, int toCol, String unicode)
+    {
+        this.
     }
 
     // Function to add a new Piece to the board
@@ -301,7 +298,7 @@ public class ChessBoard implements GameInterface, Serializable
                 result.addAll(movableSquares);
             }
         }
-        // QUESTION: do we need to do this? unsure
+        // ? do we need to do this? unsure
         //result = removeDuplicates(result);
         return result;
     }
