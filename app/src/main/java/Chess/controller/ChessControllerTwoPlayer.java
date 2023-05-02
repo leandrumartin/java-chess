@@ -100,20 +100,33 @@ public class ChessControllerTwoPlayer implements ControllerInterface {
         System.out.println(toRow);
 
         // Check if a pawn has reached the opposite end of the board
-        if (this.board.isPawnAtEnd(this.currentChessPiece)) {
+        if (this.board.isPawnAtEnd(this.currentChessPiece)) 
+        {
             String newPiece = this.view.promptNewPiece();
-            this.board.addNewPiece(toRow, toCol, newPiece);
         }
+        this.endOfTurn();
+    }
 
+    public void convertPawn(String unicode)
+    {
+        this.board.addNewPiece(this.currentChessPiece.getCurrentRow(), this.currentChessPiece.getCurrentCol(), unicode);
+        this.endOfTurn();
+    }
+
+    public void endOfTurn()
+    {
         this.switchPlayers();
 
         // Check for game over
-        if (board.isGameOver()) {
+        if (board.isGameOver()) 
+        {
             System.out.println("Game over!"); // TODO: replace with visual once that's been made
         }
-
-        ArrayList<int[]> allCurrentPieces = this.board.getPiecesLocation(this.board.getCurrentPlayer());
-        this.view.enableSquares(allCurrentPieces);
+        else
+        {
+            ArrayList<int[]> allCurrentPieces = this.board.getPiecesLocation(this.board.getCurrentPlayer());
+            this.view.enableSquares(allCurrentPieces);
+        }
     }
 
     @Override
