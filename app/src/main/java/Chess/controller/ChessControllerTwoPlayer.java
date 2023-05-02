@@ -119,9 +119,15 @@ public class ChessControllerTwoPlayer implements ControllerInterface {
         this.switchPlayers();
 
         // Check for game over
-        if (board.isGameOver()) 
+        if (this.board.isGameOver()) 
         {
-            System.out.println("Game over!"); // TODO: replace with visual once that's been made
+            String winner = "Black";
+            if (this.getCurrentPlayer() == ChessPieceColor.B)
+            {
+                winner = "White";
+            }
+            this.view.displayWinner(winner);
+            System.out.println("Game over!");
         }
         else
         {
