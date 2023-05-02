@@ -274,9 +274,9 @@ public class ChessView extends JFrame implements ActionListener, GameObserver {
         this.statusLabel.setText("The Winner Is: ");
     }
 
-    public String promptNewPiece()
+    public void promptNewPiece()
     {
-        ConvertPawn convertPanel = new ConvertPawn(this.controller.getCurrentPlayer());
+        ConvertPawn convertPanel = new ConvertPawn(this.controller.getCurrentPlayer(), this.controller);
     }
 
     @Override
