@@ -21,7 +21,7 @@ public class GameDisplay extends JLabel
     public String displayGameStatus()
     {
         this.currentPlayer = this.controller.getCurrentPlayer();
-        System.out.println(currentPlayer);
+        //System.out.println(currentPlayer);
         if (currentPlayer == ChessPieceColor.W)
         {
             return "White";

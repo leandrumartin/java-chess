@@ -6,7 +6,7 @@ public enum ChessPieceColor {
 
     ChessPieceColor(String s)
     {
-        System.out.println("ChessPieceColor constructor is called");
+        //System.out.println("ChessPieceColor constructor is called");
     }
 }
 

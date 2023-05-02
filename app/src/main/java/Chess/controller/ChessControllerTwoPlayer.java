@@ -97,19 +97,20 @@ public class ChessControllerTwoPlayer implements ControllerInterface {
         this.board.placeChessPiece(toRow, toCol, this.currentChessPiece);
         this.view.updateDisplay();
 
-        System.out.println(toRow);
-
         // Check if a pawn has reached the opposite end of the board
         if (this.board.isPawnAtEnd(this.currentChessPiece)) 
         {
-            String newPiece = this.view.promptNewPiece();
+            this.view.promptNewPiece();
         }
-        this.endOfTurn();
+        else 
+        {
+            this.endOfTurn();
+        }
     }
 
-    public void convertPawn(String unicode)
+    public void convertPawn(String unicode, ChessPieceColor color)
     {
-        this.board.addNewPiece(this.currentChessPiece.getCurrentRow(), this.currentChessPiece.getCurrentCol(), unicode);
+        this.board.addNewPiece(this.currentChessPiece.getCurrentRow(), this.currentChessPiece.getCurrentCol(), unicode, color);
         this.endOfTurn();
     }
 

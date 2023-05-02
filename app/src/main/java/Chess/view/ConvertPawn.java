@@ -116,6 +116,6 @@ public class ConvertPawn extends JFrame implements ActionListener
             }
         }
         this.mainFrame.dispose();
-        this.controller.convertPawn(this.passPiece);
+        this.controller.convertPawn(this.passPiece, this.color);
     }
 }

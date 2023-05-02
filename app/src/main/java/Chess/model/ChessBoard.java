@@ -215,24 +215,24 @@ public class ChessBoard implements GameInterface, Serializable
     }
 
     // Specifically for when pawn reaches the end of the board
-    public void addNewPiece(int toRow, int toCol, String unicode)
+    public void addNewPiece(int toRow, int toCol, String unicode, ChessPieceColor color)
     {
         ChessPiece newPiece;
         if (unicode == UnicodeMap.wQueen || unicode == UnicodeMap.bQueen)
         {
-            newPiece = new Queen(toRow, toCol, this, this.currentPlayer);
+            newPiece = new Queen(toRow, toCol, this, color);
         }
         else if (unicode == UnicodeMap.wBishop || unicode == UnicodeMap.bBishop)
         {
-            newPiece = new Bishop(toRow, toCol, this, this.currentPlayer);
+            newPiece = new Bishop(toRow, toCol, this, color);
         }
         else if (unicode == UnicodeMap.wRook || unicode == UnicodeMap.bRook)
         {
-            newPiece = new Rook(toRow, toCol, this, this.currentPlayer);
+            newPiece = new Rook(toRow, toCol, this, color);
         }
         else
         {
-            newPiece = new Knight(toRow, toCol, this, this.currentPlayer);
+            newPiece = new Knight(toRow, toCol, this, color);
         }
         this.board[toRow][toCol] = newPiece;
         this.notifyObservers();

@@ -145,13 +145,11 @@ public class King extends ChessPiece
         // left castle
         if (super.col - newCol == 2)
         {
-            System.out.println("left castle");
             super.board.placeChessPiece(super.row, newCol + 1, super.board.getChessPiece(super.row, super.col - 4));
         }
         // right castle
         else if (super.col - newCol == -2)
         {
-            System.out.println("right castle");
             super.board.placeChessPiece(super.row, newCol - 1, super.board.getChessPiece(super.row, super.col + 3));
         }
         super.move(newRow, newCol);
