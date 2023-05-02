@@ -191,6 +191,8 @@ public class ChessBoard implements GameInterface, Serializable
         {
             result = true;
         }
+        System.out.println(movableSquares.size());
+        System.out.println(this.currentPlayer);
         return result;
     }
 
@@ -308,7 +310,7 @@ public class ChessBoard implements GameInterface, Serializable
         {
             if (piece != wKing & piece != bKing)
             {
-                ArrayList<int[]> movableSquares = piece.getMovableSquares();
+                ArrayList<int[]> movableSquares = this.getMovableSquares(piece);
                 result.addAll(movableSquares);
             }
         }

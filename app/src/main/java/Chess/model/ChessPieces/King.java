@@ -77,6 +77,7 @@ public class King extends ChessPiece
             opponentColor = ChessPieceColor.B;
         }
 
+        ArrayList<int[]> finalResult = new ArrayList<int[]>();
         ArrayList<int[]> opponentSquares = super.board.getAllMovableSquares(opponentColor);
         for (int[] movableSquare : result)
         {
@@ -84,7 +85,11 @@ public class King extends ChessPiece
             {
                 if (opponentSquare[0] == movableSquare[0] & opponentSquare[1] == movableSquare[1])
                 {
-                    result.remove(movableSquare);
+                    //result.remove(movableSquare);
+                }
+                else
+                {
+                    finalResult.add(movableSquare);
                 }
             }
         }
