@@ -130,20 +130,26 @@ public class ChessBoard implements GameInterface, Serializable
         // If it is a king
         else 
         {
-            ArrayList<int[]> opponentSquares = this.getAllMovableSquares(opponentColor);
-            for (int[] movableSquare : squares)
+            // Move to all potential squares and see if it causes a check.
+            for (int[] kingSquare : squares)
             {
+                ChessPiece temp = this.board[kingSquare[0]][kingSquare[1]];
+                this.board[kingSquare[0]][kingSquare[1]] = piece;
+                ArrayList<int[]> opponentSquares = this.getAllMovableSquares(opponentColor);
+                boolean checkMateFound = false;
                 for (int[] opponentSquare : opponentSquares)
                 {
-                    if (opponentSquare[0] == movableSquare[0] & opponentSquare[1] == movableSquare[1])
+                    if (opponentSquare[0] == kingSquare[0] & opponentSquare[1] == kingSquare[1])
                     {
-                        //result.remove(movableSquare);
-                    }
-                    else
-                    {
-                        result.add(movableSquare);
+                        checkMateFound = true;
+                        break;
                     }
                 }
+                if (!checkMateFound)
+                {
+                    result.add(kingSquare);
+                }
+                this.board[kingSquare[0]][kingSquare[1]] = temp;
             }
         }
         // Put the piece back.
@@ -176,7 +182,7 @@ public class ChessBoard implements GameInterface, Serializable
     // Returns the label of captured pieces.
     public String placeChessPiece(int toRow, int toCol, ChessPiece piece)
     {
-        this.resetEnPassant(); // ! this may or may not work
+        this.resetEnPassant();
         String result = new String();
         // pickup piece
         int fromRow = piece.getCurrentRow();
@@ -207,7 +213,6 @@ public class ChessBoard implements GameInterface, Serializable
         {
             finalResult.addAll(this.getMovableSquares(piece));
         }
-        // ArrayList<int[]> movableSquares = this.getAllMovableSquares(this.currentPlayer);
         if (finalResult.size() == 0)
         {
             result = true;
