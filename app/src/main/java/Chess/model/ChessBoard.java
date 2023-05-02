@@ -103,7 +103,7 @@ public class ChessBoard implements GameInterface, Serializable
         // Take out the piece.
         this.board[originalRow][originalCol] = null;
 
-        if (piece != wKing | piece != bKing)
+        if (piece != wKing & piece != bKing)
         {
             // Move to all potential squares and see if it causes a check.
             for (int[] square : squares)
@@ -217,6 +217,8 @@ public class ChessBoard implements GameInterface, Serializable
         {
             result = true;
         }
+        System.out.println(this.currentPlayer);
+        System.out.println(finalResult.size());
         return result;
     }
 
