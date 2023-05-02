@@ -95,7 +95,6 @@ public class ChessControllerTwoPlayer implements ControllerInterface {
     public void selectDestination(int toRow, int toCol)
     {
         this.board.placeChessPiece(toRow, toCol, this.currentChessPiece);
-        this.view.updateDisplay();
 
         // Check if a pawn has reached the opposite end of the board
         if (this.board.isPawnAtEnd(this.currentChessPiece)) 
@@ -117,7 +116,8 @@ public class ChessControllerTwoPlayer implements ControllerInterface {
     public void endOfTurn()
     {
         this.switchPlayers();
-
+        this.view.updateDisplay();
+        
         // Check for game over
         if (this.board.isGameOver()) 
         {

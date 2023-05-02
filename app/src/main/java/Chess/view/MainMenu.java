@@ -86,7 +86,7 @@ public class MainMenu extends JFrame implements ActionListener
             }
         }
 
-        recordLabel = new JLabel("Wins: " + wins + " Losses: " + losses, SwingConstants.CENTER);
+        recordLabel = new JLabel("White: " + wins + "Black: " + losses, SwingConstants.CENTER);
         recordLabel.setFont(new Font("Dialog", Font.PLAIN, 24));
         recordPanel.add(recordLabel);
 
