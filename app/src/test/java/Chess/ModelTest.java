@@ -410,7 +410,4 @@ public class ModelTest {
         int numMoves = king.getMovableSquares().size();
         assertEquals(0, numMoves);
     }
-
-    @Test
-    
 }
