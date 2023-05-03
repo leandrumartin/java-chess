@@ -5,7 +5,6 @@ import javax.swing.*;
 import java.awt.event.*;
 
 import Chess.model.ChessPieces.ChessPieceColor;
-import Chess.controller.ChessControllerTwoPlayer;
 import Chess.controller.ControllerInterface;
 
 public class ConvertPawn extends JFrame implements ActionListener

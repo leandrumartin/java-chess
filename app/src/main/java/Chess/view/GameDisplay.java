@@ -4,7 +4,6 @@ import java.awt.*;
 import javax.swing.*; 
 
 import Chess.controller.ControllerInterface;
-import Chess.controller.ChessControllerTwoPlayer;
 import Chess.model.ChessPieces.ChessPieceColor;
 
 public class GameDisplay extends JLabel

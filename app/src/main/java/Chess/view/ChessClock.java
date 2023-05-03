@@ -5,7 +5,6 @@ import java.awt.event.*;
 
 import javax.swing.*; 
 
-import Chess.controller.ChessControllerTwoPlayer;
 import Chess.controller.ControllerInterface;
 import Chess.model.ChessPieces.ChessPieceColor;
 
