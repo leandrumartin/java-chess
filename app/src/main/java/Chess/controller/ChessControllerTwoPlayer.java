@@ -25,11 +25,14 @@ public class ChessControllerTwoPlayer implements ControllerInterface {
     public ChessControllerTwoPlayer(ChessBoard board, int time) {
         if (ConfirmationDialog.confirmLoadGame()) {
             this.loadGame();
-        } else {
+        } 
+        else 
+        {
             this.board = board;
         }
-        
-        this.view = new ChessView(this, this.board, time); // Make sure to pass `this.board`, not `board` from the constructor arguments
+
+        // Make sure to pass `this.board`, not `board` from the constructor arguments
+        this.view = new ChessView(this, this.board, time); 
         ArrayList<int[]> allCurrentPieces = this.board.getPiecesLocation(this.board.getCurrentPlayer());
         this.view.enableSquares(allCurrentPieces);
         this.view.setVisible(true);
@@ -45,7 +48,9 @@ public class ChessControllerTwoPlayer implements ControllerInterface {
         this.view.updateClock();
     }
 
-    private void switchPlayers() {
+    // ControllerInterface methods
+    @Override
+    public void switchPlayers() {
         if (this.board.getCurrentPlayer() == ChessPieceColor.W) 
         {
             this.board.setCurrentPlayer(ChessPieceColor.B);
@@ -55,8 +60,6 @@ public class ChessControllerTwoPlayer implements ControllerInterface {
             this.board.setCurrentPlayer(ChessPieceColor.W);
         }
     }
-
-    // ControllerInterface methods
 
     @Override
     public void userPressed(int row, int col)

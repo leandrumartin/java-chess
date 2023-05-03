@@ -94,7 +94,7 @@ public class ChessBoard implements GameInterface, Serializable
             opponentColor = ChessPieceColor.B;
             currentKing = wKing;
         }
-        ArrayList<int[]> squares = piece.getMovableSquares();
+        ArrayList<int[]> potMovSquares = piece.getMovableSquares();
 
         // Store row and column information.
         int originalRow = piece.getCurrentRow();
@@ -103,13 +103,14 @@ public class ChessBoard implements GameInterface, Serializable
         // Take out the piece.
         this.board[originalRow][originalCol] = null;
 
+        // If not a king,
         if (piece != wKing & piece != bKing)
         {
             // Move to all potential squares and see if it causes a check.
-            for (int[] square : squares)
+            for (int[] potMovSquare : potMovSquares)
             {
-                ChessPiece temp = this.board[square[0]][square[1]];
-                this.board[square[0]][square[1]] = piece;
+                ChessPiece temp = this.board[potMovSquare[0]][potMovSquare[1]];
+                this.board[potMovSquare[0]][potMovSquare[1]] = piece;
                 ArrayList<int[]> opponentSquares = this.getAllMovableSquares(opponentColor);
                 boolean checkFound = false;
                 for (int[] opponentSquare : opponentSquares)
@@ -122,24 +123,24 @@ public class ChessBoard implements GameInterface, Serializable
                 }
                 if (!checkFound)
                 {
-                    result.add(square);
+                    result.add(potMovSquare);
                 }
-                this.board[square[0]][square[1]] = temp;
+                this.board[potMovSquare[0]][potMovSquare[1]] = temp;
             }
         }
-        // If it is a king
+        // If a king,
         else 
         {
             // Move to all potential squares and see if it causes a check.
-            for (int[] kingSquare : squares)
+            for (int[] kingPotMovSquare : potMovSquares)
             {
-                ChessPiece temp = this.board[kingSquare[0]][kingSquare[1]];
-                this.board[kingSquare[0]][kingSquare[1]] = piece;
+                ChessPiece temp = this.board[kingPotMovSquare[0]][kingPotMovSquare[1]];
+                this.board[kingPotMovSquare[0]][kingPotMovSquare[1]] = piece;
                 ArrayList<int[]> opponentSquares = this.getAllMovableSquares(opponentColor);
                 boolean checkMateFound = false;
                 for (int[] opponentSquare : opponentSquares)
                 {
-                    if (opponentSquare[0] == kingSquare[0] & opponentSquare[1] == kingSquare[1])
+                    if (opponentSquare[0] == kingPotMovSquare[0] & opponentSquare[1] == kingPotMovSquare[1])
                     {
                         checkMateFound = true;
                         break;
@@ -147,9 +148,9 @@ public class ChessBoard implements GameInterface, Serializable
                 }
                 if (!checkMateFound)
                 {
-                    result.add(kingSquare);
+                    result.add(kingPotMovSquare);
                 }
-                this.board[kingSquare[0]][kingSquare[1]] = temp;
+                this.board[kingPotMovSquare[0]][kingPotMovSquare[1]] = temp;
             }
         }
         // Put the piece back.
@@ -203,6 +204,7 @@ public class ChessBoard implements GameInterface, Serializable
         return result;
     }
 
+    // Check for Checkmate.
     public boolean isGameOver()
     {
         boolean result = false;
@@ -220,6 +222,7 @@ public class ChessBoard implements GameInterface, Serializable
         return result;
     }
 
+    // Test if pawn has reached an end of the board.
     public boolean isPawnAtEnd(ChessPiece potentialPawn)
     {
         boolean result = false;
@@ -240,7 +243,8 @@ public class ChessBoard implements GameInterface, Serializable
         return result;
     }
 
-    // Specifically for when pawn reaches the end of the board
+    // Function that creates new pieces.
+    // Specifically for when pawn reaches the end of the board.
     public void addNewPiece(int toRow, int toCol, String unicode, ChessPieceColor color)
     {
         ChessPiece newPiece;
@@ -338,8 +342,6 @@ public class ChessBoard implements GameInterface, Serializable
                 result.addAll(movableSquares);
             }
         }
-        // ? do we need to do this? unsure
-        //result = removeDuplicates(result);
         return result;
     }
 
@@ -361,27 +363,6 @@ public class ChessBoard implements GameInterface, Serializable
     public void setCurrentPlayer(ChessPieceColor color)
     {
         this.currentPlayer = color;
-    }
-
-    // Function to remove duplicates from an ArrayList.
-    public static <T> ArrayList<T> removeDuplicates(ArrayList<T> list)
-    {
-        // Create a new ArrayList
-        ArrayList<T> newList = new ArrayList<T>();
-    
-        // Traverse through the first list
-        for (T element : list) {
-    
-            // If this element is not present in newList
-            // then add it
-            if (!newList.contains(element)) {
-    
-                newList.add(element);
-            }
-        }
-    
-        // return the new list
-        return newList;
     }
 
     // Functions for GameInterface.
@@ -406,6 +387,5 @@ public class ChessBoard implements GameInterface, Serializable
        {
           observer.update();
        }
- 
     }
 }
