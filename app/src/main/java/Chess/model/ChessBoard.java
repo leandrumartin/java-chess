@@ -217,8 +217,6 @@ public class ChessBoard implements GameInterface, Serializable
         {
             result = true;
         }
-        System.out.println(this.currentPlayer);
-        System.out.println(finalResult.size());
         return result;
     }
 
