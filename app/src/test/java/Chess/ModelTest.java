@@ -389,4 +389,28 @@ public class ModelTest {
         ChessBoard board = new ChessBoard();
         assertTrue(board.getCurrentPlayer() == ChessPieceColor.W);
     }
+
+    @Test
+    public void testKingCastle()
+    {
+        ChessBoard board = new ChessBoard();
+        board.removePiece(0, 5, board.getChessPiece(0, 1));
+        board.removePiece(0, 6, board.getChessPiece(0, 1));
+        King king = new King(0, 4, board, ChessPieceColor.B);;
+        ChessPiece rook = board.getChessPiece(0,7);
+        int numMoves = king.getMovableSquares().size();
+        assertEquals(2, numMoves);
+    }
+
+    @Test
+    public void testKingInitialMove()
+    {
+        ChessBoard board = new ChessBoard();
+        King king = new King(0, 4, board, ChessPieceColor.B);
+        int numMoves = king.getMovableSquares().size();
+        assertEquals(0, numMoves);
+    }
+
+    @Test
+    
 }
