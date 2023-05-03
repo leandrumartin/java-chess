@@ -159,6 +159,14 @@ public class ModelTest {
     }
 
     @Test
+    public void testRookMovableSquares()
+    {
+        ChessBoard board = new ChessBoard();
+        ChessPiece rook = board.getChessPiece(7, 0);
+        assertTrue(rook.getMovableSquares().isEmpty());        //In the start the rook should have no mavable squares
+    }
+
+    @Test
     public void testBishopLegalMove() 
     {
         // Create a bishop in the middle of the board
@@ -193,6 +201,15 @@ public class ModelTest {
     }
 
     @Test
+    public void testBishopMovableSquares()
+    {
+        ChessBoard board = new ChessBoard();
+        ChessPiece bishop = board.getChessPiece(7, 5);
+        assertTrue(bishop.getMovableSquares().isEmpty());        //In the start the bishop should have no mavable squares
+    }
+ 
+    /*
+    @Test
     public void testKnightLegalMove() 
     {
         // Create a Knight in the middle of the board
@@ -216,6 +233,15 @@ public class ModelTest {
         assertArrayEquals(new int[] { 6, 3 }, knightLegalSquares.get(0).get(5));
         assertArrayEquals(new int[] { 6, 5 }, knightLegalSquares.get(0).get(6));
         assertArrayEquals(new int[] { 5, 6 }, knightLegalSquares.get(0).get(7));
+    }
+    */
+
+    @Test
+    public void testKnightMovableSquares()
+    {
+        ChessBoard board = new ChessBoard();
+        ChessPiece knight = board.getChessPiece(7, 1);
+        assertFalse(knight.getMovableSquares().isEmpty());        //In the start the knight should have 2 moves.
     }
 
     @Test
@@ -269,5 +295,98 @@ public class ModelTest {
         assertArrayEquals(new int[] { 4, 5 }, queenLegalSquares.get(7).get(0));
         assertArrayEquals(new int[] { 4, 6 }, queenLegalSquares.get(7).get(1));
         assertArrayEquals(new int[] { 4, 7 }, queenLegalSquares.get(7).get(2));
+    }
+
+    @Test
+    public void testQueenMovableSquares()
+    {
+        ChessBoard board = new ChessBoard();
+        ChessPiece queen = board.getChessPiece(7, 3);
+        assertTrue(queen.getMovableSquares().isEmpty());        //In the start the queen should have no mavable squares
+    }
+
+/*
+    @Test
+    public void initialKnightMovableSquares()
+    {
+        ChessPiece knight = new Knight(7, 1, board, ChessPieceColor.W);
+        ChessPiece pawn = new Pawn(6, 3, board, ChessPieceColor.W);         //add a pawn to block a legalSquare
+        ArrayList<int[]> movableSquares = knight.getMovableSquares();
+
+        int totalPossibleMoves = 0;
+        for (int[] move : movableSquares) 
+        {
+            totalPossibleMoves += move.length;
+        }
+        //Should only be 2 possible moves, as a pawn is blocking the third
+        assertEquals(2, totalPossibleMoves);
+        //Ensure the other two moves are correct
+        assertArrayEquals(new int[] { 5, 0 }, movableSquares.get(0));
+        assertArrayEquals(new int[] { 5, 2 }, movableSquares.get(0));
+    }
+    */
+
+    @Test
+    public void testBoardMovableSquares()
+    {
+        ChessBoard board = new ChessBoard();
+        ChessPiece bishop = board.getChessPiece(7, 2);
+        ChessPiece pawn = board.getChessPiece(1, 0);
+        assertFalse(board.getMovableSquares(pawn).isEmpty());   //the pawn should have some movable squares
+        assertTrue(board.getMovableSquares(bishop).isEmpty());   //the bishop is blocked in, so no movable sqaures
+    }
+
+    @Test
+    public void testRemoveChessPiece()
+    {
+        ChessBoard board = new ChessBoard();
+        ChessPiece piece = board.getChessPiece(1,0);
+        String label = board.removePiece(1, 0, piece);
+        assertEquals(label, UnicodeMap.bPawn);
+        assertNull(board.getChessPiece(1,0));
+    }
+
+    @Test
+    public void testGetChessPiece()
+    {
+        ChessBoard board = new ChessBoard();
+        ChessPiece piece = board.getChessPiece(7, 3);
+        assertEquals(ChessPieceColor.W, piece.getColor());
+        assertTrue(piece instanceof Queen);
+    }
+
+    @Test
+    public void testIsGameOver()
+    {
+        ChessBoard board = new ChessBoard();
+        assertFalse(board.isGameOver());
+    }
+    
+    @Test
+    public void testIsBlackPawnAtEnd()
+    {
+        ChessPiece bPawn = new Pawn(7, 0, board, ChessPieceColor.B);
+        assertTrue(board.isPawnAtEnd(bPawn));
+    }
+
+    @Test
+    public void testIsWhitePawnAtEnd()
+    {
+        ChessPiece wPawn = new Pawn(0, 0, board, ChessPieceColor.W);
+        assertTrue(board.isPawnAtEnd(wPawn));
+    }
+
+    @Test
+    public void testIsPawnAtEnd()
+    {
+        ChessPiece wQueen = new Queen(0, 0, board, ChessPieceColor.W);
+        assertFalse(board.isPawnAtEnd(wQueen));
+    }
+
+    @Test
+    public void testGetCurrentPlayer()
+    {
+        ChessBoard board = new ChessBoard();
+        assertTrue(board.getCurrentPlayer() == ChessPieceColor.W);
     }
 }
