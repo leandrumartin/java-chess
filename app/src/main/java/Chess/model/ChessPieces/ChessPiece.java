@@ -1,6 +1,5 @@
 package Chess.model.ChessPieces;
 
-import Chess.model.ChessPieces.ChessPieceColor;
 import Chess.model.ChessBoard;
 
 import java.io.Serializable;

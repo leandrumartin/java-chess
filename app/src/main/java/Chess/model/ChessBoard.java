@@ -104,7 +104,7 @@ public class ChessBoard implements GameInterface, Serializable
         this.board[originalRow][originalCol] = null;
 
         // If not a king,
-        if (piece != wKing & piece != bKing)
+        if (piece != wKing && piece != bKing)
         {
             // Move to all potential squares and see if it causes a check.
             for (int[] potMovSquare : potMovSquares)
@@ -115,7 +115,8 @@ public class ChessBoard implements GameInterface, Serializable
                 boolean checkFound = false;
                 for (int[] opponentSquare : opponentSquares)
                 {
-                    if (opponentSquare[0] == currentKing.getCurrentRow() & opponentSquare[1] == currentKing.getCurrentCol())
+                    if (opponentSquare[0] == currentKing.getCurrentRow()
+                            && opponentSquare[1] == currentKing.getCurrentCol())
                     {
                         checkFound = true;
                         break;
@@ -140,7 +141,7 @@ public class ChessBoard implements GameInterface, Serializable
                 boolean checkMateFound = false;
                 for (int[] opponentSquare : opponentSquares)
                 {
-                    if (opponentSquare[0] == kingPotMovSquare[0] & opponentSquare[1] == kingPotMovSquare[1])
+                    if (opponentSquare[0] == kingPotMovSquare[0] && opponentSquare[1] == kingPotMovSquare[1])
                     {
                         checkMateFound = true;
                         break;
@@ -336,7 +337,7 @@ public class ChessBoard implements GameInterface, Serializable
         ArrayList<int[]> result = new ArrayList<int[]>();
         for (ChessPiece piece : pieces) //go through rows
         {
-            if (piece != wKing & piece != bKing)
+            if (piece != wKing && piece != bKing)
             {
                 ArrayList<int[]> movableSquares = piece.getMovableSquares();
                 result.addAll(movableSquares);

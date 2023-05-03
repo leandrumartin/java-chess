@@ -1,6 +1,5 @@
 package Chess;
 
-import Chess.controller.ControllerInterface;
 import Chess.model.ChessBoard;
 import Chess.view.MainMenu;
 

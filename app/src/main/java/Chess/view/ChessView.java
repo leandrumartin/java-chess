@@ -6,12 +6,9 @@ import java.awt.event.*;
 
 import java.util.ArrayList;
 
-import Chess.controller.ChessControllerTwoPlayer;
 import Chess.controller.ControllerInterface;
 import Chess.model.ChessBoard;
 import Chess.model.ChessPieces.ChessPieceColor;
-import Chess.view.ChessPieces;
-import Chess.view.GameDisplay;
 import Chess.GameObserver;
 
 public class ChessView extends JFrame implements ActionListener, GameObserver {
