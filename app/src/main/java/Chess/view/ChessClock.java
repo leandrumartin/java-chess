@@ -15,7 +15,7 @@ public class ChessClock extends JLabel implements ActionListener
     private Timer timer;
     public int whiteTime;
     public int blackTime;
-    private ChessControllerTwoPlayer controller;
+    private ControllerInterface controller;
     private ChessPieceColor currentPlayer;
     private String formattedTime;
 
@@ -23,7 +23,7 @@ public class ChessClock extends JLabel implements ActionListener
     {
         this.whiteTime = time * 60;        //player time in seconds
         this.blackTime = time * 60;
-        this.controller = (ChessControllerTwoPlayer) controller;
+        this.controller = controller;
 
         timer = new Timer(UPDATE_INTERVAL, this);
         timer.start();

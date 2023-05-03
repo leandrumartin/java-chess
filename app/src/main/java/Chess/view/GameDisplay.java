@@ -10,18 +10,17 @@ import Chess.model.ChessPieces.ChessPieceColor;
 public class GameDisplay extends JLabel
 {
     private ChessPieceColor currentPlayer;
-    private ChessControllerTwoPlayer controller;
+    private ControllerInterface controller;
 
     public GameDisplay(ControllerInterface controller)
     {
-        this.controller = (ChessControllerTwoPlayer) controller;
+        this.controller = controller;
         this.currentPlayer = this.controller.getCurrentPlayer();
     }
 
     public String displayGameStatus()
     {
         this.currentPlayer = this.controller.getCurrentPlayer();
-        //System.out.println(currentPlayer);
         if (currentPlayer == ChessPieceColor.W)
         {
             return "White";

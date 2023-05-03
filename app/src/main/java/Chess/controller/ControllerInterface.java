@@ -1,5 +1,7 @@
 package Chess.controller;
 
+import Chess.model.ChessPieces.ChessPieceColor;
+
 public interface ControllerInterface 
 {
     /**
@@ -17,5 +19,7 @@ public interface ControllerInterface
      * Handles user quitting, including saving the game state.
      */
     public void userQuit();
-    
+    public ChessPieceColor getCurrentPlayer();
+    public void passTime();
+    public void convertPawn(String unicode, ChessPieceColor color);    
 }

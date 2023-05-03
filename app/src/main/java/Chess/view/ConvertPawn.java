@@ -17,12 +17,12 @@ public class ConvertPawn extends JFrame implements ActionListener
     private JFrame mainFrame;
     private JPanel convertPanel;
     private ChessPieceColor color;
-    private ChessControllerTwoPlayer controller;
+    private ControllerInterface controller;
     private String passPiece;
 
     public ConvertPawn(ChessPieceColor color, ControllerInterface controller)
     {
-        this.controller = (ChessControllerTwoPlayer) controller;
+        this.controller = controller;
         mainFrame = new JFrame("Select A New Piece");
         mainFrame.setResizable(false);
         mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 

@@ -17,7 +17,7 @@ import Chess.GameObserver;
 public class ChessView extends JFrame implements ActionListener, GameObserver {
     private JButton[][] boardSegment = new JButton[8][8];
     private ChessBoard board;
-    private ChessControllerTwoPlayer controller;
+    private ControllerInterface controller;
 
     private int panelWidth = 825;
     private int panelHeight = 750;
@@ -36,7 +36,7 @@ public class ChessView extends JFrame implements ActionListener, GameObserver {
 
     public ChessView(ControllerInterface controller, ChessBoard board, int time) {
         this.board = board;
-        this.controller = (ChessControllerTwoPlayer) controller;
+        this.controller = controller;
         this.whiteClockTime = time;
         this.blackClockTime = time;
 
@@ -68,7 +68,7 @@ public class ChessView extends JFrame implements ActionListener, GameObserver {
 
         this.gameStatus = new GameDisplay(controller);
         this.statusLabel = new JLabel("Current Player: " + gameStatus.displayGameStatus(), SwingConstants.CENTER);
-        this.statusLabel.setFont(new Font("Dialog", Font.PLAIN, 30));
+        this.statusLabel.setFont(new Font("Dialog", Font.PLAIN, 20));
         this.displayPanel.add(statusLabel);;
         mainPanel.add(this.displayPanel);
 
@@ -227,13 +227,13 @@ public class ChessView extends JFrame implements ActionListener, GameObserver {
     public void updateDisplay()
     {
         this.statusLabel.setText("Current Player: " + this.gameStatus.displayGameStatus());
-        this.statusLabel.setFont(new Font("Dialog", Font.PLAIN, 30));
+        this.statusLabel.setFont(new Font("Dialog", Font.PLAIN, 20));
     }
 
     public void invalidDisplay()
     {
         this.statusLabel.setText("No Valid Moves. Select a New Piece.");
-        this.statusLabel.setFont(new Font("Dialog", Font.PLAIN, 30));
+        this.statusLabel.setFont(new Font("Dialog", Font.PLAIN, 20));
     }
 
     public void updateClock()
@@ -275,7 +275,7 @@ public class ChessView extends JFrame implements ActionListener, GameObserver {
     {
         this.disableBoard();
         this.statusLabel.setText("The Winner Is: " + winner);
-        this.statusLabel.setFont(new Font("Dialog", Font.BOLD, 30));
+        this.statusLabel.setFont(new Font("Dialog", Font.BOLD, 20));
     }
 
     public void promptNewPiece()
