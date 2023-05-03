@@ -15,6 +15,7 @@ import Chess.view.ChessView;
 import Chess.view.ConfirmationDialog;
 import Chess.view.FileSelector;
 import Chess.view.UnicodeMap;
+import Chess.view.WinLossData;
 
 public class ChessControllerTwoPlayer implements ControllerInterface {
     private ChessBoard board;
@@ -117,14 +118,21 @@ public class ChessControllerTwoPlayer implements ControllerInterface {
     {
         this.switchPlayers();
         this.view.updateDisplay();
-        
+
         // Check for game over
         if (this.board.isGameOver()) 
         {
-            String winner = "Black";
+            WinLossData writeData = new WinLossData();
+            String winner;
             if (this.getCurrentPlayer() == ChessPieceColor.B)
             {
                 winner = "White";
+                writeData.addWinLossData("1");
+            }
+            else
+            {
+                winner = "Black";
+                writeData.addWinLossData("0");
             }
             this.view.displayWinner(winner);
             System.out.println("Game over!");

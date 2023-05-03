@@ -9,12 +9,12 @@ import java.util.ArrayList;
 
 public class WinLossData 
 {
-    public void addWinLossData(int result)      //function to add data to recorddata.txt
+    public void addWinLossData(String result)      //function to add data to recorddata.txt
     {
         try
         {
             FileWriter write = new FileWriter("recorddata.txt", true);         //filename and true for append
-            write.write(result);
+            write.write(result + System.lineSeparator());
             write.close();
         }
         catch (IOException exception)

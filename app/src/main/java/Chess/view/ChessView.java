@@ -64,10 +64,11 @@ public class ChessView extends JFrame implements ActionListener, GameObserver {
 
         this.displayPanel = new JPanel(new GridLayout(1, 1));
         this.displayPanel.setBackground(new Color(192,192,192));
-        this.displayPanel.setPreferredSize(new Dimension(250, 15));
+        this.displayPanel.setPreferredSize(new Dimension(400, 50));
 
         this.gameStatus = new GameDisplay(controller);
-        this.statusLabel = new JLabel("          Current Player: " + gameStatus.displayGameStatus());
+        this.statusLabel = new JLabel("Current Player: " + gameStatus.displayGameStatus(), SwingConstants.CENTER);
+        this.statusLabel.setFont(new Font("Dialog", Font.PLAIN, 30));
         this.displayPanel.add(statusLabel);;
         mainPanel.add(this.displayPanel);
 
@@ -225,12 +226,14 @@ public class ChessView extends JFrame implements ActionListener, GameObserver {
 
     public void updateDisplay()
     {
-        this.statusLabel.setText("          Current Player: " + this.gameStatus.displayGameStatus());
+        this.statusLabel.setText("Current Player: " + this.gameStatus.displayGameStatus());
+        this.statusLabel.setFont(new Font("Dialog", Font.PLAIN, 30));
     }
 
     public void invalidDisplay()
     {
         this.statusLabel.setText("No Valid Moves. Select a New Piece.");
+        this.statusLabel.setFont(new Font("Dialog", Font.PLAIN, 30));
     }
 
     public void updateClock()
@@ -272,6 +275,7 @@ public class ChessView extends JFrame implements ActionListener, GameObserver {
     {
         this.disableBoard();
         this.statusLabel.setText("The Winner Is: " + winner);
+        this.statusLabel.setFont(new Font("Dialog", Font.BOLD, 30));
     }
 
     public void promptNewPiece()
