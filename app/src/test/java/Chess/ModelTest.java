@@ -222,7 +222,7 @@ public class ModelTest {
     {
         ChessBoard board = new ChessBoard();
         ChessPiece knight = board.getChessPiece(7, 1);
-        assertFalse(knight.getMovableSquares().isEmpty());        //In the start the knight should have 2 moves.
+        assertFalse(knight.getMovableSquares().isEmpty());       
     }
 
     @Test
