@@ -1,7 +1,5 @@
 package Chess;
 
-import java.util.ArrayList;
-
 public interface GameInterface
 {
    // observer design pattern

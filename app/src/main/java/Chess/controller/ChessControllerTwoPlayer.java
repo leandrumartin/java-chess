@@ -14,7 +14,6 @@ import Chess.model.ChessPieces.ChessPiece;
 import Chess.view.ChessView;
 import Chess.view.ConfirmationDialog;
 import Chess.view.FileSelector;
-import Chess.view.UnicodeMap;
 import Chess.view.WinLossData;
 
 public class ChessControllerTwoPlayer implements ControllerInterface {
